@@ -5,16 +5,19 @@
   
 
   
-  <title>gua~</title>
+  <title>Js事件循环机制 | gua~</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="呱呱">
-<meta property="og:type" content="website">
-<meta property="og:title" content="gua~">
-<meta property="og:url" content="http://onepunch.com/index.html">
+  <meta name="description" content="js 引擎存在 monitoring process 进程，会持续不断的检查主线程执行栈是否为空，一旦为空，就会去 Event Queue 那里检查是否有等待被调用的函数。 这个过程是循环不断的，所以整个的这种运行机制又称为 Event Loop（事件循环）   所有同步任务都在主线程上执行，形成一个执行栈（execution context stack） 如果在微任务执行期间微任务队列加入了新">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Js事件循环机制">
+<meta property="og:url" content="http://onepunch.com/2020/06/08/event-loop/index.html">
 <meta property="og:site_name" content="gua~">
-<meta property="og:description" content="呱呱">
+<meta property="og:description" content="js 引擎存在 monitoring process 进程，会持续不断的检查主线程执行栈是否为空，一旦为空，就会去 Event Queue 那里检查是否有等待被调用的函数。 这个过程是循环不断的，所以整个的这种运行机制又称为 Event Loop（事件循环）   所有同步任务都在主线程上执行，形成一个执行栈（execution context stack） 如果在微任务执行期间微任务队列加入了新">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-06-08T12:07:44.000Z">
+<meta property="article:modified_time" content="2020-06-08T13:19:35.522Z">
 <meta property="article:author" content="onePunch">
+<meta property="article:tag" content="js运行循环机制 宏任务 微任务 同步任务 异步任务">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternate" href="/atom.xml" title="gua~" type="application/atom+xml">
@@ -68,9 +71,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-event-loop" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-event-loop" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2020/06/08/event-loop/" class="article-date">
   <time datetime="2020-06-08T12:07:44.000Z" itemprop="datePublished">2020-06-08</time>
@@ -83,8 +84,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/08/event-loop/">Js事件循环机制</a>
+    <h1 class="article-title" itemprop="name">
+      Js事件循环机制
     </h1>
   
 
@@ -157,128 +158,19 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-my-first" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/08/my-first/" class="article-date">
-  <time datetime="2020-06-08T03:04:28.000Z" itemprop="datePublished">2020-06-08</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/08/my-first/">好的开始，我只是想变强</a>
-    </h1>
+    <a href="/2020/06/08/my-first/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">好的开始，我只是想变强</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="so-what-can-i-do"><a href="#so-what-can-i-do" class="headerlink" title="so what can i do"></a>so what can i do</h3><p>先写个开头，顺便复习一下 markdown，是的，没错，我又忘记 markdown 怎么用了，为了避免再次忘记，要尽量多的使用，<br>比如</p>
-<ul>
-<li>1 尽量频繁的写博客</li>
-<li>2 尽量频繁的写博客</li>
-<li>3 还是 tmd 尽量频繁的写博客</li>
-</ul>
-<p>无序列表用*<br>有序列表用 1.</p>
-<p>比如</p>
-<ol>
-<li>这是有序的</li>
-<li>我是有头发的</li>
-<li>第三条不重要</li>
-</ol>
-<p>加个大于号 后边是文字 展示效果是引用</p>
-<blockquote>
-<p>这是鲁迅说的 —— 周树人</p>
-</blockquote>
-<p>插入链接 <a href="就当这里有链接">xxx</a> 英文书名号加小括号</p>
-<p>插入图片 前边有个感叹号 <img src="%E5%B0%B1%E5%BD%93%E8%BF%99%E9%87%8C%E6%9C%89%E9%93%BE%E6%8E%A5%E5%90%A7" alt="假装有图.jpg"> 英文感叹号加书名号加小括号</p>
-<p><strong>左右各两个星号中间夹的会加粗，请给我加粗</strong><br><em>左右各一个星号就倾斜</em></p>
-<p>模版字符串中间可以放代码，比如<br><code>const wanghao = &#39;辣鸡&#39;</code><br>左右各三个这玩意，可以夹住代码块，let me try try<br>···不好意思，整错了···</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let a &#x3D; 1;</span><br><span class="line">a &#x3D; 2;</span><br><span class="line">a &#x3D; b &#x3D; 2;</span><br></pre></td></tr></table></figure>
-
-<p>tab 可以缩进，这就是为啥现在才有缩进，我刚看到。<br>非常开心，再来几个缩进<br>三个星号是分割线</p>
-<hr>
-<p><strong>行，这就算复习完事，接下来我随便写写。</strong><br><strong>别问我为啥加粗，我就喜欢粗，并且不缩进，真男人从来不做缩头乌龟</strong></p>
-<h2 id="我还能更粗"><a href="#我还能更粗" class="headerlink" title="我还能更粗"></a>我还能更粗</h2><p>最近经历了好多的事情，事情都是相对的，辩证去看，也无所谓好坏。<br>但是很多事情，我都不喜欢，不如意事常八九，可与人言无二三。<br>敲了很多字，又都删掉了。觉得没有意义。自己和自己的辩论，总归赢的也是自己。<br>自己和自己探讨人生观，价值观，也未免太无趣，还要写在这里记录下来，也未免太他妈的无趣<br>总而言之，我就一句话，我想变强。</p>
-<hr>
-<p><em>我没觉得喜欢这个行业，但是我喜欢自己变强的感觉。</em></p>
-<p>开始整活！<br><strong>奥利给</strong></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://onepunch.com/2020/06/08/my-first/" data-id="ckb6iy4hp000277vv79ix0o3h" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8A%A0%E6%B2%B9/" rel="tag">加油</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/05/hello-world/" class="article-date">
-  <time datetime="2020-06-05T10:31:57.661Z" itemprop="datePublished">2020-06-05</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/05/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://onepunch.com/2020/06/05/hello-world/" data-id="ckb6iy4hj000077vvde1xa57o" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
 
 </section>
         
