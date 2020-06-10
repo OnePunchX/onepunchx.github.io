@@ -1,267 +1,103 @@
 <!DOCTYPE html>
+<!--layout.ejs的意思是共用的布局文件-->
+<!--partial()是个函数，来包含其他文件，使得我们能够更好的组织代码。-->
 <html>
-<head>
-  <meta charset="utf-8">
-  
+  <head>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+  <meta name="renderer" content="webkit">
+  <title>Love</title>
 
-  
-  <title>好的开始，我只是想变强 | 朱军的笔记</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="so what can i do先写个开头，顺便复习一下 markdown，是的，没错，我又忘记 markdown 怎么用了，为了避免再次忘记，要尽量多的使用，比如  1 尽量频繁的写博客 2 尽量频繁的写博客 3 还是 tmd 尽量频繁的写博客  无序列表用*有序列表用 1. 比如  这是有序的 我是有头发的 第三条不重要  加个大于号 后边是文字 展示效果是引用  这是鲁迅说的 —— 周树人">
-<meta property="og:type" content="article">
-<meta property="og:title" content="好的开始，我只是想变强">
-<meta property="og:url" content="http://onepunch.com/2020/06/08/my-first/index.html">
-<meta property="og:site_name" content="朱军的笔记">
-<meta property="og:description" content="so what can i do先写个开头，顺便复习一下 markdown，是的，没错，我又忘记 markdown 怎么用了，为了避免再次忘记，要尽量多的使用，比如  1 尽量频繁的写博客 2 尽量频繁的写博客 3 还是 tmd 尽量频繁的写博客  无序列表用*有序列表用 1. 比如  这是有序的 我是有头发的 第三条不重要  加个大于号 后边是文字 展示效果是引用  这是鲁迅说的 —— 周树人">
-<meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://onepunch.com/2020/06/08/my-first/%E5%B0%B1%E5%BD%93%E8%BF%99%E9%87%8C%E6%9C%89%E9%93%BE%E6%8E%A5%E5%90%A7">
-<meta property="article:published_time" content="2020-06-08T03:04:28.000Z">
-<meta property="article:modified_time" content="2020-06-08T12:00:39.003Z">
-<meta property="article:author" content="onePunch">
-<meta property="article:tag" content="加油">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://onepunch.com/2020/06/08/my-first/%E5%B0%B1%E5%BD%93%E8%BF%99%E9%87%8C%E6%9C%89%E9%93%BE%E6%8E%A5%E5%90%A7">
-  
-    <link rel="alternate" href="/atom.xml" title="朱军的笔记" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
+<!--Baidu Tongji-->>
+  <script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+    </script>
+     
+
+
   
 <link rel="stylesheet" href="/css/style.css">
 
 <meta name="generator" content="Hexo 4.2.1"></head>
-
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">朱军的笔记</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/" id="subtitle">呱呱呱</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://onepunch.com"></form>
-      </div>
-    </div>
+  <body>
+    <div class="container">
+      <header class="header">
+  <div class="blog-title">
+    <a href="/" class="logo">Love</a>
   </div>
+  <nav class="navbar">
+    <ul class="menu">
+      
+    </ul>
+  </nav>
 </header>
-      <div class="outer">
-        <section id="main"><article id="post-my-first" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2020/06/08/my-first/" class="article-date">
-  <time datetime="2020-06-08T03:04:28.000Z" itemprop="datePublished">2020-06-08</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      好的开始，我只是想变强
-    </h1>
-  
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="so-what-can-i-do"><a href="#so-what-can-i-do" class="headerlink" title="so what can i do"></a>so what can i do</h3><p>先写个开头，顺便复习一下 markdown，是的，没错，我又忘记 markdown 怎么用了，为了避免再次忘记，要尽量多的使用，<br>比如</p>
-<ul>
-<li>1 尽量频繁的写博客</li>
-<li>2 尽量频繁的写博客</li>
-<li>3 还是 tmd 尽量频繁的写博客</li>
-</ul>
-<p>无序列表用*<br>有序列表用 1.</p>
-<p>比如</p>
-<ol>
-<li>这是有序的</li>
-<li>我是有头发的</li>
-<li>第三条不重要</li>
-</ol>
-<p>加个大于号 后边是文字 展示效果是引用</p>
-<blockquote>
-<p>这是鲁迅说的 —— 周树人</p>
-</blockquote>
-<p>插入链接 <a href="就当这里有链接">xxx</a> 英文书名号加小括号</p>
-<p>插入图片 前边有个感叹号 <img src="%E5%B0%B1%E5%BD%93%E8%BF%99%E9%87%8C%E6%9C%89%E9%93%BE%E6%8E%A5%E5%90%A7" alt="假装有图.jpg"> 英文感叹号加书名号加小括号</p>
-<p><strong>左右各两个星号中间夹的会加粗，请给我加粗</strong><br><em>左右各一个星号就倾斜</em></p>
-<p>模版字符串中间可以放代码，比如<br><code>const wanghao = &#39;辣鸡&#39;</code><br>左右各三个这玩意，可以夹住代码块，let me try try<br>···不好意思，整错了···</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let a &#x3D; 1;</span><br><span class="line">a &#x3D; 2;</span><br><span class="line">a &#x3D; b &#x3D; 2;</span><br></pre></td></tr></table></figure>
-
-<p>tab 可以缩进，这就是为啥现在才有缩进，我刚看到。<br>非常开心，再来几个缩进<br>三个星号是分割线</p>
-<hr>
-<p><strong>行，这就算复习完事，接下来我随便写写。</strong><br><strong>别问我为啥加粗，我就喜欢粗，并且不缩进，真男人从来不做缩头乌龟</strong></p>
-<h2 id="我还能更粗"><a href="#我还能更粗" class="headerlink" title="我还能更粗"></a>我还能更粗</h2><p>最近经历了好多的事情，事情都是相对的，辩证去看，也无所谓好坏。<br>但是很多事情，我都不喜欢，不如意事常八九，可与人言无二三。<br>敲了很多字，又都删掉了。觉得没有意义。自己和自己的辩论，总归赢的也是自己。<br>自己和自己探讨人生观，价值观，也未免太无趣，还要写在这里记录下来，也未免太他妈的无趣<br>总而言之，我就一句话，我想变强。</p>
-<hr>
-<p><em>我没觉得喜欢这个行业，但是我喜欢自己变强的感觉。</em></p>
-<p>开始整活！<br><strong>奥利给</strong></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://onepunch.com/2020/06/08/my-first/" data-id="ckb7ln1j200046fvvfl8d0e5g" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8A%A0%E6%B2%B9/" rel="tag">加油</a></li></ul>
-
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2020/06/08/event-loop/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Js事件循环机制
-        
+      <main class="main">
+      <section class="date">
+  <div class="date">
+      <h2>LiuCong and TangXiao have been together for</h2>
+      <div class="timer">
+      <b id="d"></b> Days <b id="h"></b> Hours <b id="m"></b> Minutes <b id="s"></b> Seconds
       </div>
-    </a>
-  
-  
-    <a href="/2020/06/05/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
-    </a>
-  
-</nav>
+      <div class="song">
+          <!--页面底部歌词-->
+          <!-- require APlayer -->
+          <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css">
+          <script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script>
+          <!-- require MetingJS -->
+          <script src="https://cdn.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script>
+          <meting-js 
+          server="netease" 
+          type="playlist" 
+          id="2042070338" 
+          fixed="true"
 
-  
-</article>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/js%E8%BF%90%E8%A1%8C%E5%BE%AA%E7%8E%AF%E6%9C%BA%E5%88%B6-%E5%AE%8F%E4%BB%BB%E5%8A%A1-%E5%BE%AE%E4%BB%BB%E5%8A%A1-%E5%90%8C%E6%AD%A5%E4%BB%BB%E5%8A%A1-%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1/" rel="tag">js运行循环机制 宏任务 微任务 同步任务 异步任务</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E5%8A%A0%E6%B2%B9/" rel="tag">加油</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/%E9%97%AD%E5%8C%85/" rel="tag">闭包</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/js%E8%BF%90%E8%A1%8C%E5%BE%AA%E7%8E%AF%E6%9C%BA%E5%88%B6-%E5%AE%8F%E4%BB%BB%E5%8A%A1-%E5%BE%AE%E4%BB%BB%E5%8A%A1-%E5%90%8C%E6%AD%A5%E4%BB%BB%E5%8A%A1-%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1/" style="font-size: 10px;">js运行循环机制 宏任务 微任务 同步任务 异步任务</a> <a href="/tags/%E5%8A%A0%E6%B2%B9/" style="font-size: 10px;">加油</a> <a href="/tags/%E9%97%AD%E5%8C%85/" style="font-size: 10px;">闭包</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2020/06/">June 2020</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2020/06/09/bi-bao/">闭包，老铁安排上</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/08/event-loop/">Js事件循环机制</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/08/my-first/">好的开始，我只是想变强</a>
-          </li>
-        
-          <li>
-            <a href="/2020/06/05/hello-world/">Hello World</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
+          autoplay="true" 
+          order="list" 
+          loop="all"></meting-js>
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2020 onePunch<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
   </div>
-</footer>
+
+<!--计时器js-->
+      <script>
+        function timer() {
+        window.setTimeout("timer()", 1000);
+        var start = new Date("2018-08-08 00:00:00");
+        var t = new Date().getTime() - start;
+        var h = ~~(t / 1000 / 60 / 60 % 24);
+        if (h < 10) {h = "0" + h;}
+        var m = ~~(t / 1000 / 60 % 60);
+        if (m < 10) { m = "0" + m;}
+        var s = ~~(t / 1000 % 60);
+       if (s < 10) {s = "0" + s;}
+        document.getElementById('d').innerHTML = ~~(t / 1000 / 60 / 60 / 24);
+       document.getElementById('h').innerHTML = h;
+       document.getElementById('m').innerHTML = m;
+       document.getElementById('s').innerHTML = s;}
+        timer();
+      </script> 
+<!--END：计时器js-->
+
+<!--鼠标点击显示爱心-->
+<script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/love.js"></script>
+  </section>
+      </main>
+
+      
+        <script type="text/javascript" color="177, 122, 125" opacity="2" 
+            zIndex="-1" count="200" 
+            src="//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js">
+        </script>
+      
+
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-
-  
-<script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-
-
-<script src="/js/script.js"></script>
-
-
-
-
-  </div>
-</body>
+  </body>
 </html>
+
