@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Head tag -->
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0" />
+
+    <!--Description-->
+    
+        <meta name="description" content="呱呱">
+    
+
+    <!--Author-->
+    
+        <meta name="author" content="onePunch">
+    
+
+    <!--Open Graph Title-->
+    
+        <meta property="og:title" content="前端路由"/>
+    
+
+    <!--Open Graph Site Name-->
+    <meta property="og:site_name" content="OnePunchMan"/>
+
+    <!--Page Cover-->
+    
+        <meta property="og:image" content=""/>
+    
+
+    <!-- Title -->
+    
+    <title>前端路由 - OnePunchMan</title>
+
+    <!-- Custom CSS -->
+    
+<link rel="stylesheet" href="/css/reset.css">
+
+    
+<link rel="stylesheet" href="/css/main.css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Gallery -->
+    <link href="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.css" type="text/css" rel="stylesheet" />
+
+    <!-- Google Analytics -->
+    
+
+
+    <!--Favicon-->
+    
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body>
+
+<!-- Menu -->
+<!-- Navigation -->
+<header>
+    <div class="logo">
+        <a href="/">OnePunchMan</a>
+    </div><!-- end logo -->
+
+    <div id="menu_icon"></div>
+    <nav>
+        <ul>
+            
+            <li>
+                <a href="/">Home</a>
+            </li>
+            
+            <li>
+                <a href="/archives">Archives</a>
+            </li>
+            
+        </ul>
+    </nav><!-- end navigation menu -->
+
+    <div class="footer clearfix">
+        <ul class="social clearfix">
+            
+            
+                <li><a href="https://www.facebook.com/" class="fb" target="_blank" data-title="Facebook"></a></li>
+            
+            
+                <li><a href="https://www.behance.net/" class="behance" target="_blank" data-title="Behance"></a></li>
+            
+            
+                <li><a href="https://plus.google.com/+Pixelhint/posts" class="google" target="_blank" data-title="Google+"></a></li>
+            
+            
+                <li><a href="https://dribbble.com/pixelhint" class="dribble" target="_blank" data-title="Dribble"></a></li>
+            
+            
+            
+            
+        </ul><!-- end social -->
+
+        <div class="rights">
+            <p>Copyright © 2014 magnetic.</p>
+            <p>Template by <a href="http://pixelhint.com/magnetic-free-html5-responsive-photography-website-template/" target="_blank" rel="noopener">Pixelhint.com</a></p>
+            <p>Hexo Theme by <a href="http://www.codeblocq.com/" target="_blank" rel="noopener">Jonathan K.</a></p>
+        </div><!-- end rights -->
+    </div ><!-- end footer -->
+</header><!-- end header -->
+
+
+<!-- Main Content -->
+<section class="main clearfix">
+
+    <section class="top" style="background: url('https://pic1.zhimg.com/80/v2-a7c4138f21788dade9fc54fc3fefedd9_720w.jpg');">
+        <div class="wrapper content_header clearfix">
+            
+
+<div class="work_nav">
+
+    <ul class="btn clearfix">
+        
+        <li><a class="previous disabled"></a></li>
+        
+        <li><a href="/" class="grid" data-title="Portfolio"></a></li>
+        
+        <li><a href="/2020/06/10/commonjs-amd-cmd/" class="next" data-title="JS模块化的发展历程"></a></li>
+        
+    </ul>
+
+</div><!-- end work_nav -->
+            <h1 class="title">前端路由</h1>
+        </div>
+    </section><!-- end top -->
+
+    <section class="wrapper">
+        <div class="content">
+
+            <!-- Gallery -->
+            
+
+            <!-- Content -->
+            <h2 id="什么是前端路由？"><a href="#什么是前端路由？" class="headerlink" title="什么是前端路由？"></a>什么是前端路由？</h2><p>路由的概念来源于服务端，在服务端中路由描述的是 URL 与处理函数之间的映射关系。</p>
+<p>在 Web 前端单页应用 SPA(Single Page Application)中，路由描述的是 URL 与 UI 之间的映射关系，这种映射是单向的，即 URL 变化引起 UI 更新（无需刷新页面）。</p>
+<h2 id="如何实现前端路由？"><a href="#如何实现前端路由？" class="headerlink" title="如何实现前端路由？"></a>如何实现前端路由？</h2><p>要实现前端路由，需要解决两个核心问题：</p>
+<p>1.如何改变 URL 却不引起页面刷新？ 2.如何检测 URL 变化了？</p>
+<h3 id="hash-实现"><a href="#hash-实现" class="headerlink" title="hash 实现"></a>hash 实现</h3><p>hash 是 URL 中 hash (#) 及后面的那部分，常用作锚点在页面内进行导航，改变 URL 中的 hash 部分不会引起页面刷新<br>通过 hashchange 事件监听 URL 的变化，改变 URL 的方式只有这几种：通过浏览器前进后退改变 URL、通过标签改变 URL、通过 window.location 改变 URL，这几种情况改变 URL 都会触发 hashchange 事件</p>
+<h3 id="history-实现"><a href="#history-实现" class="headerlink" title="history 实现"></a>history 实现</h3><p>history 提供了 pushState 和 replaceState 两个方法，这两个方法改变 URL 的 path 部分不会引起页面刷新<br>history 提供类似 hashchange 事件的 popstate 事件，但 popstate 事件有些不同：通过浏览器前进后退改变 URL 时会触发 popstate 事件，通过 pushState/replaceState 或标签改变 URL 不会触发 popstate 事件。好在我们可以拦截 pushState/replaceState 的调用和标签的点击事件来检测 URL 变化，所以监听 URL 变化可以实现，只是没有 hashchange 那么方便。</p>
+<h2 id="hash-实现（简略版）"><a href="#hash-实现（简略版）" class="headerlink" title="hash 实现（简略版）"></a>hash 实现（简略版）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">ref&#x3D;&quot;&quot;&gt;    &lt;!-- 定义路由 --&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href&#x3D;&quot;#&#x2F;home&quot;&gt;home&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href&#x3D;&quot;#&#x2F;about&quot;&gt;about&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;</span><br><span class="line"></span><br><span class="line">ref&#x3D;&quot;&quot;&gt;    &lt;!-- 渲染路由对应的 UI --&gt;</span><br><span class="line">    &lt;div id&#x3D;&quot;routeView&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;ul&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 页面加载完不会触发 hashchange，这里主动触发一次 hashchange 事件</span><br><span class="line">window.addEventListener(&#39;DOMContentLoaded&#39;, onLoad)</span><br><span class="line">&#x2F;&#x2F; 监听路由变化</span><br><span class="line">window.addEventListener(&#39;hashchange&#39;, onHashChange)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 路由视图</span><br><span class="line">var routerView &#x3D; null</span><br><span class="line"></span><br><span class="line">function onLoad () &#123;</span><br><span class="line">  routerView &#x3D; document.querySelector(&#39;#routeView&#39;)</span><br><span class="line">  onHashChange()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 路由变化时，根据路由渲染对应 UI</span><br><span class="line">function onHashChange () &#123;</span><br><span class="line">  switch (location.hash) &#123;</span><br><span class="line">    case &#39;#&#x2F;home&#39;:</span><br><span class="line">      routerView.innerHTML &#x3D; &#39;Home&#39;</span><br><span class="line">      return</span><br><span class="line">    case &#39;#&#x2F;about&#39;:</span><br><span class="line">      routerView.innerHTML &#x3D; &#39;About&#39;</span><br><span class="line">      return</span><br><span class="line">    default:</span><br><span class="line">      return</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="history-实现（简略版）"><a href="#history-实现（简略版）" class="headerlink" title="history 实现（简略版）"></a>history 实现（简略版）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href&#x3D;&#39;&#x2F;home&#39;&gt;home&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href&#x3D;&#39;&#x2F;about&#39;&gt;about&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div id&#x3D;&quot;routeView&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;ul&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 页面加载完不会触发 hashchange，这里主动触发一次 hashchange 事件</span><br><span class="line">window.addEventListener(&#39;DOMContentLoaded&#39;, onLoad)</span><br><span class="line">&#x2F;&#x2F; 监听路由变化</span><br><span class="line">window.addEventListener(&#39;popstate&#39;, onPopState)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 路由视图</span><br><span class="line">var routerView &#x3D; null</span><br><span class="line"></span><br><span class="line">function onLoad () &#123;</span><br><span class="line">  routerView &#x3D; document.querySelector(&#39;#routeView&#39;)</span><br><span class="line">  onPopState()</span><br><span class="line"></span><br><span class="line"> href&#x3D;&quot;&quot;&gt;  &#x2F;&#x2F; 拦截 &lt;a&gt; 标签点击事件默认行为， 点击时使用 pushState 修改 URL并更新手动 UI，从而实现点击链接更新 URL 和 UI 的效果。</span><br><span class="line">  var linkList &#x3D; document.querySelectorAll(&#39;a[href]&#39;)</span><br><span class="line">  linkList.forEach(el &#x3D;&gt; el.addEventListener(&#39;click&#39;, function (e) &#123;</span><br><span class="line">    e.preventDefault()</span><br><span class="line">    history.pushState(null, &#39;&#39;, el.getAttribute(&#39;href&#39;))</span><br><span class="line">    onPopState()</span><br><span class="line">  &#125;))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 路由变化时，根据路由渲染对应 UI</span><br><span class="line">function onPopState () &#123;</span><br><span class="line">  switch (location.pathname) &#123;</span><br><span class="line">    case &#39;&#x2F;home&#39;:</span><br><span class="line">      routerView.innerHTML &#x3D; &#39;Home&#39;</span><br><span class="line">      return</span><br><span class="line">    case &#39;&#x2F;about&#39;:</span><br><span class="line">      routerView.innerHTML &#x3D; &#39;About&#39;</span><br><span class="line">      return</span><br><span class="line">    default:</span><br><span class="line">      return</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="总结：前端路由，在-SPA-单页面应用中，非常重要。路由对应组件渲染，不用发请求。远古时代路由跳转可是要发请求，后端返回页面的鸭。。。"><a href="#总结：前端路由，在-SPA-单页面应用中，非常重要。路由对应组件渲染，不用发请求。远古时代路由跳转可是要发请求，后端返回页面的鸭。。。" class="headerlink" title="总结：前端路由，在 SPA 单页面应用中，非常重要。路由对应组件渲染，不用发请求。远古时代路由跳转可是要发请求，后端返回页面的鸭。。。"></a>总结：前端路由，在 SPA 单页面应用中，非常重要。路由对应组件渲染，不用发请求。远古时代路由跳转可是要发请求，后端返回页面的鸭。。。</h2>
+
+            <!-- Tags -->
+            
+
+
+<div class="tags">
+    <a href="/tags/前端路由-Hash-History/">前端路由 Hash History</a>
+</div>
+
+
+
+            <!-- Comments -->
+            <div>
+                
+
+
+
+
+            </div>
+        </div><!-- end content -->
+    </section>
+</section><!-- end main -->
+
+<!-- After footer scripts -->
+
+<!-- jQuery -->
+
+<script src="/js/jquery.js"></script>
+
+
+<!-- Custom Code -->
+
+<script src="/js/main.js"></script>
+
+
+<!-- Gallery -->
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.3.5/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+
+<!-- Disqus Comments -->
+
+
+</body>
+
+</html>
