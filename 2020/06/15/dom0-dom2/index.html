@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>JS模块化的发展历程 | OnePunchMan</title>
+  <title>dom0-dom2 | OnePunchMan</title>
 
   <!-- keywords -->
   
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="随便写点 js 模块化发展历史，面试有问这玩意的，随便看看到时候能答出来几句就 ok，顺便咱也了解一下 js 的这方面历史。 1.js 的诞生：由 Brendan Eich 花了不到十天时间发明，用来在网页上进行表单校验、实现简单的动画效果等等，你可以回想一下那个网页上到处有公告块飘来飘去的时代。2.2006 年 ajax 出现，js 开始发展。全局变量开始让人头疼了，函数命名开始冲突了 3.所以">
+  <meta name="description" content="dom0或者叫 0 级 dom ，如下 123456&lt;input id&#x3D;&quot;btn&quot; type&#x3D;&quot;button&quot; onclick&#x3D;&quot;console.log(&#39;You clicked the button!&#39;);&quot; value&#x3D;&quot;Click&quot; &#x2F;&amp;gt">
 <meta property="og:type" content="article">
-<meta property="og:title" content="JS模块化的发展历程">
-<meta property="og:url" content="http://onepunch.com/2020/06/10/commonjs-amd-cmd/index.html">
+<meta property="og:title" content="dom0-dom2">
+<meta property="og:url" content="http://onepunch.com/2020/06/15/dom0-dom2/index.html">
 <meta property="og:site_name" content="OnePunchMan">
-<meta property="og:description" content="随便写点 js 模块化发展历史，面试有问这玩意的，随便看看到时候能答出来几句就 ok，顺便咱也了解一下 js 的这方面历史。 1.js 的诞生：由 Brendan Eich 花了不到十天时间发明，用来在网页上进行表单校验、实现简单的动画效果等等，你可以回想一下那个网页上到处有公告块飘来飘去的时代。2.2006 年 ajax 出现，js 开始发展。全局变量开始让人头疼了，函数命名开始冲突了 3.所以">
+<meta property="og:description" content="dom0或者叫 0 级 dom ，如下 123456&lt;input id&#x3D;&quot;btn&quot; type&#x3D;&quot;button&quot; onclick&#x3D;&quot;console.log(&#39;You clicked the button!&#39;);&quot; value&#x3D;&quot;Click&quot; &#x2F;&amp;gt">
 <meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-06-10T06:27:33.000Z">
-<meta property="article:modified_time" content="2020-06-10T07:54:27.373Z">
+<meta property="article:published_time" content="2020-06-15T10:38:20.000Z">
+<meta property="article:modified_time" content="2020-06-15T10:57:09.117Z">
 <meta property="article:author" content="onePunch">
-<meta property="article:tag" content="CommonJs AMD CMD">
+<meta property="article:tag" content="dom0 dom2">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="OnePunchMan" type="application/atom+xml">
@@ -184,11 +184,11 @@
 		</header>				
 	</div>
 </nav>
-      <div class="body-wrap"><article id="post-commonjs-amd-cmd" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-dom0-dom2" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2020/06/10/commonjs-amd-cmd/" class="article-date">
-  	<time datetime="2020-06-10T06:27:33.000Z" itemprop="datePublished">2020-06-10</time>
+      <a href="/2020/06/15/dom0-dom2/" class="article-date">
+  	<time datetime="2020-06-15T10:38:20.000Z" itemprop="datePublished">2020-06-15</time>
 </a>
     </div>
   
@@ -201,7 +201,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      JS模块化的发展历程
+      dom0-dom2
       
     </h1>
   
@@ -211,7 +211,7 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CommonJs-AMD-CMD/" rel="tag">CommonJs AMD CMD</a></li></ul>
+		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dom0-dom2/" rel="tag">dom0 dom2</a></li></ul>
 	</div>
 
         
@@ -223,23 +223,17 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p><strong>随便写点 js 模块化发展历史，面试有问这玩意的，随便看看到时候能答出来几句就 ok，顺便咱也了解一下 js 的这方面历史。</strong></p>
-<p>1.js 的诞生：由 Brendan Eich 花了不到十天时间发明，用来在网页上进行表单校验、实现简单的动画效果等等，你可以回想一下那个网页上到处有公告块飘来飘去的时代。<br>2.2006 年 ajax 出现，js 开始发展。全局变量开始让人头疼了，函数命名开始冲突了 3.所以 js 需要，也必须要整模块化</p>
-<p>需要解决的问题是：</p>
-<ul>
-<li>如何安全的包装一个模块的代码？（不污染模块外的任何代码）</li>
-<li>如何唯一标识一个模块？</li>
-<li>如何优雅的把模块的 API 暴漏出去？（不能增加全局变量）</li>
-<li>如何方便的使用所依赖的模块？</li>
-</ul>
-<p>2009 年，node.js 诞生，这下模块化必须马上整了，要不然服务端没法弄了 所以 当当当当～ CommonJs 闪亮登场</p>
-<h2 id="CommonJs"><a href="#CommonJs" class="headerlink" title="CommonJs"></a>CommonJs</h2><p>简单来说呢，commonJs 就是，exports 暴露 API，require 引入该 API 的模块，</p>
-<p>缺点，得发请求啊 这玩意就不太好了</p>
-<h2 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h2><p>异步加载所需的模块，然后在回调函数中执行主逻辑。</p>
-<p>缺点：预先下载太多东西，而且定义模块的时候写法复杂，最重要的是，它实时下载代码然后触发回调，主体代码运行。用户会有卡顿感。</p>
-<h2 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h2><p>淘宝前端 玉伯 整出来的，融各家所长，没啥缺点</p>
-<h2 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h2><p>2015 年 6 月，es6 来了，export 暴露，import 引入，编译时加载（静态加载）</p>
-<h2 id="总结，就这点内容，还总结啥？告辞～"><a href="#总结，就这点内容，还总结啥？告辞～" class="headerlink" title="总结，就这点内容，还总结啥？告辞～"></a>总结，就这点内容，还总结啥？告辞～</h2>
+        <h2 id="dom0"><a href="#dom0" class="headerlink" title="dom0"></a>dom0</h2><p>或者叫 0 级 dom ，如下</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;input id&#x3D;&quot;btn&quot; type&#x3D;&quot;button&quot; onclick&#x3D;&quot;console.log(&#39;You clicked the button!&#39;);&quot; value&#x3D;&quot;Click&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;  或者js写法</span><br><span class="line">document.getElementById(&#39;btn&#39;).onclick &#x3D; function() &#123;</span><br><span class="line">            console.log(&#39;Ｉ　am ｐｒｏｃｅｓｓｅｄ by dom0!&#39;);</span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="这种写法，后面的代码会覆盖前面的，也就是说如果多次输出，也只会输出最后一条。"><a href="#这种写法，后面的代码会覆盖前面的，也就是说如果多次输出，也只会输出最后一条。" class="headerlink" title="这种写法，后面的代码会覆盖前面的，也就是说如果多次输出，也只会输出最后一条。"></a>这种写法，后面的代码会覆盖前面的，也就是说如果多次输出，也只会输出最后一条。</h3><h2 id="dom2"><a href="#dom2" class="headerlink" title="dom2"></a>dom2</h2><p>或者叫 2 级 dom，继续如下呗</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;input id&#x3D;&#39;input&#39; type&#x3D;&quot;text&quot; onclick&#x3D;&quot;alert(&#39;haha&#39;)&quot; &#x2F;&gt;</span><br><span class="line"> &lt;script&gt;</span><br><span class="line">     document.getElementById(&#39;input&#39;).onclick &#x3D; function() &#123;</span><br><span class="line">         alert(&#39;fff&#39;)</span><br><span class="line">     &#125;; &#x2F;&#x2F; 目标阶段</span><br><span class="line">     document.getElementById(&#39;input&#39;).addEventListener(&#39;click&#39;, function() &#123;</span><br><span class="line">         alert(&#39;mmm&#39;)</span><br><span class="line">     &#125;, true)  &#x2F;&#x2F; 捕获阶段</span><br><span class="line">     document.getElementById(&#39;input&#39;).addEventListener(&#39;click&#39;, function() &#123;</span><br><span class="line">         alert(&#39;ooooo&#39;)</span><br><span class="line">     &#125;, true)  &#x2F;&#x2F; 捕获阶段</span><br><span class="line">     document.getElementById(&#39;input&#39;).addEventListener(&#39;click&#39;, function() &#123;</span><br><span class="line">         alert(&#39;pppp&#39;)</span><br><span class="line">     &#125;, false)  &#x2F;&#x2F; 冒泡阶段</span><br><span class="line"></span><br><span class="line">     &#x2F;&#x2F; 兼容低版本IE的写法</span><br><span class="line">     document.getElementById(&#39;input&#39;).attachEvent(&quot;onclick&quot;, function() &#123;</span><br><span class="line">         alert(&#39;pppp&#39;)</span><br><span class="line">     &#125;);</span><br><span class="line"> &lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line"> &#x2F;&#x2F; mmm ooooo fff pppp</span><br></pre></td></tr></table></figure>
+
+<p>dom2 把事情分为 3 步 ———— 事件捕获阶段、处于目标阶段和事件冒泡阶段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">addEventListener(&#39;click&#39;,function()&#123;&#125;,true&#x2F;false)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 第一个参数，表明是啥触发事件</span><br><span class="line">&#x2F;&#x2F; 第二个参数，事件触发以后的回调函数</span><br><span class="line">&#x2F;&#x2F; 第三个参数，true或者false ，true是第二个参数那个回调函数在捕获阶段调用 ，false在冒泡阶段</span><br></pre></td></tr></table></figure>
+
+<h3 id="这种写法，不会覆盖，会依次输出所有项"><a href="#这种写法，不会覆盖，会依次输出所有项" class="headerlink" title="这种写法，不会覆盖，会依次输出所有项"></a>这种写法，不会覆盖，会依次输出所有项</h3><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>区别：dom0 会覆盖，dom2 不会覆盖。</p>
+
       
     </div>
     
@@ -248,18 +242,9 @@
     
 <nav id="article-nav">
   
-    <a href="/2020/06/11/router-hash-history/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">&lt;</strong>
-      <div class="article-nav-title">
-        
-          前端路由
-        
-      </div>
-    </a>
   
-  
-    <a href="/2020/06/09/bi-bao/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">闭包，老铁安排上</div>
+    <a href="/2020/06/15/higher-order-function/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">JS高阶函数</div>
       <strong class="article-nav-caption">&gt;</strong>
     </a>
   
@@ -269,7 +254,7 @@
 </article>
 
 
-<div class="ds-share share" data-thread-key="commonjs-amd-cmd" data-title="JS模块化的发展历程" data-url="http://onepunch.com/2020/06/10/commonjs-amd-cmd/"  data-images="https://pic3.zhimg.com/80/d74990358e387fe30f9823dd0b694d6e_720w.jpg" data-content="JS模块化的发展历程">
+<div class="ds-share share" data-thread-key="dom0-dom2" data-title="dom0-dom2" data-url="http://onepunch.com/2020/06/15/dom0-dom2/"  data-images="https://pic3.zhimg.com/80/d74990358e387fe30f9823dd0b694d6e_720w.jpg" data-content="dom0-dom2">
     <div class="ds-share-inline">
       <ul  class="ds-share-icons-16">
       	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
