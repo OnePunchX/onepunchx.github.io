@@ -1,229 +1,210 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
+
+
+
+
+
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   
-  <title>JS高阶函数 | OnePunchMan</title>
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="呱呱">
+  <meta name="author" content="onePunch">
+  <meta name="keywords" content="">
+  <title>JS高阶函数 - OnePunchMan</title>
 
-  <!-- keywords -->
-  
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="可以接收另一个参数作为参数的函数，就叫做高阶函数。常见高阶函数 Array.prototype.map, Array.prototype.filter, Array.prototype.reduce,  既然提到了这几个数组方法，那也就顺便说一说哈  map 是啥，就不在这里说了，不知道就百度去。map() 方法的回调函数接受 3 个参数。 item index arraySelf 。 item">
-<meta property="og:type" content="article">
-<meta property="og:title" content="JS高阶函数">
-<meta property="og:url" content="http://onepunch.com/2020/06/15/higher-order-function/index.html">
-<meta property="og:site_name" content="OnePunchMan">
-<meta property="og:description" content="可以接收另一个参数作为参数的函数，就叫做高阶函数。常见高阶函数 Array.prototype.map, Array.prototype.filter, Array.prototype.reduce,  既然提到了这几个数组方法，那也就顺便说一说哈  map 是啥，就不在这里说了，不知道就百度去。map() 方法的回调函数接受 3 个参数。 item index arraySelf 。 item">
-<meta property="og:locale" content="en_US">
-<meta property="article:published_time" content="2020-06-15T02:49:49.000Z">
-<meta property="article:modified_time" content="2020-06-15T09:28:35.099Z">
-<meta property="article:author" content="onePunch">
-<meta property="article:tag" content="高阶函数 react-redux connect">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternative" href="/atom.xml" title="OnePunchMan" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
   
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
   
 
   
-<script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
-
-  
-<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
 
 
-  
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
 <meta name="generator" content="Hexo 4.2.1"></head>
+
+
 <body>
-  <div id="container">
-    <div id="particles-js"></div>
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
-			
-			<img lazy-src="https://pic3.zhimg.com/80/d74990358e387fe30f9823dd0b694d6e_720w.jpg" class="js-avatar">
-			
-		</a>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
 
-		<hgroup>
-		  <h1 class="header-author"><a href="/">onePunch</a></h1>
-		</hgroup>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
 
-		
-		<p class="header-subtitle">呱呱呱，呱呱～</p>
-		
-
-		
-			<div class="switch-btn">
-				<div class="icon">
-					<div class="icon-ctn">
-						<div class="icon-wrap icon-house" data-idx="0">
-							<div class="birdhouse"></div>
-							<div class="birdhouse_holes"></div>
-						</div>
-						<div class="icon-wrap icon-ribbon hide" data-idx="1">
-							<div class="ribbon"></div>
-						</div>
-						
-						<div class="icon-wrap icon-link hide" data-idx="2">
-							<div class="loopback_l"></div>
-							<div class="loopback_r"></div>
-						</div>
-						
-						
-					</div>
-					
-				</div>
-				<div class="tips-box hide">
-					<div class="tips-arrow"></div>
-					<ul class="tips-inner">
-						<li>菜单</li>
-						<li>标签</li>
-						
-						<li>友情链接</li>
-						
-						
-					</ul>
-				</div>
-			</div>
-		
-
-		<div class="switch-area">
-			<div class="switch-wrap">
-				<section class="switch-part switch-part1">
-					<nav class="header-menu">
-						<ul>
-						
-							<li><a href="/archives">主页</a></li>
-				        
-							<li><a href="/">所有文章</a></li>
-				        
-							<li><a href="/tags">标签</a></li>
-				        
-							<li><a href="http://blog.xcola.top/" target="_blank" rel="noopener">昊儿</a></li>
-				        
-						</ul>
-					</nav>
-					<nav class="header-nav">
-						<div class="social">
-							
-						</div>
-					</nav>
-				</section>
-				
-				
-				<section class="switch-part switch-part2">
-					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/CommonJs-AMD-CMD/" style="font-size: 10px;">CommonJs AMD CMD</a> <a href="/tags/dom0-dom2-%E3%80%81/" style="font-size: 10px;">dom0 dom2 、</a> <a href="/tags/js%E8%BF%90%E8%A1%8C%E5%BE%AA%E7%8E%AF%E6%9C%BA%E5%88%B6-%E5%AE%8F%E4%BB%BB%E5%8A%A1-%E5%BE%AE%E4%BB%BB%E5%8A%A1-%E5%90%8C%E6%AD%A5%E4%BB%BB%E5%8A%A1-%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1/" style="font-size: 10px;">js运行循环机制 宏任务 微任务 同步任务 异步任务</a> <a href="/tags/react%E5%90%88%E6%88%90%E4%BA%8B%E4%BB%B6/" style="font-size: 10px;">react合成事件</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1-Hash-History/" style="font-size: 10px;">前端路由 Hash History</a> <a href="/tags/%E5%8A%A0%E6%B2%B9/" style="font-size: 10px;">加油</a> <a href="/tags/%E9%97%AD%E5%8C%85/" style="font-size: 10px;">闭包</a> <a href="/tags/%E9%98%BB%E6%AD%A2%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1-%E9%98%BB%E6%AD%A2%E9%BB%98%E8%AE%A4%E4%BA%8B%E4%BB%B6/" style="font-size: 10px;">阻止事件冒泡 阻止默认事件</a> <a href="/tags/%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0-react-redux-connect/" style="font-size: 10px;">高阶函数 react-redux connect</a>
-					</div>
-				</section>
-				
-				
-				
-				<section class="switch-part switch-part3">
-					<div id="js-friends">
-					
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.xcola.top/">smackdown</a>
-			        
-			        </div>
-				</section>
-				
-
-				
-			</div>
-		</div>
-	</header>				
-</div>
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"></div>
-  		<h1 class="header-author js-mobile-header hide">onePunch</h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-				<img lazy-src="https://pic3.zhimg.com/80/d74990358e387fe30f9823dd0b694d6e_720w.jpg" class="js-avatar">
-			</div>
-			<hgroup>
-			  <h1 class="header-author">onePunch</h1>
-			</hgroup>
-			
-			<p class="header-subtitle">呱呱呱，呱呱～</p>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/archives">主页</a></li>
-		        
-					<li><a href="/">所有文章</a></li>
-		        
-					<li><a href="/tags">标签</a></li>
-		        
-					<li><a href="http://blog.xcola.top/" target="_blank" rel="noopener">昊儿</a></li>
-		        
-		        <div class="clearfix"></div>
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-				</div>
-			</nav>
-		</header>				
-	</div>
+  </div>
 </nav>
-      <div class="body-wrap"><article id="post-higher-order-function" class="article article-type-post" itemscope itemprop="blogPost">
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/fushishan.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-06-15 10:49">
+      2020年6月15日 上午
+    </time>
+  </div>
+
+
+<div class="mt-1">
   
-    <div class="article-meta">
-      <a href="/2020/06/15/higher-order-function/" class="article-date">
-  	<time datetime="2020-06-15T02:49:49.000Z" itemprop="datePublished">2020-06-15</time>
-</a>
-    </div>
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      828 字
+    </span>
   
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
+
   
-    <h1 class="article-title" itemprop="name">
-      JS高阶函数
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
       
-    </h1>
+      
+      10
+       分钟
+    </span>
   
 
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0-react-redux-connect/" rel="tag">高阶函数 react-redux connect</a></li></ul>
-	</div>
+  
+  
+</div>
 
-        
+            
+          </div>
 
-        
-        <div class="clearfix"></div>
+          
+        </div>
       </div>
-      
+    </div>
+  </header>
+
+  <main>
     
-    <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="可以接收另一个参数作为参数的函数，就叫做高阶函数。"><a href="#可以接收另一个参数作为参数的函数，就叫做高阶函数。" class="headerlink" title="可以接收另一个参数作为参数的函数，就叫做高阶函数。"></a>可以接收另一个参数作为参数的函数，就叫做高阶函数。</h2><h3 id="常见高阶函数"><a href="#常见高阶函数" class="headerlink" title="常见高阶函数"></a>常见高阶函数</h3><ol>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h2 id="可以接收另一个参数作为参数的函数，就叫做高阶函数。"><a href="#可以接收另一个参数作为参数的函数，就叫做高阶函数。" class="headerlink" title="可以接收另一个参数作为参数的函数，就叫做高阶函数。"></a>可以接收另一个参数作为参数的函数，就叫做高阶函数。</h2><h3 id="常见高阶函数"><a href="#常见高阶函数" class="headerlink" title="常见高阶函数"></a>常见高阶函数</h3><ol>
 <li>Array.prototype.map,</li>
 <li>Array.prototype.filter,</li>
 <li>Array.prototype.reduce,</li>
@@ -232,13 +213,24 @@
 <ul>
 <li>map 是啥，就不在这里说了，不知道就百度去。map() 方法的回调函数接受 3 个参数。 item index arraySelf 。 item 是数组的每一个元素 ，index 是该元素的下标（数组中的第几个元素），arraySelf 是调用 map 方法的这个数组，当然了，这些参数不是固定叫 item，index 啥的，这是入参，叫啥都行，位置对的上相应的位置就行。比如：</li>
 </ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[1,2,3].map((one,two,three)&#x3D;&gt;&#123;</span><br><span class="line">  &#x2F;&#x2F; 这里的one就对应上面我说的item ，two就是index，这样说就能明白吧？</span><br><span class="line">  return one + two + three.length</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs stata">[1,2,3].map((<span class="hljs-keyword">one</span>,<span class="hljs-keyword">two</span>,three)=&gt;&#123;
+  <span class="hljs-comment">// 这里的one就对应上面我说的item ，two就是index，这样说就能明白吧？</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">one</span> + <span class="hljs-keyword">two</span> + three.length
+&#125;)</code></pre>
 
 <p>map 有返回值，会返回一个新的数组，而类似的 forEach（）方法，就没有返回值，所以哟，用 forEach 的时候经常会搭配 Array.push() 😁 还有啊，写 jsx 的时候，map 遍历出来的玩意你得加个 key 值，通常可以是 index，比如哈，我举个栗子 🌰</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">[1,2,3].map((item, index) &#x3D;&gt; &#123;</span><br><span class="line">  return &lt;li key &#x3D; &#123;index&#125; value &#x3D; &#123;item&#125; &gt;item&lt;&#x2F;li&gt;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;&#x2F;ul&gt;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs javascript">&lt;ul&gt;
+[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>].map(<span class="hljs-function">(<span class="hljs-params">item, index</span>) =&gt;</span> &#123;
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span> = <span class="hljs-string">&#123;index&#125;</span> <span class="hljs-attr">value</span> = <span class="hljs-string">&#123;item&#125;</span> &gt;</span>item<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span>
+&#125;)
+&lt;<span class="hljs-regexp">/ul&gt;</span></code></pre>
 
 <p>这玩意写的好像有点多余。。。好像会 map 的都能知道，不会 map 看了我这也看不懂。😂</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[1,2,3].filter(item&#x3D;&gt;item &gt; 1)</span><br><span class="line"></span><br><span class="line">[1,2,3].reduce((x,y)&#x3D;&gt;&#123;</span><br><span class="line">return x + y</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs angelscript">[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>].filter(item=&gt;item &gt; <span class="hljs-number">1</span>)
+
+[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>].reduce((x,y)=&gt;&#123;
+<span class="hljs-keyword">return</span> x + y
+&#125;)</code></pre>
 
 <p>react-redux</p>
 <p>connect 方法 嘻嘻 弄一波这个～</p>
@@ -248,115 +240,302 @@
 <p>对比 Provider 组件：</p>
 <p>Provider 是顶层组件的作用，将 store 作为上下文提供给全局共享，而 Connect 组件是局部组件，将某个 react 组件包装起来，传递指定的 state 和 props 给该组件访问。</p>
 <h3 id="非常遗憾，我没有彻底看懂-connect-的源码，所以暂时不写什么感想了，留个链接后续再试试继续理解"><a href="#非常遗憾，我没有彻底看懂-connect-的源码，所以暂时不写什么感想了，留个链接后续再试试继续理解" class="headerlink" title="非常遗憾，我没有彻底看懂 connect 的源码，所以暂时不写什么感想了，留个链接后续再试试继续理解"></a>非常遗憾，我没有彻底看懂 connect 的源码，所以暂时不写什么感想了，留个链接后续再试试继续理解</h3><p><a href="https://www.cnblogs.com/williamjie/p/9591826.html" target="_blank" rel="noopener">这是别人博客，connect 解析源码的</a></p>
-<h4 id="发现了另一个博客，简化版的，大概的逻辑就看懂了，但是那个-480-行的源码还是不明白具体咋回事。"><a href="#发现了另一个博客，简化版的，大概的逻辑就看懂了，但是那个-480-行的源码还是不明白具体咋回事。" class="headerlink" title="发现了另一个博客，简化版的，大概的逻辑就看懂了，但是那个 480 行的源码还是不明白具体咋回事。"></a>发现了另一个博客，简化版的，大概的逻辑就看懂了，但是那个 480 行的源码还是不明白具体咋回事。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">export default function connect(mapStateToProps, mapDispatchToProps, mergeProps, options &#x3D; &#123;&#125;) &#123;</span><br><span class="line">return function wrapWithConnect(WrappedComponent) &#123;</span><br><span class="line">  class Connect extends Component &#123;</span><br><span class="line">    constructor(props, context) &#123;</span><br><span class="line">      &#x2F;&#x2F; 从祖先Component处获得store</span><br><span class="line">      this.store &#x3D; props.store || context.store</span><br><span class="line">      this.stateProps &#x3D; computeStateProps(this.store, props)</span><br><span class="line">      this.dispatchProps &#x3D; computeDispatchProps(this.store, props)</span><br><span class="line">      this.state &#x3D; &#123; storeState: null &#125;</span><br><span class="line">      &#x2F;&#x2F; 对stateProps、dispatchProps、parentProps进行合并</span><br><span class="line">      this.updateState()</span><br><span class="line">    &#125;</span><br><span class="line">    shouldComponentUpdate(nextProps, nextState) &#123;</span><br><span class="line">      &#x2F;&#x2F; 进行判断，当数据发生改变时，Component重新渲染</span><br><span class="line">      if (propsChanged || mapStateProducedChange || dispatchPropsChanged) &#123;</span><br><span class="line">        this.updateState(nextProps)</span><br><span class="line">          return true</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      componentDidMount() &#123;</span><br><span class="line">        &#x2F;&#x2F; 改变Component的state</span><br><span class="line">        this.store.subscribe(() &#x3D; &#123;</span><br><span class="line">          this.setState(&#123;</span><br><span class="line">            storeState: this.store.getState()</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">      render() &#123;</span><br><span class="line">        &#x2F;&#x2F; 生成包裹组件Connect</span><br><span class="line">        return (</span><br><span class="line">          &lt;WrappedComponent &#123;...this.nextState&#125; &#x2F;&gt;</span><br><span class="line">        )</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    Connect.contextTypes &#x3D; &#123;</span><br><span class="line">      store: storeShape</span><br><span class="line">    &#125;</span><br><span class="line">    return Connect;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="发现了另一个博客，简化版的，大概的逻辑就看懂了，但是那个-480-行的源码还是不明白具体咋回事。"><a href="#发现了另一个博客，简化版的，大概的逻辑就看懂了，但是那个-480-行的源码还是不明白具体咋回事。" class="headerlink" title="发现了另一个博客，简化版的，大概的逻辑就看懂了，但是那个 480 行的源码还是不明白具体咋回事。"></a>发现了另一个博客，简化版的，大概的逻辑就看懂了，但是那个 480 行的源码还是不明白具体咋回事。</h4><pre><code class="hljs kotlin">export <span class="hljs-keyword">default</span> function connect(mapStateToProps, mapDispatchToProps, mergeProps, options = &#123;&#125;) &#123;
+<span class="hljs-keyword">return</span> function wrapWithConnect(WrappedComponent) &#123;
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Connect</span> <span class="hljs-title">extends</span> <span class="hljs-title">Component</span> </span>&#123;
+    <span class="hljs-keyword">constructor</span>(props, context) &#123;
+      <span class="hljs-comment">// 从祖先Component处获得store</span>
+      <span class="hljs-keyword">this</span>.store = props.store || context.store
+      <span class="hljs-keyword">this</span>.stateProps = computeStateProps(<span class="hljs-keyword">this</span>.store, props)
+      <span class="hljs-keyword">this</span>.dispatchProps = computeDispatchProps(<span class="hljs-keyword">this</span>.store, props)
+      <span class="hljs-keyword">this</span>.state = &#123; storeState: <span class="hljs-literal">null</span> &#125;
+      <span class="hljs-comment">// 对stateProps、dispatchProps、parentProps进行合并</span>
+      <span class="hljs-keyword">this</span>.updateState()
+    &#125;
+    shouldComponentUpdate(nextProps, nextState) &#123;
+      <span class="hljs-comment">// 进行判断，当数据发生改变时，Component重新渲染</span>
+      <span class="hljs-keyword">if</span> (propsChanged || mapStateProducedChange || dispatchPropsChanged) &#123;
+        <span class="hljs-keyword">this</span>.updateState(nextProps)
+          <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+        &#125;
+      &#125;
+      componentDidMount() &#123;
+        <span class="hljs-comment">// 改变Component的state</span>
+        <span class="hljs-keyword">this</span>.store.subscribe(() = &#123;
+          <span class="hljs-keyword">this</span>.setState(&#123;
+            storeState: <span class="hljs-keyword">this</span>.store.getState()
+          &#125;)
+        &#125;)
+      &#125;
+      render() &#123;
+        <span class="hljs-comment">// 生成包裹组件Connect</span>
+        <span class="hljs-keyword">return</span> (
+          &lt;WrappedComponent &#123;...<span class="hljs-keyword">this</span>.nextState&#125; /&gt;
+        )
+      &#125;
+    &#125;
+    Connect.contextTypes = &#123;
+      store: storeShape
+    &#125;
+    <span class="hljs-keyword">return</span> Connect;
+  &#125;
+&#125;</code></pre>
 
-      
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0-react-redux-connect/">高阶函数 react-redux connect</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" target="_blank" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/06/15/dom0-dom2/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">dom0-dom2</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/06/11/router-hash-history/">
+                        <span class="hidden-mobile">前端路由</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
     </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
     
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2020/06/15/dom0-dom2/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">&lt;</strong>
-      <div class="article-nav-title">
-        
-          dom0-dom2
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2020/06/11/router-hash-history/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">前端路由</div>
-      <strong class="article-nav-caption">&gt;</strong>
-    </a>
-  
-</nav>
-
-  
-</article>
-
-
-<div class="ds-share share" data-thread-key="higher-order-function" data-title="JS高阶函数" data-url="http://onepunch.com/2020/06/15/higher-order-function/"  data-images="https://pic3.zhimg.com/80/d74990358e387fe30f9823dd0b694d6e_720w.jpg" data-content="JS高阶函数">
-    <div class="ds-share-inline">
-      <ul  class="ds-share-icons-16">
-      	<li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
-        <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
-        <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
-        <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
-        <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
-      </ul>
-      <div class="ds-share-icons-more">
-      </div>
-    </div>
- </div>
- 
-
-
-
-
-
 </div>
-      <footer id="footer">
-  <div class="outer">
-    <div id="footer-info">
-      <div class="footer-left">
-        &copy; 2020 onePunch
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-        <div class="footer-right">
-          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
         </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
     </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
   </div>
 </footer>
-    </div>
-    
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
   
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
-<script>
-	var yiliaConfig = {
-		fancybox: true,
-		mathjax: true,
-		animate: true,
-		isHome: false,
-		isPost: true,
-		isArchive: false,
-		isTag: false,
-		isCategory: false,
-		open_in_new: false
-	}
-</script>
-
-<script src="/js/main.js"></script>
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
 
 
 
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "JS高阶函数&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
     }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
-});
-</script>
-
-<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+    anchors.add(res.join(", "))
+  </script>
 
 
-  </div>
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>

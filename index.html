@@ -1,1054 +1,686 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
+
+
+
+
+
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
   
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="呱呱">
+  <meta name="author" content="onePunch">
+  <meta name="keywords" content="">
   <title>OnePunchMan</title>
 
-  <!-- keywords -->
-  
-
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="呱呱">
-<meta property="og:type" content="website">
-<meta property="og:title" content="OnePunchMan">
-<meta property="og:url" content="http://onepunch.com/index.html">
-<meta property="og:site_name" content="OnePunchMan">
-<meta property="og:description" content="呱呱">
-<meta property="og:locale" content="en_US">
-<meta property="article:author" content="onePunch">
-<meta name="twitter:card" content="summary">
-  
-    <link rel="alternative" href="/atom.xml" title="OnePunchMan" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="http://7xkj1z.com1.z0.glb.clouddn.com/head.jpg">
-  
-  
-<link rel="stylesheet" href="/css/style.css">
-
-  
-  
-
-  
-<script src="//cdn.bootcss.com/require.js/2.3.2/require.min.js"></script>
-
-  
-<script src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
 
-  
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
 <meta name="generator" content="Hexo 4.2.1"></head>
+
+
 <body>
-  <div id="container">
-    <div id="particles-js"></div>
-    <div class="left-col">
-    <div class="overlay"></div>
-<div class="intrude-less">
-	<header id="header" class="inner">
-		<a href="/" class="profilepic">
-			
-			<img lazy-src="https://pic3.zhimg.com/80/d74990358e387fe30f9823dd0b694d6e_720w.jpg" class="js-avatar">
-			
-		</a>
+  <header style="height: 100vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
 
-		<hgroup>
-		  <h1 class="header-author"><a href="/">onePunch</a></h1>
-		</hgroup>
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
 
-		
-		<p class="header-subtitle">呱呱呱，呱呱～</p>
-		
-
-		
-			<div class="switch-btn">
-				<div class="icon">
-					<div class="icon-ctn">
-						<div class="icon-wrap icon-house" data-idx="0">
-							<div class="birdhouse"></div>
-							<div class="birdhouse_holes"></div>
-						</div>
-						<div class="icon-wrap icon-ribbon hide" data-idx="1">
-							<div class="ribbon"></div>
-						</div>
-						
-						<div class="icon-wrap icon-link hide" data-idx="2">
-							<div class="loopback_l"></div>
-							<div class="loopback_r"></div>
-						</div>
-						
-						
-					</div>
-					
-				</div>
-				<div class="tips-box hide">
-					<div class="tips-arrow"></div>
-					<ul class="tips-inner">
-						<li>菜单</li>
-						<li>标签</li>
-						
-						<li>友情链接</li>
-						
-						
-					</ul>
-				</div>
-			</div>
-		
-
-		<div class="switch-area">
-			<div class="switch-wrap">
-				<section class="switch-part switch-part1">
-					<nav class="header-menu">
-						<ul>
-						
-							<li><a href="/archives">主页</a></li>
-				        
-							<li><a href="/">所有文章</a></li>
-				        
-							<li><a href="/tags">标签</a></li>
-				        
-							<li><a href="http://blog.xcola.top/" target="_blank" rel="noopener">昊儿</a></li>
-				        
-						</ul>
-					</nav>
-					<nav class="header-nav">
-						<div class="social">
-							
-						</div>
-					</nav>
-				</section>
-				
-				
-				<section class="switch-part switch-part2">
-					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/CommonJs-AMD-CMD/" style="font-size: 10px;">CommonJs AMD CMD</a> <a href="/tags/dom0-dom2-%E3%80%81/" style="font-size: 10px;">dom0 dom2 、</a> <a href="/tags/js%E8%BF%90%E8%A1%8C%E5%BE%AA%E7%8E%AF%E6%9C%BA%E5%88%B6-%E5%AE%8F%E4%BB%BB%E5%8A%A1-%E5%BE%AE%E4%BB%BB%E5%8A%A1-%E5%90%8C%E6%AD%A5%E4%BB%BB%E5%8A%A1-%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1/" style="font-size: 10px;">js运行循环机制 宏任务 微任务 同步任务 异步任务</a> <a href="/tags/react%E5%90%88%E6%88%90%E4%BA%8B%E4%BB%B6/" style="font-size: 10px;">react合成事件</a> <a href="/tags/%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1-Hash-History/" style="font-size: 10px;">前端路由 Hash History</a> <a href="/tags/%E5%8A%A0%E6%B2%B9/" style="font-size: 10px;">加油</a> <a href="/tags/%E9%97%AD%E5%8C%85/" style="font-size: 10px;">闭包</a> <a href="/tags/%E9%98%BB%E6%AD%A2%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1-%E9%98%BB%E6%AD%A2%E9%BB%98%E8%AE%A4%E4%BA%8B%E4%BB%B6/" style="font-size: 10px;">阻止事件冒泡 阻止默认事件</a> <a href="/tags/%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0-react-redux-connect/" style="font-size: 10px;">高阶函数 react-redux connect</a>
-					</div>
-				</section>
-				
-				
-				
-				<section class="switch-part switch-part3">
-					<div id="js-friends">
-					
-			          <a target="_blank" class="main-nav-link switch-friends-link" href="http://blog.xcola.top/">smackdown</a>
-			        
-			        </div>
-				</section>
-				
-
-				
-			</div>
-		</div>
-	</header>				
-</div>
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
-    <div class="mid-col">
-      <nav id="mobile-nav">
-  	<div class="overlay">
-  		<div class="slider-trigger"></div>
-  		<h1 class="header-author js-mobile-header hide">onePunch</h1>
-  	</div>
-	<div class="intrude-less">
-		<header id="header" class="inner">
-			<div class="profilepic">
-				<img lazy-src="https://pic3.zhimg.com/80/d74990358e387fe30f9823dd0b694d6e_720w.jpg" class="js-avatar">
-			</div>
-			<hgroup>
-			  <h1 class="header-author">onePunch</h1>
-			</hgroup>
-			
-			<p class="header-subtitle">呱呱呱，呱呱～</p>
-			
-			<nav class="header-menu">
-				<ul>
-				
-					<li><a href="/archives">主页</a></li>
-		        
-					<li><a href="/">所有文章</a></li>
-		        
-					<li><a href="/tags">标签</a></li>
-		        
-					<li><a href="http://blog.xcola.top/" target="_blank" rel="noopener">昊儿</a></li>
-		        
-		        <div class="clearfix"></div>
-				</ul>
-			</nav>
-			<nav class="header-nav">
-				<div class="social">
-					
-				</div>
-			</nav>
-		</header>				
-	</div>
+  </div>
 </nav>
-      <div class="body-wrap">
-  
-    <article id="post-react-syntheticevent" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/06/17/react-syntheticevent/" class="article-date">
-  	<time datetime="2020-06-17T07:44:29.000Z" itemprop="datePublished">2020-06-17</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/17/react-syntheticevent/">
-        React 合成事件
-        
-      </a>
-    </h1>
-  
 
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这个不是很重要，而且想真弄懂，得看源码。我看的是一头雾水。但是大概思路可以表达出来</p>
-<h3 id="React-合成事件一套机制：React-并不是将-click-事件直接绑定在-dom-上面，而是采用事件冒泡的形式冒泡到-document-上面，当事件发生并冒泡至-document-处时，React-将事件内容封装交给中间层-SyntheticEvent（负责所有事件合成），然后-React-将事件封装给正式的函数处理运行和处理。"><a href="#React-合成事件一套机制：React-并不是将-click-事件直接绑定在-dom-上面，而是采用事件冒泡的形式冒泡到-document-上面，当事件发生并冒泡至-document-处时，React-将事件内容封装交给中间层-SyntheticEvent（负责所有事件合成），然后-React-将事件封装给正式的函数处理运行和处理。" class="headerlink" title="React 合成事件一套机制：React 并不是将 click 事件直接绑定在 dom 上面，而是采用事件冒泡的形式冒泡到 document 上面，当事件发生并冒泡至 document 处时，React 将事件内容封装交给中间层 SyntheticEvent（负责所有事件合成），然后 React 将事件封装给正式的函数处理运行和处理。"></a>React 合成事件一套机制：React 并不是将 click 事件直接绑定在 dom 上面，而是采用事件冒泡的形式冒泡到 document 上面，当事件发生并冒泡至 document 处时，React 将事件内容封装交给中间层 SyntheticEvent（负责所有事件合成），然后 React 将事件封装给正式的函数处理运行和处理。</h3><p>为啥有这种 react 合成事件 这种东西？ 存在即合理。（这句话严格意义上讲，要考虑时间的纬度。）<br>如果 dom 上绑定了特别多的事件处理函数，那指定会卡。为了不会卡，所以有了这个 react 合成事件，并且对浏览器兼容性，不用担心 ie 的坑了。</p>
-<h3 id="注意：React-事件和原生事件最好不要混用。原生事件中如果执行了-stopPropagation-方法，则会导致其他-React-事件失效。因为所有元素的事件将无法冒泡到-document-上，导致所有的-React-事件都将无法被触发。"><a href="#注意：React-事件和原生事件最好不要混用。原生事件中如果执行了-stopPropagation-方法，则会导致其他-React-事件失效。因为所有元素的事件将无法冒泡到-document-上，导致所有的-React-事件都将无法被触发。" class="headerlink" title="注意：React 事件和原生事件最好不要混用。原生事件中如果执行了 stopPropagation 方法，则会导致其他 React 事件失效。因为所有元素的事件将无法冒泡到 document 上，导致所有的 React 事件都将无法被触发。"></a>注意：React 事件和原生事件最好不要混用。原生事件中如果执行了 stopPropagation 方法，则会导致其他 React 事件失效。因为所有元素的事件将无法冒泡到 document 上，导致所有的 React 事件都将无法被触发。</h3><p>下面留个链接，是大佬分析源码的东西。<br><a href="https://zhuanlan.zhihu.com/p/25883536" target="_blank" rel="noopener">点击跳转</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/react%E5%90%88%E6%88%90%E4%BA%8B%E4%BB%B6/" rel="tag">react合成事件</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-stoppropagation-preventDefault" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/06/17/stoppropagation-preventDefault/" class="article-date">
-  	<time datetime="2020-06-17T03:32:33.000Z" itemprop="datePublished">2020-06-17</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/17/stoppropagation-preventDefault/">
-        event.stopPropagation()和event.preventDefault()
-        
-      </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="硬核整活。就-3-个玩意儿："><a href="#硬核整活。就-3-个玩意儿：" class="headerlink" title="硬核整活。就 3 个玩意儿："></a>硬核整活。就 3 个玩意儿：</h3><ol>
-<li><p>event.stopPropagation() 阻止冒泡</p>
-</li>
-<li><p>event.preventDefault() 阻止默认事件</p>
-</li>
-<li><p>return false 同时阻止冒泡和默认事件</p>
-</li>
-</ol>
-<h3 id="阻止事件冒泡，能咋滴？"><a href="#阻止事件冒泡，能咋滴？" class="headerlink" title="阻止事件冒泡，能咋滴？"></a>阻止事件冒泡，能咋滴？</h3><p>el.addEventListener(”click“,function(){console.log(‘xxx’)},false) 接受第二个参数是个回调函数吧？函数里有操作吧，有干活吧？<br>这个阻止冒泡，就阻止这个回调函数干活。说的是冒泡奥，捕获不阻止的奥。</p>
-<h3 id="阻止默认事件，能咋滴？"><a href="#阻止默认事件，能咋滴？" class="headerlink" title="阻止默认事件，能咋滴？"></a>阻止默认事件，能咋滴？</h3><p>首先你得知道啥是默认事件，你知不知道？<br>不知道我告诉你呗，反正也是我百度的。职业复制粘贴工程师，给你复制一下：<br>就是浏览器通过 HTML 标签或 DOM 元素提供的一些功能性的默认行为。<br>比如在 a 标签 href 属性上的跳转，右键呼出的菜单，当你在一个 form 表单里点击提交按钮时网页会产生提交行为并刷新网页，当你网页上滚动鼠标滚轮时，网页的滚动条会动。<br>阻止默认事件就能阻止类似这些事</p>
-<h3 id="同时阻止，能咋滴？"><a href="#同时阻止，能咋滴？" class="headerlink" title="同时阻止，能咋滴？"></a>同时阻止，能咋滴？</h3><p>不能咋滴，你 return false 🐂🍺</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>就这两行玩意，不总结了奥。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%98%BB%E6%AD%A2%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1-%E9%98%BB%E6%AD%A2%E9%BB%98%E8%AE%A4%E4%BA%8B%E4%BB%B6/" rel="tag">阻止事件冒泡 阻止默认事件</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-dom0-dom2" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/06/15/dom0-dom2/" class="article-date">
-  	<time datetime="2020-06-15T10:38:20.000Z" itemprop="datePublished">2020-06-15</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/15/dom0-dom2/">
-        dom0-dom2
-        
-      </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="dom0"><a href="#dom0" class="headerlink" title="dom0"></a>dom0</h2><p>或者叫 0 级 dom ，如下</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;input id&#x3D;&quot;btn&quot; type&#x3D;&quot;button&quot; onclick&#x3D;&quot;console.log(&#39;You clicked the button!&#39;);&quot; value&#x3D;&quot;Click&quot; &#x2F;&gt;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F;  或者js写法</span><br><span class="line">document.getElementById(&#39;btn&#39;).onclick &#x3D; function() &#123;</span><br><span class="line">            console.log(&#39;Ｉ　am ｐｒｏｃｅｓｓｅｄ by dom0!&#39;);</span><br><span class="line">        &#125;;</span><br></pre></td></tr></table></figure>
-
-<h3 id="这种写法，后面的代码会覆盖前面的，也就是说如果多次输出，也只会输出最后一条。"><a href="#这种写法，后面的代码会覆盖前面的，也就是说如果多次输出，也只会输出最后一条。" class="headerlink" title="这种写法，后面的代码会覆盖前面的，也就是说如果多次输出，也只会输出最后一条。"></a>这种写法，后面的代码会覆盖前面的，也就是说如果多次输出，也只会输出最后一条。</h3><h2 id="dom2"><a href="#dom2" class="headerlink" title="dom2"></a>dom2</h2><p>或者叫 2 级 dom，继续如下呗</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;input id&#x3D;&#39;input&#39; type&#x3D;&quot;text&quot; onclick&#x3D;&quot;alert(&#39;haha&#39;)&quot; &#x2F;&gt;</span><br><span class="line"> &lt;script&gt;</span><br><span class="line">     document.getElementById(&#39;input&#39;).onclick &#x3D; function() &#123;</span><br><span class="line">         alert(&#39;fff&#39;)</span><br><span class="line">     &#125;; &#x2F;&#x2F; 目标阶段</span><br><span class="line">     document.getElementById(&#39;input&#39;).addEventListener(&#39;click&#39;, function() &#123;</span><br><span class="line">         alert(&#39;mmm&#39;)</span><br><span class="line">     &#125;, true)  &#x2F;&#x2F; 捕获阶段</span><br><span class="line">     document.getElementById(&#39;input&#39;).addEventListener(&#39;click&#39;, function() &#123;</span><br><span class="line">         alert(&#39;ooooo&#39;)</span><br><span class="line">     &#125;, true)  &#x2F;&#x2F; 捕获阶段</span><br><span class="line">     document.getElementById(&#39;input&#39;).addEventListener(&#39;click&#39;, function() &#123;</span><br><span class="line">         alert(&#39;pppp&#39;)</span><br><span class="line">     &#125;, false)  &#x2F;&#x2F; 冒泡阶段</span><br><span class="line"></span><br><span class="line">     &#x2F;&#x2F; 兼容低版本IE的写法</span><br><span class="line">     document.getElementById(&#39;input&#39;).attachEvent(&quot;onclick&quot;, function() &#123;</span><br><span class="line">         alert(&#39;pppp&#39;)</span><br><span class="line">     &#125;);</span><br><span class="line"> &lt;&#x2F;script&gt;</span><br><span class="line"></span><br><span class="line"> &#x2F;&#x2F; mmm ooooo fff pppp</span><br></pre></td></tr></table></figure>
-
-<p>dom2 把事情分为 3 步 ———— 事件捕获阶段、处于目标阶段和事件冒泡阶段</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">addEventListener(&#39;click&#39;,function()&#123;&#125;,true&#x2F;false)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 第一个参数，表明是啥触发事件</span><br><span class="line">&#x2F;&#x2F; 第二个参数，事件触发以后的回调函数</span><br><span class="line">&#x2F;&#x2F; 第三个参数，true或者false ，true是第二个参数那个回调函数在捕获阶段调用 ，false在冒泡阶段 ，默认是false</span><br><span class="line">&#x2F;&#x2F; 2015年底，扩展了第三个参数</span><br><span class="line"></span><br><span class="line">el.addEventListener(type, listener, &#123;</span><br><span class="line">    capture: false, &#x2F;&#x2F; useCapture</span><br><span class="line">    once: false,    &#x2F;&#x2F; 是否设置单次监听</span><br><span class="line">    passive: false  &#x2F;&#x2F; 是否让阻止默认行为preventDefault()失效</span><br><span class="line"></span><br><span class="line">    &#x2F;&#x2F;  由于 touchmove 事件对象的 cancelable 属性为 true，也就是说它的默认行为可以被监听器通过 preventDefault() 方法阻止。那它的默认行为是什么呢，通常来说就是滚动当前页面（还可能是缩放页面），如果它的默认行为被阻止了，页面就必须静止不动。但浏览器无法预先知道一个监听器会不会调用 preventDefault()，它能做的只有等监听器执行完后再去执行默认行为，而监听器执行是要耗时的，有些甚至耗时很明显，这样就会导致页面卡顿。即便监听器是个空函数，也会产生一定的卡顿，毕竟空函数的执行也会耗时。当设置了passive为true，则会忽略代码中的preventDefault(), 因此页面会变得更流畅</span><br><span class="line"></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>window =&gt; document =&gt; body =&gt; div 捕获</p>
-<p>div =&gt; body =&gt; document =&gt; window 冒泡</p>
-<h3 id="这种写法，不会覆盖，会依次输出所有项"><a href="#这种写法，不会覆盖，会依次输出所有项" class="headerlink" title="这种写法，不会覆盖，会依次输出所有项"></a>这种写法，不会覆盖，会依次输出所有项</h3><p>顺便提一嘴 dom3 ，增加了更多的事件类型，比如：<br>       DOM3 级事件在 DOM2 级事件的基础上添加了更多的事件类型，全部类型如下：</p>
-<p>UI 事件，当用户与页面上的元素交互时触发，如：load、scroll</p>
-<p>焦点事件，当元素获得或失去焦点时触发，如：blur、focus</p>
-<p>鼠标事件，当用户通过鼠标在页面执行操作时触发如：dbclick、mouseup</p>
-<p>滚轮事件，当使用鼠标滚轮或类似设备时触发，如：mousewheel</p>
-<p>文本事件，当在文档中输入文本时触发，如：textInput</p>
-<p>键盘事件，当用户通过键盘在页面上执行操作时触发，如：keydown、keypress</p>
-<p>合成事件，当为 IME（输入法编辑器）输入字符时触发，如：compositionstart</p>
-<p>变动事件，当底层 DOM 结构发生变化时触发，如：DOMsubtreeModified</p>
-<p>同时 DOM3 级事件也允许使用者自定义一些事件。</p>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>区别：dom0 会覆盖，dom2 不会覆盖。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/dom0-dom2-%E3%80%81/" rel="tag">dom0 dom2 、</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-higher-order-function" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/06/15/higher-order-function/" class="article-date">
-  	<time datetime="2020-06-15T02:49:49.000Z" itemprop="datePublished">2020-06-15</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/15/higher-order-function/">
-        JS高阶函数
-        
-      </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="可以接收另一个参数作为参数的函数，就叫做高阶函数。"><a href="#可以接收另一个参数作为参数的函数，就叫做高阶函数。" class="headerlink" title="可以接收另一个参数作为参数的函数，就叫做高阶函数。"></a>可以接收另一个参数作为参数的函数，就叫做高阶函数。</h2><h3 id="常见高阶函数"><a href="#常见高阶函数" class="headerlink" title="常见高阶函数"></a>常见高阶函数</h3><ol>
-<li>Array.prototype.map,</li>
-<li>Array.prototype.filter,</li>
-<li>Array.prototype.reduce,</li>
-</ol>
-<p>既然提到了这几个数组方法，那也就顺便说一说哈</p>
-<ul>
-<li>map 是啥，就不在这里说了，不知道就百度去。map() 方法的回调函数接受 3 个参数。 item index arraySelf 。 item 是数组的每一个元素 ，index 是该元素的下标（数组中的第几个元素），arraySelf 是调用 map 方法的这个数组，当然了，这些参数不是固定叫 item，index 啥的，这是入参，叫啥都行，位置对的上相应的位置就行。比如：</li>
-</ul>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[1,2,3].map((one,two,three)&#x3D;&gt;&#123;</span><br><span class="line">  &#x2F;&#x2F; 这里的one就对应上面我说的item ，two就是index，这样说就能明白吧？</span><br><span class="line">  return one + two + three.length</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>map 有返回值，会返回一个新的数组，而类似的 forEach（）方法，就没有返回值，所以哟，用 forEach 的时候经常会搭配 Array.push() 😁 还有啊，写 jsx 的时候，map 遍历出来的玩意你得加个 key 值，通常可以是 index，比如哈，我举个栗子 🌰</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">[1,2,3].map((item, index) &#x3D;&gt; &#123;</span><br><span class="line">  return &lt;li key &#x3D; &#123;index&#125; value &#x3D; &#123;item&#125; &gt;item&lt;&#x2F;li&gt;</span><br><span class="line">&#125;)</span><br><span class="line">&lt;&#x2F;ul&gt;</span><br></pre></td></tr></table></figure>
-
-<p>这玩意写的好像有点多余。。。好像会 map 的都能知道，不会 map 看了我这也看不懂。😂</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[1,2,3].filter(item&#x3D;&gt;item &gt; 1)</span><br><span class="line"></span><br><span class="line">[1,2,3].reduce((x,y)&#x3D;&gt;&#123;</span><br><span class="line">return x + y</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>react-redux</p>
-<p>connect 方法 嘻嘻 弄一波这个～</p>
-<p>connect 方法做的事情是将 state 和 dispatch 绑定到 Connect 组件的参数上，然后 Connect 组件将你当前的 App 组件封装起来，使得 App 组件可以通过 props 获取到父组件 Connect 传递的 state 和 props。</p>
-<p>这也就是为什么你可以在自己写的组件上面直接通过 this.props 访问到 state 和 action。有的人是通过 store 去读取 state 和 dispatch action，也是一样的道理。</p>
-<p>从 connect 方法的实现，我们看到了非常多 react 组件的影子，生命周期，props 传递，context 上下文。</p>
-<p>对比 Provider 组件：</p>
-<p>Provider 是顶层组件的作用，将 store 作为上下文提供给全局共享，而 Connect 组件是局部组件，将某个 react 组件包装起来，传递指定的 state 和 props 给该组件访问。</p>
-<h3 id="非常遗憾，我没有彻底看懂-connect-的源码，所以暂时不写什么感想了，留个链接后续再试试继续理解"><a href="#非常遗憾，我没有彻底看懂-connect-的源码，所以暂时不写什么感想了，留个链接后续再试试继续理解" class="headerlink" title="非常遗憾，我没有彻底看懂 connect 的源码，所以暂时不写什么感想了，留个链接后续再试试继续理解"></a>非常遗憾，我没有彻底看懂 connect 的源码，所以暂时不写什么感想了，留个链接后续再试试继续理解</h3><p><a href="https://www.cnblogs.com/williamjie/p/9591826.html" target="_blank" rel="noopener">这是别人博客，connect 解析源码的</a></p>
-<h4 id="发现了另一个博客，简化版的，大概的逻辑就看懂了，但是那个-480-行的源码还是不明白具体咋回事。"><a href="#发现了另一个博客，简化版的，大概的逻辑就看懂了，但是那个-480-行的源码还是不明白具体咋回事。" class="headerlink" title="发现了另一个博客，简化版的，大概的逻辑就看懂了，但是那个 480 行的源码还是不明白具体咋回事。"></a>发现了另一个博客，简化版的，大概的逻辑就看懂了，但是那个 480 行的源码还是不明白具体咋回事。</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">export default function connect(mapStateToProps, mapDispatchToProps, mergeProps, options &#x3D; &#123;&#125;) &#123;</span><br><span class="line">return function wrapWithConnect(WrappedComponent) &#123;</span><br><span class="line">  class Connect extends Component &#123;</span><br><span class="line">    constructor(props, context) &#123;</span><br><span class="line">      &#x2F;&#x2F; 从祖先Component处获得store</span><br><span class="line">      this.store &#x3D; props.store || context.store</span><br><span class="line">      this.stateProps &#x3D; computeStateProps(this.store, props)</span><br><span class="line">      this.dispatchProps &#x3D; computeDispatchProps(this.store, props)</span><br><span class="line">      this.state &#x3D; &#123; storeState: null &#125;</span><br><span class="line">      &#x2F;&#x2F; 对stateProps、dispatchProps、parentProps进行合并</span><br><span class="line">      this.updateState()</span><br><span class="line">    &#125;</span><br><span class="line">    shouldComponentUpdate(nextProps, nextState) &#123;</span><br><span class="line">      &#x2F;&#x2F; 进行判断，当数据发生改变时，Component重新渲染</span><br><span class="line">      if (propsChanged || mapStateProducedChange || dispatchPropsChanged) &#123;</span><br><span class="line">        this.updateState(nextProps)</span><br><span class="line">          return true</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      componentDidMount() &#123;</span><br><span class="line">        &#x2F;&#x2F; 改变Component的state</span><br><span class="line">        this.store.subscribe(() &#x3D; &#123;</span><br><span class="line">          this.setState(&#123;</span><br><span class="line">            storeState: this.store.getState()</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;</span><br><span class="line">      render() &#123;</span><br><span class="line">        &#x2F;&#x2F; 生成包裹组件Connect</span><br><span class="line">        return (</span><br><span class="line">          &lt;WrappedComponent &#123;...this.nextState&#125; &#x2F;&gt;</span><br><span class="line">        )</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    Connect.contextTypes &#x3D; &#123;</span><br><span class="line">      store: storeShape</span><br><span class="line">    &#125;</span><br><span class="line">    return Connect;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0-react-redux-connect/" rel="tag">高阶函数 react-redux connect</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-router-hash-history" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/06/11/router-hash-history/" class="article-date">
-  	<time datetime="2020-06-11T10:05:10.000Z" itemprop="datePublished">2020-06-11</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/11/router-hash-history/">
-        前端路由
-        
-      </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="什么是前端路由？"><a href="#什么是前端路由？" class="headerlink" title="什么是前端路由？"></a>什么是前端路由？</h2><p>路由的概念来源于服务端，在服务端中路由描述的是 URL 与处理函数之间的映射关系。</p>
-<p>在 Web 前端单页应用 SPA(Single Page Application)中，路由描述的是 URL 与 UI 之间的映射关系，这种映射是单向的，即 URL 变化引起 UI 更新（无需刷新页面）。</p>
-<h2 id="如何实现前端路由？"><a href="#如何实现前端路由？" class="headerlink" title="如何实现前端路由？"></a>如何实现前端路由？</h2><p>要实现前端路由，需要解决两个核心问题：</p>
-<p>1.如何改变 URL 却不引起页面刷新？ 2.如何检测 URL 变化了？</p>
-<h3 id="hash-实现"><a href="#hash-实现" class="headerlink" title="hash 实现"></a>hash 实现</h3><p>hash 是 URL 中 hash (#) 及后面的那部分，常用作锚点在页面内进行导航，改变 URL 中的 hash 部分不会引起页面刷新<br>通过 hashchange 事件监听 URL 的变化，改变 URL 的方式只有这几种：通过浏览器前进后退改变 URL、通过标签改变 URL、通过 window.location 改变 URL，这几种情况改变 URL 都会触发 hashchange 事件</p>
-<h3 id="history-实现"><a href="#history-实现" class="headerlink" title="history 实现"></a>history 实现</h3><p>history 提供了 pushState 和 replaceState 两个方法，这两个方法改变 URL 的 path 部分不会引起页面刷新<br>history 提供类似 hashchange 事件的 popstate 事件，但 popstate 事件有些不同：通过浏览器前进后退改变 URL 时会触发 popstate 事件，通过 pushState/replaceState 或标签改变 URL 不会触发 popstate 事件。好在我们可以拦截 pushState/replaceState 的调用和标签的点击事件来检测 URL 变化，所以监听 URL 变化可以实现，只是没有 hashchange 那么方便。</p>
-<h2 id="hash-实现（简略版）"><a href="#hash-实现（简略版）" class="headerlink" title="hash 实现（简略版）"></a>hash 实现（简略版）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">ref&#x3D;&quot;&quot;&gt;    &lt;!-- 定义路由 --&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href&#x3D;&quot;#&#x2F;home&quot;&gt;home&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href&#x3D;&quot;#&#x2F;about&quot;&gt;about&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;</span><br><span class="line"></span><br><span class="line">ref&#x3D;&quot;&quot;&gt;    &lt;!-- 渲染路由对应的 UI --&gt;</span><br><span class="line">    &lt;div id&#x3D;&quot;routeView&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;ul&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 页面加载完不会触发 hashchange，这里主动触发一次 hashchange 事件</span><br><span class="line">window.addEventListener(&#39;DOMContentLoaded&#39;, onLoad)</span><br><span class="line">&#x2F;&#x2F; 监听路由变化</span><br><span class="line">window.addEventListener(&#39;hashchange&#39;, onHashChange)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 路由视图</span><br><span class="line">var routerView &#x3D; null</span><br><span class="line"></span><br><span class="line">function onLoad () &#123;</span><br><span class="line">  routerView &#x3D; document.querySelector(&#39;#routeView&#39;)</span><br><span class="line">  onHashChange()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 路由变化时，根据路由渲染对应 UI</span><br><span class="line">function onHashChange () &#123;</span><br><span class="line">  switch (location.hash) &#123;</span><br><span class="line">    case &#39;#&#x2F;home&#39;:</span><br><span class="line">      routerView.innerHTML &#x3D; &#39;Home&#39;</span><br><span class="line">      return</span><br><span class="line">    case &#39;#&#x2F;about&#39;:</span><br><span class="line">      routerView.innerHTML &#x3D; &#39;About&#39;</span><br><span class="line">      return</span><br><span class="line">    default:</span><br><span class="line">      return</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="history-实现（简略版）"><a href="#history-实现（简略版）" class="headerlink" title="history 实现（简略版）"></a>history 实现（简略版）</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;ul&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href&#x3D;&#39;&#x2F;home&#39;&gt;home&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;</span><br><span class="line">    &lt;li&gt;&lt;a href&#x3D;&#39;&#x2F;about&#39;&gt;about&lt;&#x2F;a&gt;&lt;&#x2F;li&gt;</span><br><span class="line"></span><br><span class="line">    &lt;div id&#x3D;&quot;routeView&quot;&gt;&lt;&#x2F;div&gt;</span><br><span class="line">  &lt;&#x2F;ul&gt;</span><br><span class="line">&lt;&#x2F;body&gt;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 页面加载完不会触发 hashchange，这里主动触发一次 hashchange 事件</span><br><span class="line">window.addEventListener(&#39;DOMContentLoaded&#39;, onLoad)</span><br><span class="line">&#x2F;&#x2F; 监听路由变化</span><br><span class="line">window.addEventListener(&#39;popstate&#39;, onPopState)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 路由视图</span><br><span class="line">var routerView &#x3D; null</span><br><span class="line"></span><br><span class="line">function onLoad () &#123;</span><br><span class="line">  routerView &#x3D; document.querySelector(&#39;#routeView&#39;)</span><br><span class="line">  onPopState()</span><br><span class="line"></span><br><span class="line"> href&#x3D;&quot;&quot;&gt;  &#x2F;&#x2F; 拦截 &lt;a&gt; 标签点击事件默认行为， 点击时使用 pushState 修改 URL并更新手动 UI，从而实现点击链接更新 URL 和 UI 的效果。</span><br><span class="line">  var linkList &#x3D; document.querySelectorAll(&#39;a[href]&#39;)</span><br><span class="line">  linkList.forEach(el &#x3D;&gt; el.addEventListener(&#39;click&#39;, function (e) &#123;</span><br><span class="line">    e.preventDefault()</span><br><span class="line">    history.pushState(null, &#39;&#39;, el.getAttribute(&#39;href&#39;))</span><br><span class="line">    onPopState()</span><br><span class="line">  &#125;))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 路由变化时，根据路由渲染对应 UI</span><br><span class="line">function onPopState () &#123;</span><br><span class="line">  switch (location.pathname) &#123;</span><br><span class="line">    case &#39;&#x2F;home&#39;:</span><br><span class="line">      routerView.innerHTML &#x3D; &#39;Home&#39;</span><br><span class="line">      return</span><br><span class="line">    case &#39;&#x2F;about&#39;:</span><br><span class="line">      routerView.innerHTML &#x3D; &#39;About&#39;</span><br><span class="line">      return</span><br><span class="line">    default:</span><br><span class="line">      return</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="总结：前端路由，在-SPA-单页面应用中，非常重要。路由对应组件渲染，不用发请求。远古时代路由跳转可是要发请求，后端返回页面的鸭。。。"><a href="#总结：前端路由，在-SPA-单页面应用中，非常重要。路由对应组件渲染，不用发请求。远古时代路由跳转可是要发请求，后端返回页面的鸭。。。" class="headerlink" title="总结：前端路由，在 SPA 单页面应用中，非常重要。路由对应组件渲染，不用发请求。远古时代路由跳转可是要发请求，后端返回页面的鸭。。。"></a>总结：前端路由，在 SPA 单页面应用中，非常重要。路由对应组件渲染，不用发请求。远古时代路由跳转可是要发请求，后端返回页面的鸭。。。</h2>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1-Hash-History/" rel="tag">前端路由 Hash History</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-commonjs-amd-cmd" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/06/10/commonjs-amd-cmd/" class="article-date">
-  	<time datetime="2020-06-10T06:27:33.000Z" itemprop="datePublished">2020-06-10</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/10/commonjs-amd-cmd/">
-        JS模块化的发展历程
-        
-      </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>随便写点 js 模块化发展历史，面试有问这玩意的，随便看看到时候能答出来几句就 ok，顺便咱也了解一下 js 的这方面历史。</strong></p>
-<p>1.js 的诞生：由 Brendan Eich 花了不到十天时间发明，用来在网页上进行表单校验、实现简单的动画效果等等，你可以回想一下那个网页上到处有公告块飘来飘去的时代。<br>2.2006 年 ajax 出现，js 开始发展。全局变量开始让人头疼了，函数命名开始冲突了 3.所以 js 需要，也必须要整模块化</p>
-<p>需要解决的问题是：</p>
-<ul>
-<li>如何安全的包装一个模块的代码？（不污染模块外的任何代码）</li>
-<li>如何唯一标识一个模块？</li>
-<li>如何优雅的把模块的 API 暴漏出去？（不能增加全局变量）</li>
-<li>如何方便的使用所依赖的模块？</li>
-</ul>
-<p>2009 年，node.js 诞生，这下模块化必须马上整了，要不然服务端没法弄了 所以 当当当当～ CommonJs 闪亮登场</p>
-<h2 id="CommonJs"><a href="#CommonJs" class="headerlink" title="CommonJs"></a>CommonJs</h2><p>简单来说呢，commonJs 就是，exports 暴露 API，require 引入该 API 的模块，</p>
-<p>缺点，得发请求啊 这玩意就不太好了</p>
-<h2 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h2><p>异步加载所需的模块，然后在回调函数中执行主逻辑。</p>
-<p>缺点：预先下载太多东西，而且定义模块的时候写法复杂，最重要的是，它实时下载代码然后触发回调，主体代码运行。用户会有卡顿感。</p>
-<h2 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h2><p>淘宝前端 玉伯 整出来的，融各家所长，没啥缺点</p>
-<h2 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h2><p>2015 年 6 月，es6 来了，export 暴露，import 引入，编译时加载（静态加载）</p>
-<h2 id="总结，就这点内容，还总结啥？告辞～"><a href="#总结，就这点内容，还总结啥？告辞～" class="headerlink" title="总结，就这点内容，还总结啥？告辞～"></a>总结，就这点内容，还总结啥？告辞～</h2>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CommonJs-AMD-CMD/" rel="tag">CommonJs AMD CMD</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-bi-bao" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/06/09/bi-bao/" class="article-date">
-  	<time datetime="2020-06-09T03:46:06.000Z" itemprop="datePublished">2020-06-09</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/09/bi-bao/">
-        闭包，老铁安排上
-        
-      </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>呱呱，啥是闭包？<br>天天写闭包，但是让表达出来，还真有点懵住了，<br>这玩意我都记在心里，话说不出口，都在酒里了，干杯～</p>
-<hr>
-<h3 id="闭包是啥？"><a href="#闭包是啥？" class="headerlink" title="闭包是啥？"></a>闭包是啥？</h3><p>来几个官方回答，可以应付面试</p>
-<ul>
-<li>闭包是一个有自己环境的函数，并且在该环境中至少有一个变量。</li>
-<li>闭包是将函数与其引用的周边状态绑定在一起形成（封装）的组合</li>
-<li>闭包函数是声明在一个函数中的函数</li>
-<li>闭包是内部函数总是可以访问其所在的外部函数中生命的参数和变量，即使在其外部函数被返回以后</li>
-</ul>
-<h3 id="闭包特点（优缺点都有哈）"><a href="#闭包特点（优缺点都有哈）" class="headerlink" title="闭包特点（优缺点都有哈）"></a>闭包特点（优缺点都有哈）</h3><ul>
-<li><p>让外部访问函数内部变量成为可能；</p>
-</li>
-<li><p>局部变量会常驻在内存中；</p>
-</li>
-<li><p>可以避免使用全局变量，防止全局变量污染；(不用担心变量名重复，不过都 2020 年了，谁还频繁用 var 声明变量啊。)</p>
-</li>
-<li><p>会造成内存泄漏（有一块内存空间被长期占用，而不被释放）</p>
-<p>闭包就是可以创建一个独立的环境，每个闭包里面的环境都是独立的，互不干扰。<strong>每次外部函数执行的时候，外部函数的引用地址不同，都会重新创建一个新的地址。</strong>但凡是当前活动对象中有被内部子集引用的数据，那么这个时候，这个数据不删除，保留一根指针给内部活动对象。所以啊，当有很多很多闭包的时候，或者闭包被调用很多很多次的时候，那么就会内存泄漏了。</p>
-</li>
-</ul>
-<p><em>然后面试的时候，可能会遇见一些笔试题，面试官整一个函数，让你写输出的值，设计个圈套坑你，怎么办？不慌！有秘诀～</em></p>
-<p><strong>秘诀在此：输出的就是同一个地址中的爸爸函数中的变量值</strong></p>
-<p>如此简单粗暴的秘诀，喜欢吗？</p>
-<p>光说不练假把式，下面我来表演绝活：举个栗子 🌰</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function funA()&#123;</span><br><span class="line">  var a &#x3D; 10;  &#x2F;&#x2F; funA的活动对象之中;</span><br><span class="line">  return function()&#123;   &#x2F;&#x2F;匿名函数的活动对象;</span><br><span class="line">        alert(a);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">var b &#x3D; funA();</span><br><span class="line">b();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 10</span><br></pre></td></tr></table></figure>
-
-<p>由浅入深，先从这个简单的开始，套入秘诀，<em>同一个地址中的爸爸函数中的变量值</em> 啥叫同一个地址呢，就是被同一个人调用，在这个栗子里面，就是这个：</p>
-<p>var b = funA（）<br>b()</p>
-<p>这个 b 就是个地址，如果多一个 var c = funA（） 然后调用 c（），那么这个 c 就是另一个地址。</p>
-<p>地址就明白了吧～<br>然后找爸爸，爸爸的爸爸叫什么，爸爸的的爸爸叫爷爷。。。哈哈 ，皮一下</p>
-<p>回到找爹的正事上来，alert（a）是儿子，他爸在外边包住了它，就是这个 funA 是它爸。也可以理解为怀孕的母亲，和肚子里的孩子。（谁在里面谁儿子）</p>
-<p>所以找到了它爸爸里面的变量 a=10 ，所以输出 10</p>
-<p>好的，很开心，我们看下一个栗子 🌰</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">function zhujunFn()&#123;</span><br><span class="line">  var i &#x3D; 0;</span><br><span class="line">  function xcolaFn()&#123;</span><br><span class="line">      i++;</span><br><span class="line">      console.log(i);</span><br><span class="line">  &#125;</span><br><span class="line">  return xcolaFn;</span><br><span class="line">&#125;</span><br><span class="line">var aaa &#x3D; zhujunFn();  &#x2F;&#x2F;每次外部函数执行的时候,外部函数的地址不同，都会重新创建一个新的地址,这个aaa是个新的地址</span><br><span class="line">aaa();</span><br><span class="line">aaa();</span><br><span class="line">aaa();</span><br><span class="line">var bbb &#x3D; zhujunFn();  &#x2F;&#x2F;  所以这也是一个新的地址，aaa和bbb 是两个不同的地址</span><br><span class="line">bbb();</span><br><span class="line">bbb();</span><br><span class="line">bbb();</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 1 2 3 1 2 3</span><br></pre></td></tr></table></figure>
-
-<p>先重复一下我们的秘诀，然后找爹</p>
-<ul>
-<li><p><em>同一个地址中的爸爸函数中的变量值</em></p>
-<p>aaa 和 bbb 分别是两个地址，是独立的</p>
-<p>然后给这个 <strong>xcolaFn</strong> 找爹，是外边这个 <strong>zhujunFn</strong>，然后找到里面的这个变量 i，每次调用 aaa（）输出 i 为 1，2，3</p>
-<p>每次调用 bbb（）是新的地址，独立的，所以也是一样的道理 输出 i 为 1，2，3</p>
-</li>
-</ul>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我没啥想总结了，有营养的都在上边了，如果看完了发现还是不太明白，那一定是我没说清楚，不怪你，那就再看看这个人对闭包的理解吧，会有帮助的<br>链接在此：<a href="http://blog.xcola.top/2018/05/23/%E5%AF%B9%E9%97%AD%E5%8C%85%E7%9A%84%E7%90%86%E8%A7%A3/" target="_blank" rel="noopener">请点击这里</a></p>
-<p><strong>冲鸭，奥利给</strong></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E9%97%AD%E5%8C%85/" rel="tag">闭包</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-event-loop" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/06/08/event-loop/" class="article-date">
-  	<time datetime="2020-06-08T12:07:44.000Z" itemprop="datePublished">2020-06-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/08/event-loop/">
-        Js事件循环机制
-        
-      </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>js 引擎存在 monitoring process 进程，会持续不断的检查主线程执行栈是否为空，一旦为空，就会去 Event Queue 那里检查是否有等待被调用的函数。</li>
-<li>这个过程是循环不断的，所以整个的这种运行机制又称为 Event Loop（事件循环）</li>
-</ul>
-<ul>
-<li>所有同步任务都在主线程上执行，形成一个执行栈（execution context stack）</li>
-<li>如果在微任务执行期间微任务队列加入了新的微任务，会将新的微任务加入队列尾部，之后也会被执行</li>
-</ul>
-<h5 id="看不懂没关系，先往下看，回过头来就理解这些了，老铁！"><a href="#看不懂没关系，先往下看，回过头来就理解这些了，老铁！" class="headerlink" title="看不懂没关系，先往下看，回过头来就理解这些了，老铁！"></a>看不懂没关系，先往下看，回过头来就理解这些了，老铁！</h5><h3 id="js-中的异步操作"><a href="#js-中的异步操作" class="headerlink" title="js 中的异步操作"></a>js 中的异步操作</h3><ul>
-<li>setTimeOut</li>
-<li>setInterval</li>
-<li>ajax</li>
-<li>promise</li>
-<li>I/O</li>
-</ul>
-<h3 id="同步任务-异步任务"><a href="#同步任务-异步任务" class="headerlink" title="同步任务 - 异步任务"></a>同步任务 - 异步任务</h3><ul>
-<li>同步任务是在主线程上排队执行的任务，只有前一个任务执行完毕，才能执行下一个任务</li>
-<li>异步任务 不进入主线程，而是进入 任务队列 ，只有 任务队列 通知主线程，某个异步任务可以执行了，该任务才会进入主线程执行。</li>
-</ul>
-<h3 id="宏任务-微任务"><a href="#宏任务-微任务" class="headerlink" title="宏任务 - 微任务"></a>宏任务 - 微任务</h3><ul>
-<li>宏任务：整体代码 script/setTimeOut 等（new Promise 会进入主线程立刻执行，是主线程任务）</li>
-<li>微任务：promise.then/promise.nextTick (node)</li>
-</ul>
-<hr>
-<p>举个栗子</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">console.log(1)</span><br><span class="line">setTimeOut(function()&#123;</span><br><span class="line">  console.log(2)</span><br><span class="line">&#125;,0)</span><br><span class="line">console.log(3)</span><br></pre></td></tr></table></figure>
-
-<p>执行结果 1 3 2</p>
-<p><strong>因为 setTimeOut 是异步任务，所以哪怕是 0 秒等待，也会等主线程任务都完事了以后才执行，下边是详细解析</strong></p>
-<p>1.console.log(1)是同步任务，直接打印 1；</p>
-<p>2.setTimeout 是异步任务，且是宏函数，放到宏函数队列中，等待下次 Event Loop 才会执行；</p>
-<p>3.console.log(3)是同步任务，直接打印 3；</p>
-<p>4.主线程执行完毕，没有微任务，那么执行第二个宏任务 setTimeout，打印 2；</p>
-<p>5.结果：1，3，2</p>
-<p><strong>也就是说，如果有 promise，那是同步任务，等所有同步任务完事，开始执行这个 promise.then，再然后才是 setTimeOut 啥的。</strong></p>
-<hr>
-<p>举个栗子</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(function()&#123;</span><br><span class="line">    console.log(1)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">new Promise(function(resolve)&#123;</span><br><span class="line">    console.log(2);</span><br><span class="line">    for(var i &#x3D; 0; i &lt; 10000; i++)&#123;</span><br><span class="line">        i &#x3D;&#x3D; 9999 &amp;&amp; resolve();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;).then(function()&#123;</span><br><span class="line">    console.log(3)</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">console.log(4);</span><br></pre></td></tr></table></figure>
-
-<p>输出 2 ， 4 ， 3， 1</p>
-<p>1.setTimeout 是异步，且是宏函数，放到宏函数队列中；</p>
-<p>2.new Promise 是同步任务，直接执行，打印 2，并执行 for 循环；</p>
-<p>3.promise.then 是微任务，放到微任务队列中；</p>
-<p>4.console。log(4)同步任务，直接执行，打印 4；</p>
-<p>5.此时主线程任务执行完毕，检查微任务队列中，有 promise.then，执行微任务，打印 3，</p>
-<p>6.微任务执行完毕，第一次循环结束；从宏任务队列中取出第一个宏任务到主线程执行，打印 1</p>
-<hr>
-<p><em>再举个厉害的栗子吧</em></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">function add(x, y) &#123;</span><br><span class="line">  console.log(1)</span><br><span class="line">  setTimeout(function() &#123; &#x2F;&#x2F; timer1</span><br><span class="line">    console.log(2)</span><br><span class="line">  &#125;, 1000)</span><br><span class="line">&#125;</span><br><span class="line">add();</span><br><span class="line"></span><br><span class="line">setTimeout(function() &#123; &#x2F;&#x2F; timer2</span><br><span class="line">  console.log(3)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">new Promise(function(resolve) &#123;</span><br><span class="line">  console.log(4)</span><br><span class="line">  setTimeout(function() &#123; &#x2F;&#x2F; timer3</span><br><span class="line">    console.log(5)</span><br><span class="line">  &#125;, 100)</span><br><span class="line">  for(var i &#x3D; 0; i &lt; 100; i++) &#123;</span><br><span class="line">    i &#x3D;&#x3D; 99 &amp;&amp; resolve()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;).then(function() &#123;</span><br><span class="line">  setTimeout(function() &#123; &#x2F;&#x2F; timer4</span><br><span class="line">    console.log(6)</span><br><span class="line">  &#125;, 0)</span><br><span class="line">  console.log(7)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">console.log(8)</span><br></pre></td></tr></table></figure>
-
-<p>结果 1， 4， 8， 7， 3， 6， 5， 2，<br>这就不解析了，这回弄懂了吧。</p>
-<hr>
-<p><strong>总结：这是个循环，第一次循环先搞定所有主线程任务，完事以后看看有没有微任务，如果有，执行，然后结束第一次循环，如果没有，就直接结束第一次循环，，，然后开始第二次循环，找到宏任务里边最先执行那个，执行，所有都执行完事，然后看有没有微任务，如果有。。。如果没有。。。。你看这句话上面也说过，这就是循环啊，然后继续循环啊，直到没有宏任务，也没有微任务。循环就完事了呗</strong></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js%E8%BF%90%E8%A1%8C%E5%BE%AA%E7%8E%AF%E6%9C%BA%E5%88%B6-%E5%AE%8F%E4%BB%BB%E5%8A%A1-%E5%BE%AE%E4%BB%BB%E5%8A%A1-%E5%90%8C%E6%AD%A5%E4%BB%BB%E5%8A%A1-%E5%BC%82%E6%AD%A5%E4%BB%BB%E5%8A%A1/" rel="tag">js运行循环机制 宏任务 微任务 同步任务 异步任务</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-my-first" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/06/08/my-first/" class="article-date">
-  	<time datetime="2020-06-08T03:04:28.000Z" itemprop="datePublished">2020-06-08</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/08/my-first/">
-        好的开始，我只是想变强
-        
-      </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="so-what-can-i-do"><a href="#so-what-can-i-do" class="headerlink" title="so what can i do"></a>so what can i do</h3><p>先写个开头，顺便复习一下 markdown，是的，没错，我又忘记 markdown 怎么用了，为了避免再次忘记，要尽量多的使用，<br>比如</p>
-<ul>
-<li>1 尽量频繁的写博客</li>
-<li>2 尽量频繁的写博客</li>
-<li>3 还是 tmd 尽量频繁的写博客</li>
-</ul>
-<p>无序列表用*<br>有序列表用 1.</p>
-<p>比如</p>
-<ol>
-<li>这是有序的</li>
-<li>我是有头发的</li>
-<li>第三条不重要</li>
-</ol>
-<p>加个大于号 后边是文字 展示效果是引用</p>
-<blockquote>
-<p>这是鲁迅说的 —— 周树人</p>
-</blockquote>
-<p>插入链接 <a href="就当这里有链接">xxx</a> 英文书名号加小括号</p>
-<p>插入图片 前边有个感叹号 <img src="%E5%B0%B1%E5%BD%93%E8%BF%99%E9%87%8C%E6%9C%89%E9%93%BE%E6%8E%A5%E5%90%A7" alt="假装有图.jpg"> 英文感叹号加书名号加小括号</p>
-<p><strong>左右各两个星号中间夹的会加粗，请给我加粗</strong><br><em>左右各一个星号就倾斜</em></p>
-<p>模版字符串中间可以放代码，比如<br><code>const wanghao = &#39;辣鸡&#39;</code><br>左右各三个这玩意，可以夹住代码块，let me try try<br>···不好意思，整错了···</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">let a &#x3D; 1;</span><br><span class="line">a &#x3D; 2;</span><br><span class="line">a &#x3D; b &#x3D; 2;</span><br></pre></td></tr></table></figure>
-
-<p>tab 可以缩进，这就是为啥现在才有缩进，我刚看到。<br>非常开心，再来几个缩进<br>三个星号是分割线</p>
-<hr>
-<p><strong>行，这就算复习完事，接下来我随便写写。</strong><br><strong>别问我为啥加粗，我就喜欢粗，并且不缩进，真男人从来不做缩头乌龟</strong></p>
-<h2 id="我还能更粗"><a href="#我还能更粗" class="headerlink" title="我还能更粗"></a>我还能更粗</h2><p>最近经历了好多的事情，事情都是相对的，辩证去看，也无所谓好坏。<br>但是很多事情，我都不喜欢，不如意事常八九，可与人言无二三。<br>敲了很多字，又都删掉了。觉得没有意义。自己和自己的辩论，总归赢的也是自己。<br>自己和自己探讨人生观，价值观，也未免太无趣，还要写在这里记录下来，也未免太他妈的无趣<br>总而言之，我就一句话，我想变强。</p>
-<hr>
-<p><em>我没觉得喜欢这个行业，但是我喜欢自己变强的感觉。</em></p>
-<p>开始整活！<br><strong>奥利给</strong></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/%E5%8A%A0%E6%B2%B9/" rel="tag">加油</a></li></ul>
-	</div>
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2020/06/05/hello-world/" class="article-date">
-  	<time datetime="2020-06-05T10:31:57.661Z" itemprop="datePublished">2020-06-05</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2020/06/05/hello-world/">
-        Hello World
-        
-      </a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-      
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-  
-</div>
-      <footer id="footer">
-  <div class="outer">
-    <div id="footer-info">
-      <div class="footer-left">
-        &copy; 2020 onePunch
-      </div>
-        <div class="footer-right">
-          <a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/smackgg/hexo-theme-smackdown" target="_blank">Smackdown</a>
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/qiyumoon.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+          </div>
+
+          
+            <div class="scroll-down-bar">
+              <i class="iconfont icon-arrowdown"></i>
+            </div>
+          
         </div>
+      </div>
     </div>
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-md">
+        <div class="py-5" id="board"
+          style=margin-top:0>
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/06/24/network-protocol/">网络协议</a>
+
+      <a href="/2020/06/24/network-protocol/" class="index-excerpt">
+        
+        
+          
+        
+        <div>五层协议体系结构:物理层、数据链路层、网络层、运输层、应用层.物理层
+物理层的主要任务是确定与传输媒体接口的特性.如机械特性、电气特性、功能特性、过程特性.
+中继器：又叫转发器，功能是将信号整形放大再转发出去，以消除信号的失真和衰减，扩大网络传输的距离，其原理是信号再生，仅作用于电气部分，不管数据中是否有错误
+集线器(HUB):实质上是多端口的中继器，也工作在物理层。一口接受数据信号，将其整形放大</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-06-24
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/http-tcp/">http tcp</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/06/23/phone-interview/">面试相关</a>
+
+      <a href="/2020/06/23/phone-interview/" class="index-excerpt">
+        
+        
+          
+        
+        <div>别人的博客
+</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-06-23
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%94%B5%E8%AF%9D%E9%9D%A2%E8%AF%95/">电话面试</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/06/23/scope/">作用域</a>
+
+      <a href="/2020/06/23/scope/" class="index-excerpt">
+        
+        
+          
+        
+        <div>作用域就是变量与函数的可访问范围，即作用域控制着变量与函数的可见性和生命周期。1. 全局作用域任何地方都能访问到的对象拥有全局作用域。1.1 函数外面定义的变量拥有全局作用域1.2 未定义直接赋值的变量自动声明为拥有全局作用域1.3.window 对象的属性拥有全局作用
+2. 局部作用域函数内部的作用域为局部作用域
+作用域链通俗地讲，当声明一个函数时，局部作用域一级一级向上包起来，就是作用域链。
+</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-06-23
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E4%BD%9C%E7%94%A8%E5%9F%9F-%E4%BD%9C%E7%94%A8%E5%9F%9F%E9%93%BE/">作用域 作用域链</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/06/18/hardcore-process/">从输入URL到页面渲染</a>
+
+      <a href="/2020/06/18/hardcore-process/" class="index-excerpt">
+        
+        
+          
+        
+        <div>前言：不知道这玩意儿，前端也能干活。但是得进步啊。当学会了这玩意儿，对网络的理解会举头望明月，更上一层楼。反正百利而无一害。嘿嘿，开始整活～
+第一步，手放在键盘上敲出 url，然后回车，咔哒一敲！然后页面就出来了，是不是很简单～ 😁让我们的学习气氛轻松起来～ 下面正式开始，我敲个 url：
+https://onepunchx.github.io/archives/
+详细解析输入完这个网址，敲回车</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-06-18
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/http-tcp-%E9%87%8D%E7%BB%98%E5%9B%9E%E6%B5%81-DNS-IP/">http tcp 重绘回流 DNS IP</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/06/17/react-syntheticevent/">React 合成事件</a>
+
+      <a href="/2020/06/17/react-syntheticevent/" class="index-excerpt">
+        
+        
+          
+        
+        <div>这个不是很重要，而且想真弄懂，得看源码。我看的是一头雾水。但是大概思路可以表达出来
+React 合成事件一套机制：React 并不是将 click 事件直接绑定在 dom 上面，而是采用事件冒泡的形式冒泡到 document 上面，当事件发生并冒泡至 document 处时，React 将事件内容封装交给中间层 SyntheticEvent（负责所有事件合成），然后 React 将事件封装给正式的</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-06-17
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/react%E5%90%88%E6%88%90%E4%BA%8B%E4%BB%B6/">react合成事件</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/06/17/stoppropagation-preventDefault/">event.stopPropagation()和event.preventDefault()</a>
+
+      <a href="/2020/06/17/stoppropagation-preventDefault/" class="index-excerpt">
+        
+        
+          
+        
+        <div>硬核整活。就 3 个玩意儿：
+event.stopPropagation() 阻止冒泡
+
+event.preventDefault() 阻止默认事件
+
+return false 同时阻止冒泡和默认事件
+
+
+阻止事件冒泡，能咋滴？el.addEventListener(”click“,function(){console.log(‘xxx’)},false) 接受第二个参数是个回调函数吧？函数里有操</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-06-17
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%98%BB%E6%AD%A2%E4%BA%8B%E4%BB%B6%E5%86%92%E6%B3%A1-%E9%98%BB%E6%AD%A2%E9%BB%98%E8%AE%A4%E4%BA%8B%E4%BB%B6/">阻止事件冒泡 阻止默认事件</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/06/15/dom0-dom2/">dom0-dom2</a>
+
+      <a href="/2020/06/15/dom0-dom2/" class="index-excerpt">
+        
+        
+          
+        
+        <div>dom0或者叫 0 级 dom ，如下
+&lt;input id="btn" type="button" onclick="console.log('You clicked the button!');" value="Click" /&gt;
+
+//  或者js写法
+document.getElementById('btn').onclick = function() &#123;
+      </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-06-15
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/dom0-dom2-%E3%80%81/">dom0 dom2 、</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/06/15/higher-order-function/">JS高阶函数</a>
+
+      <a href="/2020/06/15/higher-order-function/" class="index-excerpt">
+        
+        
+          
+        
+        <div>可以接收另一个参数作为参数的函数，就叫做高阶函数。常见高阶函数
+Array.prototype.map,
+Array.prototype.filter,
+Array.prototype.reduce,
+
+既然提到了这几个数组方法，那也就顺便说一说哈
+
+map 是啥，就不在这里说了，不知道就百度去。map() 方法的回调函数接受 3 个参数。 item index arraySelf 。 item </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-06-15
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0-react-redux-connect/">高阶函数 react-redux connect</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/06/11/router-hash-history/">前端路由</a>
+
+      <a href="/2020/06/11/router-hash-history/" class="index-excerpt">
+        
+        
+          
+        
+        <div>什么是前端路由？路由的概念来源于服务端，在服务端中路由描述的是 URL 与处理函数之间的映射关系。
+在 Web 前端单页应用 SPA(Single Page Application)中，路由描述的是 URL 与 UI 之间的映射关系，这种映射是单向的，即 URL 变化引起 UI 更新（无需刷新页面）。
+如何实现前端路由？要实现前端路由，需要解决两个核心问题：
+1.如何改变 URL 却不引起页面刷新</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-06-11
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%89%8D%E7%AB%AF%E8%B7%AF%E7%94%B1-Hash-History/">前端路由 Hash History</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <div class="col-12 col-md-12 mx-auto index-info">
+      <a class="index-header" href="/2020/06/10/commonjs-amd-cmd/">JS模块化的发展历程</a>
+
+      <a href="/2020/06/10/commonjs-amd-cmd/" class="index-excerpt">
+        
+        
+          
+        
+        <div>随便写点 js 模块化发展历史，面试有问这玩意的，随便看看到时候能答出来几句就 ok，顺便咱也了解一下 js 的这方面历史。
+1.js 的诞生：由 Brendan Eich 花了不到十天时间发明，用来在网页上进行表单校验、实现简单的动画效果等等，你可以回想一下那个网页上到处有公告块飘来飘去的时代。2.2006 年 ajax 出现，js 开始发展。全局变量开始让人头疼了，函数命名开始冲突了 3.所以</div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>&nbsp;2020-06-10
+          </div>
+        
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/CommonJs-AMD-CMD/">CommonJs AMD CMD</a>
+            
+          </div>
+        
+      </div>
+    </div>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByTagName("a")) {
+      ele.href += '#board';
+    }
+  </script>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+
+    
+
+    
   </div>
 </footer>
-    </div>
-    
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
   
-<link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+    <script  src="/js/lazyload.js" ></script>
+  
 
 
 
-<script>
-	var yiliaConfig = {
-		fancybox: true,
-		mathjax: true,
-		animate: true,
-		isHome: true,
-		isPost: false,
-		isArchive: false,
-		isTag: false,
-		isCategory: false,
-		open_in_new: false
-	}
-</script>
-
-<script src="/js/main.js"></script>
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
 
 
 
 
-<script type="text/x-mathjax-config">
-MathJax.Hub.Config({
-    tex2jax: {
-        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
-        processEscapes: true,
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "嘿，欢迎你走近了我的世界 ～&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
     }
-});
-
-MathJax.Hub.Queue(function() {
-    var all = MathJax.Hub.getAllJax(), i;
-    for(i=0; i < all.length; i += 1) {
-        all[i].SourceElement().parentNode.className += ' has-jax';                 
-    }       
-});
-</script>
-
-<script src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js"></script>
+  </script>
 
 
-  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body>
 </html>
