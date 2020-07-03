@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      4.9k 字
+      6.2k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      70
+      88
        分钟
     </span>
   
@@ -204,7 +204,7 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>前言：下边的内容是从 XMLHttpRequest，到封装 XMLHttpRequest，再到 axios。写了很多，慢慢看～</p>
+              <p>前言：下边的内容是从 XMLHttpRequest，到封装 XMLHttpRequest，再到 axios。<br>弄了很久啊，查资料，查官网信息，整理各种文档，输出各种观点。巨佬们慢慢看吧～</p>
 <h2 id="XMLHttpRequest"><a href="#XMLHttpRequest" class="headerlink" title="-XMLHttpRequest"></a>-XMLHttpRequest</h2><p>XMLHttpRequest（XHR）对象用于与服务器交互。通过 XMLHttpRequest 可以在不刷新页面的情况下请求特定 URL，获取数据。这允许网页在不影响用户操作的情况下，更新页面的局部内容。XMLHttpRequest 在 AJAX 编程中被大量使用。<br>咱们硬核一点，直接上代码</p>
 <h4 id="简单例子-🌰"><a href="#简单例子-🌰" class="headerlink" title="简单例子 🌰"></a>简单例子 🌰</h4><pre><code class="hljs pgsql">let xhr = <span class="hljs-built_in">new</span> XMLHttpRequest();
 xhr.<span class="hljs-keyword">open</span>(<span class="hljs-string">'GET'</span>,<span class="hljs-string">'https://www.baidu.com'</span>,<span class="hljs-keyword">true</span>,username,<span class="hljs-keyword">password</span>);
@@ -697,175 +697,373 @@ axios.all([getUserAccount(), getUserPermissions()])
     <span class="hljs-comment">// 两个请求现在都执行完成</span>
   &#125;));</code></pre>
 
-<h3 id="EXTRA"><a href="#EXTRA" class="headerlink" title="EXTRA"></a>EXTRA</h3><p>整点额外的惊喜，硬核起来上代码！</p>
-<pre><code class="hljs javascript"><span class="hljs-keyword">import</span> axios <span class="hljs-keyword">from</span> <span class="hljs-string">'axios'</span>;
-<span class="hljs-keyword">import</span> &#123; getLocale &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'umi-plugin-react/locale'</span>;
-<span class="hljs-keyword">import</span> &#123; getToken &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'../token'</span>;
+<h3 id="axios-的请求配置"><a href="#axios-的请求配置" class="headerlink" title="axios 的请求配置"></a>axios 的请求配置</h3><p>1、可以通过 axios.defaults 设置全局默认值，在所有请求中都生效。</p>
+<pre><code class="hljs stylus">axios<span class="hljs-selector-class">.defaults</span><span class="hljs-selector-class">.headers</span><span class="hljs-selector-class">.common</span>[<span class="hljs-string">"token"</span>] = <span class="hljs-string">""</span>
+axios<span class="hljs-selector-class">.defaults</span><span class="hljs-selector-class">.headers</span><span class="hljs-selector-class">.post</span>[<span class="hljs-string">"Content-type"</span>] = <span class="hljs-string">"application/json"</span>
+axios<span class="hljs-selector-class">.defaults</span><span class="hljs-selector-class">.baseURL</span> = <span class="hljs-string">'https://zhujun.zhenhao.com; //设置统一路径前缀</span></code></pre>
 
+<p>2、也可以自定义实例的默认值，以及修改实例的配置</p>
+<pre><code class="hljs cs"><span class="hljs-keyword">let</span> zhujun = axios.create(&#123;
+  baseURL: <span class="hljs-string">'http://zhujun.zhenbang.com'</span>,
+  <span class="hljs-keyword">params</span>: &#123; name: <span class="hljs-string">'朱军'</span> &#125;
+&#125;);
+<span class="hljs-comment">// 修改配置后，超时设置为4秒</span>
+zhujun.defaults.timeout = <span class="hljs-number">4000</span>;</code></pre>
 
-<span class="hljs-comment">// Add a request interceptor  这是加个拦截器，在request发送之前，可以做一些操作的～</span>
-axios.interceptors.request.use(
-  <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">config</span>) </span>&#123;
-    <span class="hljs-comment">// Do something before request is sent</span>
-    <span class="hljs-keyword">return</span> config;
+<p>3、也可以在每个请求中设置相关的配置。</p>
+<pre><code class="hljs less"><span class="hljs-selector-tag">axios</span>(<span class="hljs-string">'/app/mock/zhujun'</span>, &#123;
+  <span class="hljs-attribute">params</span>: &#123;
+    <span class="hljs-attribute">name</span>: <span class="hljs-string">'朱军'</span>
   &#125;,
-  <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>&#123;
-    <span class="hljs-comment">// Do something with request error</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(error);
-  &#125;
-);
+  <span class="hljs-attribute">baseURL</span>: <span class="hljs-string">'http://zhujun.zhenshuai.com'</span>
+&#125;)</code></pre>
 
-<span class="hljs-comment">// Add a response interceptor 这也是个拦截，在返回response之前也可以操作一波，这里做了个如果请求失败，自动重新请求的操作</span>
-axios.interceptors.response.use(
-  <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">response</span>) </span>&#123;
-    <span class="hljs-comment">// Do something with response data</span>
-    <span class="hljs-keyword">return</span> response;
+<pre><code class="hljs actionscript">&#123;
+   <span class="hljs-comment">// `url` 是用于请求的服务器 URL</span>
+  url: <span class="hljs-string">'/user'</span>,
+
+  <span class="hljs-comment">// `method` 是创建请求时使用的方法</span>
+  method: <span class="hljs-string">'get'</span>, <span class="hljs-comment">// default</span>
+
+  <span class="hljs-comment">// `baseURL` 将自动加在 `url` 前面，除非 `url` 是一个绝对 URL。</span>
+  <span class="hljs-comment">// 它可以通过设置一个 `baseURL` 便于为 axios 实例的方法传递相对 URL</span>
+  baseURL: <span class="hljs-string">'https://some-domain.com/api/'</span>,
+
+  <span class="hljs-comment">// `transformRequest` 允许在向服务器发送前，修改请求数据</span>
+  <span class="hljs-comment">// 只能用在 'PUT', 'POST' 和 'PATCH' 这几个请求方法</span>
+  <span class="hljs-comment">// 后面数组中的函数必须返回一个字符串，或 ArrayBuffer，或 Stream</span>
+  transformRequest: [<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(data, headers)</span> </span>&#123;
+    <span class="hljs-comment">// 对 data 进行任意转换处理</span>
+    <span class="hljs-keyword">return</span> data;
+  &#125;],
+
+  <span class="hljs-comment">// `transformResponse` 在传递给 then/catch 前，允许修改响应数据</span>
+  transformResponse: [<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(data)</span> </span>&#123;
+    <span class="hljs-comment">// 对 data 进行任意转换处理</span>
+    <span class="hljs-keyword">return</span> data;
+  &#125;],
+
+  <span class="hljs-comment">// `headers` 是即将被发送的自定义请求头</span>
+  headers: &#123;<span class="hljs-string">'X-Requested-With'</span>: <span class="hljs-string">'XMLHttpRequest'</span>&#125;,
+
+  <span class="hljs-comment">// `params` 是即将与请求一起发送的 URL 参数</span>
+  <span class="hljs-comment">// 必须是一个无格式对象(plain object)或 URLSearchParams 对象</span>
+  params: &#123;
+    ID: <span class="hljs-number">12345</span>
   &#125;,
-  <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">error</span>) </span>&#123;
-    <span class="hljs-comment">// Do something with response error</span>
-    <span class="hljs-keyword">const</span> &#123; config, response &#125; = error;
-    <span class="hljs-keyword">if</span> (config) &#123;
-      <span class="hljs-keyword">if</span> (
-        config.retry &amp;&amp;
-        [<span class="hljs-string">'get'</span>, <span class="hljs-string">'put'</span>, <span class="hljs-string">'delete'</span>].includes(config.method) &amp;&amp;
-        (!response || (response.status &gt;= <span class="hljs-number">500</span> &amp;&amp; response.status &lt;= <span class="hljs-number">599</span>))
-      ) &#123;
-        <span class="hljs-keyword">const</span> &#123; headers &#125; = config;
-        <span class="hljs-keyword">const</span> retryCountHeaderKey = <span class="hljs-string">'X-Retry-Count'</span>;
-        <span class="hljs-keyword">const</span> retryCountHeaderValue = <span class="hljs-built_in">parseInt</span>(headers[retryCountHeaderKey] || <span class="hljs-string">'0'</span>, <span class="hljs-number">10</span>) + <span class="hljs-number">1</span>;
-        <span class="hljs-keyword">if</span> (retryCountHeaderValue &lt;= <span class="hljs-number">3</span>) &#123; <span class="hljs-comment">// 如果失败，自动请求3次</span>
-          <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-params">resolve</span> =&gt;</span> &#123;
-            setTimeout(
-              () =&gt;
-                resolve(
-                  axios(&#123;
-                    ...config,
-                    headers: &#123;
-                      ...headers,
-                      [retryCountHeaderKey]: <span class="hljs-string">`<span class="hljs-subst">$&#123;retryCountHeaderValue&#125;</span>`</span>,
-                    &#125;,
-                  &#125;)
-                ),
-              <span class="hljs-number">1000</span> * retryCountHeaderValue
-            );
-          &#125;);
-        &#125;
-      &#125; <span class="hljs-comment">// 重发“安全请求”</span>
+
+   <span class="hljs-comment">// `paramsSerializer` 是一个负责 `params` 序列化的函数</span>
+  <span class="hljs-comment">// (e.g. https://www.npmjs.com/package/qs, http://api.jquery.com/jquery.param/)</span>
+  paramsSerializer: <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(params)</span> </span>&#123;
+    <span class="hljs-keyword">return</span> Qs.stringify(params, &#123;arrayFormat: <span class="hljs-string">'brackets'</span>&#125;)
+  &#125;,
+
+  <span class="hljs-comment">// `data` 是作为请求主体被发送的数据</span>
+  <span class="hljs-comment">// 只适用于这些请求方法 'PUT', 'POST', 和 'PATCH'</span>
+  <span class="hljs-comment">// 在没有设置 `transformRequest` 时，必须是以下类型之一：</span>
+  <span class="hljs-comment">// - string, plain object, ArrayBuffer, ArrayBufferView, URLSearchParams</span>
+  <span class="hljs-comment">// - 浏览器专属：FormData, File, Blob</span>
+  <span class="hljs-comment">// - Node 专属： Stream</span>
+  data: &#123;
+    firstName: <span class="hljs-string">'Fred'</span>
+  &#125;,
+
+  <span class="hljs-comment">// `timeout` 指定请求超时的毫秒数(0 表示无超时时间)</span>
+  <span class="hljs-comment">// 如果请求话费了超过 `timeout` 的时间，请求将被中断</span>
+  timeout: <span class="hljs-number">1000</span>,
+
+   <span class="hljs-comment">// `withCredentials` 表示跨域请求时是否需要使用凭证</span>
+  withCredentials: <span class="hljs-literal">false</span>, <span class="hljs-comment">// default</span>
+
+  <span class="hljs-comment">// `adapter` 允许自定义处理请求，以使测试更轻松</span>
+  <span class="hljs-comment">// 返回一个 promise 并应用一个有效的响应 (查阅 [response docs](#response-api)).</span>
+  adapter: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(config)</span> </span>&#123;
+    <span class="hljs-comment">/* ... */</span>
+  &#125;,
+
+ <span class="hljs-comment">// `auth` 表示应该使用 HTTP 基础验证，并提供凭据</span>
+  <span class="hljs-comment">// 这将设置一个 `Authorization` 头，覆写掉现有的任意使用 `headers` 设置的自定义 `Authorization`头</span>
+  auth: &#123;
+    username: <span class="hljs-string">'janedoe'</span>,
+    password: <span class="hljs-string">'s00pers3cret'</span>
+  &#125;,
+
+   <span class="hljs-comment">// `responseType` 表示服务器响应的数据类型，可以是 'arraybuffer', 'blob', 'document', 'json', 'text', 'stream'</span>
+  responseType: <span class="hljs-string">'json'</span>, <span class="hljs-comment">// default</span>
+
+  <span class="hljs-comment">// `responseEncoding` indicates encoding to use for decoding responses</span>
+  <span class="hljs-comment">// Note: Ignored for `responseType` of 'stream' or client-side requests</span>
+  responseEncoding: <span class="hljs-string">'utf8'</span>, <span class="hljs-comment">// default</span>
+
+   <span class="hljs-comment">// `xsrfCookieName` 是用作 xsrf token 的值的cookie的名称</span>
+  xsrfCookieName: <span class="hljs-string">'XSRF-TOKEN'</span>, <span class="hljs-comment">// default</span>
+
+  <span class="hljs-comment">// `xsrfHeaderName` is the name of the http header that carries the xsrf token value</span>
+  xsrfHeaderName: <span class="hljs-string">'X-XSRF-TOKEN'</span>, <span class="hljs-comment">// default</span>
+
+   <span class="hljs-comment">// `onUploadProgress` 允许为上传处理进度事件</span>
+  onUploadProgress: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(progressEvent)</span> </span>&#123;
+    <span class="hljs-comment">// Do whatever you want with the native progress event</span>
+  &#125;,
+
+  <span class="hljs-comment">// `onDownloadProgress` 允许为下载处理进度事件</span>
+  onDownloadProgress: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(progressEvent)</span> </span>&#123;
+    <span class="hljs-comment">// 对原生进度事件的处理</span>
+  &#125;,
+
+   <span class="hljs-comment">// `maxContentLength` 定义允许的响应内容的最大尺寸</span>
+  maxContentLength: <span class="hljs-number">2000</span>,
+
+  <span class="hljs-comment">// `validateStatus` 定义对于给定的HTTP 响应状态码是 resolve 或 reject  promise 。如果 `validateStatus` 返回 `true` (或者设置为 `null` 或 `undefined`)，promise 将被 resolve; 否则，promise 将被 rejecte</span>
+  validateStatus: <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(status)</span> </span>&#123;
+    <span class="hljs-keyword">return</span> status &gt;= <span class="hljs-number">200</span> &amp;&amp; status &lt; <span class="hljs-number">300</span>; <span class="hljs-comment">// default</span>
+  &#125;,
+
+  <span class="hljs-comment">// `maxRedirects` 定义在 node.js 中 follow 的最大重定向数目</span>
+  <span class="hljs-comment">// 如果设置为0，将不会 follow 任何重定向</span>
+  maxRedirects: <span class="hljs-number">5</span>, <span class="hljs-comment">// default</span>
+
+  <span class="hljs-comment">// `socketPath` defines a UNIX Socket to be used in node.js.</span>
+  <span class="hljs-comment">// e.g. '/var/run/docker.sock' to send requests to the docker daemon.</span>
+  <span class="hljs-comment">// Only either `socketPath` or `proxy` can be specified.</span>
+  <span class="hljs-comment">// If both are specified, `socketPath` is used.</span>
+  socketPath: <span class="hljs-literal">null</span>, <span class="hljs-comment">// default</span>
+
+  <span class="hljs-comment">// `httpAgent` 和 `httpsAgent` 分别在 node.js 中用于定义在执行 http 和 https 时使用的自定义代理。允许像这样配置选项：</span>
+  <span class="hljs-comment">// `keepAlive` 默认没有启用</span>
+  httpAgent: <span class="hljs-keyword">new</span> http.Agent(&#123; keepAlive: <span class="hljs-literal">true</span> &#125;),
+  httpsAgent: <span class="hljs-keyword">new</span> https.Agent(&#123; keepAlive: <span class="hljs-literal">true</span> &#125;),
+
+  <span class="hljs-comment">// 'proxy' 定义代理服务器的主机名称和端口</span>
+  <span class="hljs-comment">// `auth` 表示 HTTP 基础验证应当用于连接代理，并提供凭据</span>
+  <span class="hljs-comment">// 这将会设置一个 `Proxy-Authorization` 头，覆写掉已有的通过使用 `header` 设置的自定义 `Proxy-Authorization` 头。</span>
+  proxy: &#123;
+    host: <span class="hljs-string">'127.0.0.1'</span>,
+    port: <span class="hljs-number">9000</span>,
+    auth: &#123;
+      username: <span class="hljs-string">'mikeymike'</span>,
+      password: <span class="hljs-string">'rapunz3l'</span>
     &#125;
+  &#125;,
+
+  <span class="hljs-comment">// `cancelToken` 指定用于取消请求的 cancel token</span>
+  <span class="hljs-comment">// （查看后面的 Cancellation 这节了解更多）</span>
+  cancelToken: <span class="hljs-keyword">new</span> CancelToken(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(cancel)</span> </span>&#123;
+  &#125;)
+&#125;</code></pre>
+
+<h4 id="拦截器"><a href="#拦截器" class="headerlink" title="拦截器"></a>拦截器</h4><p>可以分别设置请求拦截和响应拦截，在发出请求和响应到达 then 之前进行判断处理。</p>
+<pre><code class="hljs typescript">axios.interceptors.response.use(
+  res =&gt; &#123;
+    <span class="hljs-keyword">if</span> (res) &#123;
+      <span class="hljs-keyword">return</span> res;
+    &#125;
+  &#125;,
+  err =&gt; &#123;
     <span class="hljs-keyword">return</span> <span class="hljs-built_in">Promise</span>.reject(error);
   &#125;
+);</code></pre>
+
+<p>把上面的 response 换成 request 就是请求发出前的拦截器～<br>拦截器是可以移除的，在特殊的情况下，会用到移除拦截器。（我其实也不知道啥情况需要如此莫名其妙的操作）</p>
+<pre><code class="hljs actionscript"><span class="hljs-keyword">const</span> clearInterceptors = axios.interceptors.request.use(<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">()</span> </span>&#123;&#125;);
+axios.interceptors.request.eject(clearInterceptors);
+<span class="hljs-comment">// 移除拦截器，和移除js定时器一样。</span></code></pre>
+
+<h3 id="跨域配置"><a href="#跨域配置" class="headerlink" title="跨域配置"></a>跨域配置</h3><pre><code class="hljs less"><span class="hljs-attribute">proxy</span>: &#123;
+  <span class="hljs-string">'/api'</span>: &#123;
+    <span class="hljs-attribute">target</span>: <span class="hljs-string">'https://www.xxx.com'</span>, <span class="hljs-comment">//目标路径，别忘了加http和端口号</span>
+    <span class="hljs-attribute">changeOrigin</span>: true, <span class="hljs-comment">//是否跨域</span>
+    <span class="hljs-attribute">ws</span>: true,
+    <span class="hljs-attribute">pathRewrite</span>: &#123;
+      <span class="hljs-string">'^/api'</span>: <span class="hljs-string">''</span> <span class="hljs-comment">//重写路径</span>
+    &#125;
+  &#125;
+&#125;</code></pre>
+
+<h3 id="EXTRA"><a href="#EXTRA" class="headerlink" title="EXTRA"></a>EXTRA</h3><p>整点额外的惊喜，硬核起来上代码！</p>
+<pre><code class="hljs php">
+import axios from <span class="hljs-string">'axios'</span>;
+import &#123; getLocale &#125; from <span class="hljs-string">'umi-plugin-react/locale'</span>;
+import &#123; getToken &#125; from <span class="hljs-string">'../token'</span>;
+
+<span class="hljs-comment">// Add a request interceptor 这是加个拦截器，在 request 发出请求之前，可以做一些操作的～</span>
+axios.interceptors.request.<span class="hljs-keyword">use</span>(
+<span class="hljs-title">function</span>(<span class="hljs-title">config</span>) &#123;
+// <span class="hljs-title">Do</span> <span class="hljs-title">something</span> <span class="hljs-title">before</span> <span class="hljs-title">request</span> <span class="hljs-title">is</span> <span class="hljs-title">sent</span>
+<span class="hljs-title">return</span> <span class="hljs-title">config</span>;
+&#125;,
+<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> </span>&#123;
+<span class="hljs-comment">// Do something with request error</span>
+<span class="hljs-keyword">return</span> Promise.reject(error);
+&#125;
 );
 
-<span class="hljs-comment">/**</span>
-<span class="hljs-comment"> * request 方法，axios 的简单封装</span>
-<span class="hljs-comment"> */</span>
-<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">request</span>(<span class="hljs-params">url, config = &#123;&#125;</span>) </span>&#123;
+<span class="hljs-comment">// Add a response interceptor 这也是个拦截，在响应到达 then 之前也可以操作一波，这里做了个如果请求失败，自动重新请求的操作</span>
+axios.interceptors.response.<span class="hljs-keyword">use</span>(
+<span class="hljs-title">function</span>(<span class="hljs-title">response</span>) &#123;
+// <span class="hljs-title">Do</span> <span class="hljs-title">something</span> <span class="hljs-title">with</span> <span class="hljs-title">response</span> <span class="hljs-title">data</span>
+<span class="hljs-title">return</span> <span class="hljs-title">response</span>;
+&#125;,
+<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(error)</span> </span>&#123;
+<span class="hljs-comment">// Do something with response error</span>
+<span class="hljs-keyword">const</span> &#123; config, response &#125; = error;
+<span class="hljs-keyword">if</span> (config) &#123;
+<span class="hljs-keyword">if</span> (
+config.retry &amp;&amp;
+[<span class="hljs-string">'get'</span>, <span class="hljs-string">'put'</span>, <span class="hljs-string">'delete'</span>].includes(config.method) &amp;&amp;
+(!response || (response.status &gt;= <span class="hljs-number">500</span> &amp;&amp; response.status &lt;= <span class="hljs-number">599</span>))
+) &#123;
+<span class="hljs-keyword">const</span> &#123; headers &#125; = config;
+<span class="hljs-keyword">const</span> retryCountHeaderKey = <span class="hljs-string">'X-Retry-Count'</span>;
+<span class="hljs-keyword">const</span> retryCountHeaderValue = parseInt(headers[retryCountHeaderKey] || <span class="hljs-string">'0'</span>, <span class="hljs-number">10</span>) + <span class="hljs-number">1</span>;
+<span class="hljs-keyword">if</span> (retryCountHeaderValue &lt;= <span class="hljs-number">3</span>) &#123; <span class="hljs-comment">// 如果失败，自动请求 3 次</span>
+<span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> Promise(resolve =&gt; &#123;
+setTimeout(
+() =&gt;
+resolve(
+axios(&#123;
+...config,
+headers: &#123;
+...headers,
+[retryCountHeaderKey]: `$&#123;retryCountHeaderValue&#125;`,
+&#125;,
+&#125;)
+),
+<span class="hljs-number">1000</span> \* retryCountHeaderValue
+);
+&#125;);
+&#125;
+&#125; <span class="hljs-comment">// 重发“安全请求”</span>
+&#125;
+<span class="hljs-keyword">return</span> Promise.reject(error);
+&#125;
+);
+
+/\*\*
+
+- request 方法，axios 的简单封装
+  \*/
+  export <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">request</span><span class="hljs-params">(url, config = &#123;&#125;)</span> </span>&#123;
   axios.defaults.headers.common.Authorization = getToken(); <span class="hljs-comment">// 获取 token</span>
-  axios.defaults.headers.common[<span class="hljs-string">'Accept-Language'</span>] = <span class="hljs-string">`<span class="hljs-subst">$&#123;getLocale()&#125;</span>;q=0.9`</span>; <span class="hljs-comment">// 国际化“Accept-Language:zh-CN,zh;q=0.9” =&gt; zh-CN 或 en-US</span>
+  axios.defaults.headers.common[<span class="hljs-string">'Accept-Language'</span>] = `$&#123;getLocale()&#125;;q=<span class="hljs-number">0.9</span>`; <span class="hljs-comment">// 国际化“Accept-Language:zh-CN,zh;q=0.9” =&gt; zh-CN 或 en-US</span>
 
-  <span class="hljs-keyword">const</span> &#123;
-    method = <span class="hljs-string">'get'</span>,
-    responseType,
-    body = &#123;&#125;,
-    headers = &#123;&#125;,
-    cache = <span class="hljs-literal">false</span>,
-    download = <span class="hljs-literal">false</span>,
-    retry = <span class="hljs-literal">true</span>, <span class="hljs-comment">// eslint-disable-line</span>
-    ...rest
-  &#125; = config;
+<span class="hljs-keyword">const</span> &#123;
+method = <span class="hljs-string">'get'</span>,
+responseType,
+body = &#123;&#125;,
+headers = &#123;&#125;,
+cache = <span class="hljs-keyword">false</span>,
+download = <span class="hljs-keyword">false</span>,
+retry = <span class="hljs-keyword">true</span>, <span class="hljs-comment">// eslint-disable-line</span>
+...rest
+&#125; = config;
 
-  <span class="hljs-keyword">const</span> newBody = <span class="hljs-regexp">/(put|post|patch)/i</span>.test(method) ? &#123; <span class="hljs-attr">data</span>: body &#125; : &#123; <span class="hljs-attr">params</span>: body &#125;; <span class="hljs-comment">// data 参数，在以下“请求类型”中可用：put, post, patch</span>
+<span class="hljs-keyword">const</span> newBody = /(put|post|patch)/i.test(method) ? &#123; data: body &#125; : &#123; params: body &#125;; <span class="hljs-comment">// data 参数，在以下“请求类型”中可用：put, post, patch</span>
 
-  <span class="hljs-keyword">const</span> newResponseType = responseType || (download ? <span class="hljs-string">'arraybuffer'</span> : <span class="hljs-string">'json'</span>);
+<span class="hljs-keyword">const</span> newResponseType = responseType || (download ? <span class="hljs-string">'arraybuffer'</span> : <span class="hljs-string">'json'</span>);
 
-  <span class="hljs-keyword">return</span> axios
-    .request(&#123;
-      url, <span class="hljs-comment">// URL 地址</span>
-      method, <span class="hljs-comment">// 请求类型，get, post, put, delete...</span>
-      responseType: newResponseType, <span class="hljs-comment">// 响应数据类型</span>
+<span class="hljs-keyword">return</span> axios
+.request(&#123;
+url, <span class="hljs-comment">// URL 地址</span>
+method, <span class="hljs-comment">// 请求类型，get, post, put, delete...</span>
+responseType: newResponseType, <span class="hljs-comment">// 响应数据类型</span>
 
       headers: &#123;
         ...headers,
         ...(cache
           ? &#123; <span class="hljs-string">'Cache-Control'</span>: <span class="hljs-string">'public, max-age=86400'</span> &#125;
-          : &#123; <span class="hljs-string">'Cache-Control'</span>: <span class="hljs-string">'no-cache, no-store, must-revalidate'</span>, <span class="hljs-attr">Pragma</span>: <span class="hljs-string">'no-cache'</span> &#125;),
+          : &#123; <span class="hljs-string">'Cache-Control'</span>: <span class="hljs-string">'no-cache, no-store, must-revalidate'</span>, Pragma: <span class="hljs-string">'no-cache'</span> &#125;),
       &#125;,
 
       ...newBody, <span class="hljs-comment">// 请求参数</span>
 
       ...rest, <span class="hljs-comment">// 剩余参数</span>
     &#125;)
-    .then(<span class="hljs-function"><span class="hljs-params">response</span> =&gt;</span> (&#123;
-      success: <span class="hljs-literal">true</span>,
+    .then(response =&gt; (&#123;
+      success: <span class="hljs-keyword">true</span>,
       response,
     &#125;))
-    .catch(<span class="hljs-function"><span class="hljs-params">error</span> =&gt;</span> &#123;
+    .<span class="hljs-keyword">catch</span>(error =&gt; &#123;
       <span class="hljs-keyword">const</span> &#123; response &#125; = error;
       <span class="hljs-keyword">const</span> &#123; status &#125; = response;
 
-      <span class="hljs-keyword">const</span> errorName = <span class="hljs-string">`Error<span class="hljs-subst">$&#123;status&#125;</span> - <span class="hljs-subst">$&#123;response.config.url&#125;</span>`</span>;
+      <span class="hljs-keyword">const</span> errorName = `Error$&#123;status&#125; - $&#123;response.config.url&#125;`;
       <span class="hljs-keyword">const</span> errorMessage = response.statusText;
-      <span class="hljs-built_in">console</span>.log(errorName);
-      <span class="hljs-built_in">console</span>.log(errorMessage);
+      console.log(errorName);
+      console.log(errorMessage);
 
-<span class="hljs-comment">//  如果不是登陆页，但是状态码401 那么跳转页面到登陆页</span>
-      <span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.location.href.indexOf(<span class="hljs-string">'login'</span>) === <span class="hljs-number">-1</span> &amp;&amp; status === <span class="hljs-number">401</span>) &#123;
-        <span class="hljs-built_in">window</span>.location.href = <span class="hljs-string">`/g/login?redirect=<span class="hljs-subst">$&#123;</span></span>
-<span class="hljs-string"><span class="hljs-subst">          <span class="hljs-built_in">window</span>.location.href.split(<span class="hljs-built_in">window</span>.location.host)[<span class="hljs-number">1</span>]</span></span>
-<span class="hljs-string"><span class="hljs-subst">        &#125;</span>`</span>;
-      &#125;
-
-      <span class="hljs-keyword">return</span> &#123;
-        success: <span class="hljs-literal">false</span>,
-        response: &#123; ...response, <span class="hljs-attr">data</span>: response.data || &#123; <span class="hljs-attr">message</span>: <span class="hljs-string">'504 Gateway Timeout'</span> &#125; &#125;,
-      &#125;;
-    &#125;);
-&#125;</code></pre>
-
-<h4 id="在项目中的用法"><a href="#在项目中的用法" class="headerlink" title="在项目中的用法"></a>在项目中的用法</h4><pre><code class="hljs typescript">onClick=&#123;<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
-     <span class="hljs-keyword">this</span>.setState(&#123;
-       spinning: <span class="hljs-literal">true</span>,
-     &#125;);
-     request(<span class="hljs-string">`/server/api/declarationfiles/<span class="hljs-subst">$&#123;record.id&#125;</span>`</span>, &#123;
-       method: <span class="hljs-string">'get'</span>,
-       download: <span class="hljs-literal">true</span>,
-       onDownloadProgress: <span class="hljs-function"><span class="hljs-params">e</span> =&gt;</span> &#123;
-         <span class="hljs-keyword">if</span> (e.loaded / e.total === <span class="hljs-number">1</span>) &#123;
-           <span class="hljs-keyword">this</span>.setState(&#123;
-             spinning: <span class="hljs-literal">false</span>,
-           &#125;);
-         &#125;
-       &#125;,
-     &#125;).then(<span class="hljs-function"><span class="hljs-params">wrappedResponse</span> =&gt;</span> &#123;
-       <span class="hljs-keyword">const</span> &#123; response &#125; = wrappedResponse;
-       download(record.fileName, response.data);
-     &#125;);
-   &#125;&#125;
-
-
-       <span class="hljs-comment">//  直接在页面里写请求，适用于调用次数少，独立专属于某个页面使用的情况。比如文件下载等</span></code></pre>
-
-<hr>
-<pre><code class="hljs typescript">*retrieveRules(&#123; payload &#125;, &#123; call, put, select &#125;) &#123;
-    <span class="hljs-keyword">const</span> newRules = <span class="hljs-keyword">yield</span> select(<span class="hljs-function"><span class="hljs-params">models</span> =&gt;</span> &#123;
-      <span class="hljs-keyword">const</span> &#123; pagination, searcher &#125; = models[<span class="hljs-keyword">namespace</span>];
-      <span class="hljs-keyword">return</span> &#123;
-        pagination,
-        searcher,
-        ...payload,
-      &#125;;
-    &#125;);
-    <span class="hljs-keyword">const</span> &#123; pagination, searcher &#125; = newRules;
-    <span class="hljs-keyword">const</span> wrappedResponse = <span class="hljs-keyword">yield</span> call(request, <span class="hljs-string">`/server/api/projectwarningrules`</span>, &#123;
-      method: <span class="hljs-string">'get'</span>,
-      body: &#123;
-        ...pagination,
-        ...searcher,
-      &#125;,
-    &#125;);
+<span class="hljs-comment">// 如果不是登陆页，但是状态码 401 那么跳转页面到登陆页</span>
+<span class="hljs-keyword">if</span> (window.location.href.indexOf(<span class="hljs-string">'login'</span>) === <span class="hljs-number">-1</span> &amp;&amp; status === <span class="hljs-number">401</span>) &#123;
+window.location.href = `/g/login?redirect=$&#123; window.location.href.split(window.location.host)[<span class="hljs-number">1</span>] &#125;`;
 &#125;
 
-             <span class="hljs-comment">// 写在model 层的effect里面，适用于调用次数多， 比如请求列表数据，增删改查操作后需要再次调用请求数据</span></code></pre>
+      <span class="hljs-keyword">return</span> &#123;
+        success: <span class="hljs-keyword">false</span>,
+        response: &#123; ...response, data: response.data || &#123; message: <span class="hljs-string">'504 Gateway Timeout'</span> &#125; &#125;,
+      &#125;;
+    &#125;);
+
+&#125;
+
+```
+
+<span class="hljs-comment">#### 在项目中的用法</span>
+
+```
+
+         onClick=&#123;() =&gt; &#123;
+              this.setState(&#123;
+                spinning: <span class="hljs-keyword">true</span>,
+              &#125;);
+              request(`/server/api/declarationfiles/$&#123;record.id&#125;`, &#123;
+                method: <span class="hljs-string">'get'</span>,
+                download: <span class="hljs-keyword">true</span>,
+                onDownloadProgress: e =&gt; &#123;
+                  <span class="hljs-keyword">if</span> (e.loaded / e.total === <span class="hljs-number">1</span>) &#123;
+                    this.setState(&#123;
+                      spinning: <span class="hljs-keyword">false</span>,
+                    &#125;);
+                  &#125;
+                &#125;,
+              &#125;).then(wrappedResponse =&gt; &#123;
+                <span class="hljs-keyword">const</span> &#123; response &#125; = wrappedResponse;
+                download(record.fileName, response.data);
+              &#125;);
+            &#125;&#125;
+
+
+                <span class="hljs-comment">//  直接在页面里写请求，适用于调用次数少，独立专属于某个页面使用的情况。比如文件下载等</span>
+
+```
+
+---
+
+```
+
+\*retrieveRules(&#123; payload &#125;, &#123; call, put, select &#125;) &#123;
+<span class="hljs-keyword">const</span> newRules = <span class="hljs-keyword">yield</span> select(models =&gt; &#123;
+<span class="hljs-keyword">const</span> &#123; pagination, searcher &#125; = models[<span class="hljs-keyword">namespace</span>];
+<span class="hljs-keyword">return</span> &#123;
+pagination,
+searcher,
+...payload,
+&#125;;
+&#125;);
+<span class="hljs-keyword">const</span> &#123; pagination, searcher &#125; = newRules;
+<span class="hljs-keyword">const</span> wrappedResponse = <span class="hljs-keyword">yield</span> call(request, `/server/api/projectwarningrules`, &#123;
+method: <span class="hljs-string">'get'</span>,
+body: &#123;
+...pagination,
+...searcher,
+&#125;,
+&#125;);
+&#125;
+
+               <span class="hljs-comment">// 写在model 层的effect里面，适用于调用次数多， 比如请求列表数据，增删改查操作后需要再次调用请求数据</span>
+
+```
+
+```</code></pre>
 
             </article>
             <hr>
