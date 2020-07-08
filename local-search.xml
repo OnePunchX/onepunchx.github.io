@@ -4,6 +4,50 @@
   
   
   <entry>
+    <title>2020全国2卷作文随笔</title>
+    <link href="/2020/07/07/essay0707/"/>
+    <url>/2020/07/07/essay0707/</url>
+    
+    <content type="html"><![CDATA[<p>全国 Ⅱ 卷作文解析+阅读下面的材料，根据要求写作。<br>墨子说：“视人之国，若视其国；视人之家，若视其家；视人之身，若视其身。”<br>英国诗人约翰多恩说：“没有人是自成一体、与世隔绝的孤岛，每一个人都是广袤大陆的一部分。”<br>“青山一道同云雨，明月何曾是两乡。”“同气连枝，共盼春来。”……2020 年的春天，这些寄言印在国际社会援助中国的物资上，表达了世界人民对中国的支持。<br>“山和山不相遇，人和人要相逢。”“消失吧，黑夜！黎明时我们将获胜！”……这些话语印在中国援助其他国家的物资上，寄托着中国人民对世界的祝福。<br>“世界青年与社会发展论坛”邀请你作为中国青年代表参会，发表以“携手同一世界，青年共创未来”为主题的中文演讲。请完成一篇演讲稿。<br>要求：结合材料内容及含意完成写作任务；选好角度，确定立意，明确文体，自拟标题；不要套作，不得抄袭；不得泄露个人信息；不少于 800 字。</p><p>2020 年的全国 2 卷作文，看完这个并没有想写作文的冲动。<br>不过我喜欢这句 山和山不相遇，人和人要相逢</p><p>山和山不会相遇吗？<br>你可曾看过连绵的山脉，<br>那一山挨着一山，<br>就好比一山爱着一山，<br>还可能有很多小山，哈哈<br>这世界上有很多山啊，天生就是在一起的<br>相互依偎，不曾分离，坚定的心就像石头一样。<br>奥对，山，本来就是石头。<br>坚定的石头的心，守在身边一动不动<br>主要它想动也没办法啊<br>它没有腿啊<br>哈哈哈哈哈哈哈哈<br>其实严谨来说啊<br>那些连绵依偎的山<br>也不是天生就在一起的<br>只不过从我的生命周期来说<br>从我的生到死的时间里<br>在一起的山脉还是在一起<br>多好<br>多让人羡慕<br>但是地球板块是会移动的鸭<br>在一起的山脉<br>在板块移动过程中<br>可能会拥抱的更加紧密<br>也可能会默默分离<br>不在一起的山<br>也可能一步步的靠近<br>我喜欢富士山<br>我要走去它那里<br>只要是有一颗愿意接近的心<br>我的每一步<br>每一厘米<br>就都有意义<br>然后<br>在相遇的那一刻<br>谁还在乎是不是已经天荒地老<br>谁还在乎经历了多少春秋更替<br>就在那一刻<br>它们拉住彼此的手<br>都会产生一种异常激动的情绪<br>用了三千万年<br>终于来到了这里<br>怎么他妈的你也是个男的！</p><p>人和人需要相逢吗<br>需要<br>我需要你<br>这世界的每一个人你听好<br>我需要你<br>你来吧<br>来跟我相逢吧<br>我在<br>北纬 41°48′11.75″<br>东经 123°25′31.18<br>你来吧<br>来跟我相逢吧<br>见面记得给我一块钱<br>如果每个人都给我一块钱<br>那我就能买点肉留着过年<br>奥对了<br>路费火车票啥的我可不报销</p><p>相逢这个字眼<br>总是能给人憧憬或者希望<br>在对未知的好奇和幻想中<br>莫名的就对相逢这件事产生了好感<br>不过比起相逢<br>我更喜欢重逢<br>经历分离<br>经历时间<br>经历别人<br>经历了很多以后<br>还是想再见你<br>如果刚好你也这样想<br>那重逢对于我们就有了意义<br>许是儿时嬉戏的玩伴<br>许是一生所爱的情人<br>许是刀山火海的兄弟<br>许是阴阳两隔的亲人<br>让我们重逢吧！<br>让我们重逢吧。<br>我会告诉你我有多么的想你<br>一个字一个字的说给你听<br>在你的耳边<br>或者<br>在我的梦里</p><p>山和山也许相遇<br>人和人未必相逢<br>如果有幸曾与你相逢<br>那就让我们重逢吧<br>火车票我会给你报了</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>随笔</category>
+      
+    </categories>
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>读深入浅出React和Redux</title>
+    <link href="/2020/07/06/reactandredux/"/>
+    <url>/2020/07/06/reactandredux/</url>
+    
+    <content type="html"><![CDATA[<p>开始读书～<br>程墨编著<br>下面的内容比较随性，暂时自己写给自己看的，不建议阅读。</p><ul><li>react 不支持 ie8 以下</li></ul><p>“scripts”:{<br>“start”:”react-scripts start”,</p><p>“eject”:”react-scripts eject”<br>}</p><p>eject 弹射<br>会把潜藏在 react-scripts 重的一系列技术栈配置都弹射到应用的顶层。<br>然后我们就可以研究这些配置细节了，而且可以更灵活的定制应用的配置。<br>⚠️ 注意啊 eject 命令不可逆 ，在执行 npm run eject 之前最好备份一下。</p><hr><p>如果用 jq 写组件，<br>先写个 index.html<br>然后写 html dom 节点 然后是 js 绑定点击逻辑啥的<br>jq 会让事件和 dom 造成纠缠代码结构</p><h3 id="react-总结公式为"><a href="#react-总结公式为" class="headerlink" title="react 总结公式为"></a>react 总结公式为</h3><p>UI = render（data）<br>响应式编程 （Reactive programming）<br>一看这个名字，就知道为啥 react 框架名字的由来了</p><h3 id="虚拟-dom"><a href="#虚拟-dom" class="headerlink" title="虚拟 dom"></a>虚拟 dom</h3><p>说是第五章具体说虚拟 dom</p><h3 id="设计高质量的-React-组件"><a href="#设计高质量的-React-组件" class="headerlink" title="设计高质量的 React 组件"></a>设计高质量的 React 组件</h3><h4 id="分而治之"><a href="#分而治之" class="headerlink" title="分而治之"></a>分而治之</h4><p>把问题分解为多个小问题，必要的时候可以拆分大组件，分为小组件。<br>组件划分要满足 高内聚 低耦合</p><blockquote><p>高内聚 ：把逻辑紧密的内容放在一个组件中<br>低耦合 ：不同组件之间的依赖关系要尽量弱化</p></blockquote><h4 id="state-props"><a href="#state-props" class="headerlink" title="state props"></a>state props</h4><p>对外用 props<br>内部用 state</p><h5 id="propTypes"><a href="#propTypes" class="headerlink" title="propTypes"></a>propTypes</h5><p>counter(这是个组件名).proptypes = {<br>a:PropTypes.string.isRequired<br>B:PropTypes.number<br>}</p><p>规定了 a 属性这个必须是字符串类型，并且必须有值，不能 undefined 啥的<br>但是这个 B 因为没有 isRequired 所以没有 B 也无所谓</p><p>这个 propTypes 是个辅助开发的功能，可以不写的<br>如果写了这玩意，要在产品上线发布的时候，用 babel-react-optimize 去掉这个东西，理由如下：</p><ol><li>占用代码空间</li><li>消耗 cpu 计算资源</li><li>对用户输出报错无意义</li></ol><h5 id="state-不用-setState-方法"><a href="#state-不用-setState-方法" class="headerlink" title="state 不用 setState 方法"></a>state 不用 setState 方法</h5><p>如果不用这个方法，会野蛮的修改 state 的值，不过并不会触发驱动组件更新。所以页面上没有效果。</p><h5 id="不要直接修改传染源的-props-对象的值"><a href="#不要直接修改传染源的-props-对象的值" class="headerlink" title="不要直接修改传染源的 props 对象的值"></a>不要直接修改传染源的 props 对象的值</h5><p>如果一个子组件改了 props 的值，其他子组件就会陷入程序混乱了。所以不行不允许这样处理</p><h3 id="组件的生命周期"><a href="#组件的生命周期" class="headerlink" title="组件的生命周期"></a>组件的生命周期</h3><h4 id="装载过程"><a href="#装载过程" class="headerlink" title="装载过程"></a>装载过程</h4><p>constructon<br>getInitalState<br>getDefaultProps<br>componentWillMount<br>render<br>componentDidMount</p><h5 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h5><p>使用这个适用于下面目的：</p><ul><li>初始化 state</li><li>绑定成员函数的 this 环境</li></ul><p>this.onClickButton = this.onClickButton.bind(this)</p><p>这样写，会用过 bind 方法，让当前实例中 onClickButton 函数被调用的时候，this 指向始终都是当前组件实例。</p><p>this.foo = ::this.foo;<br>等同于：<br>this.foo = this.foo.bind(this);<br>这里:: 两个冒号的操作符叫做 bind 操作符。<br>不知道是不是 ES 标准语法，暂时不推荐使用</p><h5 id="render"><a href="#render" class="headerlink" title="render"></a>render</h5><p>render 函数只是返回一个 JSX 描述的结构，最终由 React 来操作渲染的过程<br>render 函数应该是一个纯函数，不要产生任何的副作用，<br>在 render 函数中去调用 this.setState 是错误的，因为一个纯函数不应该引起状态的改变</p><h5 id="componentDidMount"><a href="#componentDidMount" class="headerlink" title="componentDidMount"></a>componentDidMount</h5><p>render 调用完以后，componentDidmount 并不会被立刻调用，当他调用的时候，render 函数返回的东西已经引发了渲染，<br>组件已经被“装载”到 DOM 树上。<br>render 函数本身并不王 DOM 树上渲染或者装载内容，它只是返回一个 JSX 对象，然后由 React 库决定如何渲染。<br>而 React 库要把所有的组件都返回结果综合起来以后，才能做出对应 dom 修改，所以，在所有组件都 render 完事了以后，<br>才会开始进行调用各个组件的 componentDidMount<br>componentDidMount 只在浏览器端执行</p><h4 id="更新过程"><a href="#更新过程" class="headerlink" title="更新过程"></a>更新过程</h4><p>componentWillReceiveProps<br>shouldComponentUpdate<br>componentWillUpdate<br>render<br>componentDidUpdate</p><h4 id="卸载过程"><a href="#卸载过程" class="headerlink" title="卸载过程"></a>卸载过程</h4>]]></content>
+    
+    
+    <categories>
+      
+      <category>前端</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>-react -redux</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>http请求方方面面安排一波</title>
     <link href="/2020/07/01/request/"/>
     <url>/2020/07/01/request/</url>
