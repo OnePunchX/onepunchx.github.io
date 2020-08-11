@@ -17,7 +17,7 @@
   <meta name="description" content="呱呱">
   <meta name="author" content="onePunch">
   <meta name="keywords" content="">
-  <title>JS模块化的发展历程 - OnePunchMan</title>
+  <title>读你不知道的javascript - OnePunchMan</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -152,8 +152,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-06-10 14:27">
-      2020年6月10日 下午
+    <time datetime="2020-07-30 18:18">
+      2020年7月30日 晚上
     </time>
   </div>
 
@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      445 字
+      1.2k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      13
        分钟
     </span>
   
@@ -204,40 +204,91 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p><strong>随便写点 js 模块化发展历史，面试有问这玩意的，随便看看到时候能答出来几句就 ok，顺便咱也了解一下 js 的这方面历史。</strong></p>
-<p>1.js 的诞生：由 Brendan Eich 花了不到十天时间发明，用来在网页上进行表单校验、实现简单的动画效果等等，你可以回想一下那个网页上到处有公告块飘来飘去的时代。<br>2.2006 年 ajax 出现，js 开始发展。全局变量开始让人头疼了，函数命名开始冲突了 3.所以 js 需要，也必须要整模块化</p>
-<p>需要解决的问题是：</p>
-<ul>
-<li>如何安全的包装一个模块的代码？（不污染模块外的任何代码）</li>
-<li>如何唯一标识一个模块？</li>
-<li>如何优雅的把模块的 API 暴漏出去？（不能增加全局变量）</li>
-<li>如何方便的使用所依赖的模块？</li>
+              <h3 id="作用域"><a href="#作用域" class="headerlink" title="作用域"></a>作用域</h3><p>作用域是能够储存变量当中的值，并且能在之后对这个 值进行访问或修改。</p>
+<h4 id="理解作用域"><a href="#理解作用域" class="headerlink" title="理解作用域"></a>理解作用域</h4><ul>
+<li>引擎</li>
 </ul>
-<p>2009 年，node.js 诞生，这下模块化必须马上整了，要不然服务端没法弄了 所以 当当当当～ CommonJs 闪亮登场</p>
-<h2 id="CommonJs"><a href="#CommonJs" class="headerlink" title="CommonJs"></a>CommonJs</h2><p>简单来说呢，commonJs 就是，exports 暴露 API，require 引入该 API 的模块，</p>
-<p>缺点，得发请求啊 这玩意就不太好了</p>
-<h2 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h2><p>异步加载所需的模块，然后在回调函数中执行主逻辑。</p>
-<p>缺点：预先下载太多东西，而且定义模块的时候写法复杂，最重要的是，它实时下载代码然后触发回调，主体代码运行。用户会有卡顿感。</p>
-<h2 id="CMD"><a href="#CMD" class="headerlink" title="CMD"></a>CMD</h2><p>淘宝前端 玉伯 整出来的，融各家所长，没啥缺点</p>
-<h2 id="ES6"><a href="#ES6" class="headerlink" title="ES6"></a>ES6</h2><p>2015 年 6 月，es6 来了，export 暴露，import 引入，编译时加载（静态加载）</p>
-<h2 id="总结，就这点内容，还总结啥？告辞～"><a href="#总结，就这点内容，还总结啥？告辞～" class="headerlink" title="总结，就这点内容，还总结啥？告辞～"></a>总结，就这点内容，还总结啥？告辞～</h2>
+<p>从头到尾负责整个 javascript 程序的变异及执行过程</p>
+<ul>
+<li>编译器</li>
+</ul>
+<p>引擎的好朋友之一，负责语法分析及代码生成等脏活累活</p>
+<ul>
+<li>作用域</li>
+</ul>
+<p>引擎的另一个好朋友，负责手机并且维护由所有生命的标识符（变量）组成的一系列查询，并实施一套非常严格的规则，确定当前执行的代码对撰写标识符的访问权限。</p>
+<p>举个栗子 🌰</p>
+<pre><code class="hljs delphi"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span><span class="hljs-params">(a)</span> <span class="hljs-comment">&#123; console.log( a ); // 2</span></span>
+<span class="hljs-function"><span class="hljs-comment">&#125;</span></span>
+<span class="hljs-function"><span class="hljs-title">foo</span><span class="hljs-params">( 2 )</span>;</span></code></pre>
+
+<p>引擎:我说作用域，我需要为 foo 进行 RHS 引用。你见过它吗?<br>作用域:别说，我还真见过，编译器那小子刚刚声明了它。它是一个函数，给你。<br>引擎:哥们太够意思了!好吧，我来执行一下 foo。<br>引擎:作用域，还有个事儿。我需要为 a 进行 LHS 引用，这个你见过吗?<br>作用域:这个也见过，编译器最近把它声名为 foo 的一个形式参数了，拿去吧。<br>引擎:大恩不言谢，你总是这么棒。现在我要把 2 赋值给 a。<br>引擎:哥们，不好意思又来打扰你。我要为 console 进行 RHS 引用，你见过它吗?<br>作用域:咱俩谁跟谁啊，再说我就是干这个。这个我也有，console 是个内置对象。 给你。<br>引擎:么么哒。我得看看这里面是不是有 log(..)。太好了，找到了，是一个函数。<br>引擎:哥们，能帮我再找一下对 a 的 RHS 引用吗?虽然我记得它，但想再确认一次。<br>作用域:放心吧，这个变量没有变动过，拿走，不谢。<br>引擎:真棒。我来把 a 的值，也就是 2，传递进 log(..)。<br>……</p>
+<pre><code class="hljs stylus"><span class="hljs-selector-tag">var</span> <span class="hljs-selector-tag">a</span> = <span class="hljs-number">2</span></code></pre>
+
+<ol>
+<li>首先，var a 在其作用域中声明新变量。这会在最开始的阶段，也就是代码执行前进行。</li>
+<li>接下来，a = 2 会查询(LHS 查询)变量 a 并对其进行赋值。</li>
+</ol>
+<p>块级作用域<br>try catch 语句里面 catch 部分是块级作用域<br>let 可以在任意作用域中，通常是函数内部。可以当做块级变量～但是没有声明提升<br>const 也一样</p>
+<h3 id="编译器"><a href="#编译器" class="headerlink" title="编译器"></a>编译器</h3><p>包括变量和函数在内的所有声明都会在任何代码被执行前首先 被处理。</p>
+<p>当你看到 var a = 2; 时，可能会认为这是一个声明。但 JavaScript 实际上会将其看成两个 声明:var a;和 a = 2;。<br>第一个定义声明是在编译阶段进行的。第二个赋值声明会被留在 原地等待执行阶段。</p>
+<p>声明变量提升</p>
+<h4 id="函数优先"><a href="#函数优先" class="headerlink" title="函数优先"></a>函数优先</h4><pre><code class="hljs javascript">foo(); <span class="hljs-comment">// 1</span>
+<span class="hljs-keyword">var</span> foo;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;
+   <span class="hljs-built_in">console</span>.log( <span class="hljs-number">1</span> );
+&#125;
+foo = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+   <span class="hljs-built_in">console</span>.log( <span class="hljs-number">2</span> );
+&#125;;
+<span class="hljs-comment">// 会输出 1 而不是 2 !这个代码片段会被引擎理解为如下形式:</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-built_in">console</span>.log( <span class="hljs-number">1</span> );
+&#125;
+foo(); <span class="hljs-comment">// 1</span>
+foo = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-built_in">console</span>.log( <span class="hljs-number">2</span> );
+&#125;;</code></pre>
+
+<p><strong>小结：</strong><br>我们习惯将 var a = 2;看作一个声明，而实际上 JavaScript 引擎并不这么认为。它将 var a<br>和 a = 2 当作两个单独的声明，第一个是编译阶段的任务，而第二个则是执行阶段的任务。<br>这意味着无论作用域中的声明出现在什么地方，都将在代码本身被执行前首先进行处理。 可以将这个过程形象地想象成所有的声明(变量和函数)都会被“移动”到各自作用域的 最顶端，这个过程被称为提升。</p>
+<h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><p>为什么用 this。 简洁 ，复用性好</p>
+<p>我觉得关于 this 真的没什么好总结的，就一句话就完事：<br>this 实际上是在函数被调用时发生的绑定，它指向什么完全取决于函数在哪里被调用。</p>
+<h3 id="属性描述符"><a href="#属性描述符" class="headerlink" title="属性描述符"></a>属性描述符</h3><p>说实在的 这玩意我在红宝书里看过的</p>
+<pre><code class="hljs yaml"><span class="hljs-string">var</span> <span class="hljs-string">myObject</span> <span class="hljs-string">=</span> <span class="hljs-string">&#123;</span> <span class="hljs-string">a:2</span>
+<span class="hljs-string">&#125;;</span>
+     <span class="hljs-string">Object.getOwnPropertyDescriptor(</span> <span class="hljs-string">myObject,</span> <span class="hljs-string">"a"</span> <span class="hljs-string">);</span>
+     <span class="hljs-string">//</span> <span class="hljs-string">&#123;</span>
+<span class="hljs-string">//</span> <span class="hljs-attr">value:</span> <span class="hljs-number">2</span><span class="hljs-string">,</span>
+<span class="hljs-string">//</span> <span class="hljs-attr">writable:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span>
+<span class="hljs-string">//</span> <span class="hljs-attr">enumerable:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span>
+<span class="hljs-string">//</span> <span class="hljs-attr">configurable:</span> <span class="hljs-literal">true</span> <span class="hljs-string">//</span> <span class="hljs-string">&#125;</span>
+
+
+<span class="hljs-string">var</span> <span class="hljs-string">myObject</span> <span class="hljs-string">=</span> <span class="hljs-string">&#123;&#125;;</span>
+     <span class="hljs-string">Object.defineProperty(</span> <span class="hljs-string">myObject,</span> <span class="hljs-string">"a"</span><span class="hljs-string">,</span> <span class="hljs-string">&#123;</span>
+         <span class="hljs-attr">value:</span> <span class="hljs-number">2</span><span class="hljs-string">,</span>
+<span class="hljs-attr">writable:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span> <span class="hljs-attr">configurable:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span> <span class="hljs-attr">enumerable:</span> <span class="hljs-literal">true</span>
+     <span class="hljs-string">&#125;</span> <span class="hljs-string">);</span>
+     <span class="hljs-string">myObject.a;</span> <span class="hljs-string">//</span> <span class="hljs-number">2</span>
+
+<span class="hljs-string">//</span>  <span class="hljs-string">禁止一个对象添加新属性并且保留已有属性</span>
+        <span class="hljs-string">Object.preventExtensions(</span> <span class="hljs-string">myObject</span> <span class="hljs-string">);</span>
+     <span class="hljs-string">myObject.b</span> <span class="hljs-string">=</span> <span class="hljs-number">3</span><span class="hljs-string">;</span>
+     <span class="hljs-string">myObject.b;</span> <span class="hljs-string">//</span> <span class="hljs-string">undefined</span></code></pre>
+
+<p>Object.seal(..) 会创建一个“密封”的对象，这个方法实际上会在一个现有对象上调用 Object.preventExtensions(..) 并把所有现有属性标记为 configurable:false</p>
+<p>Object.freeze(..) 会创建一个冻结对象，这个方法实际上会在一个现有对象上调用 Object.seal(..) 并把所有“数据访问”属性标记为 writable:false，这样就无法修改它们 的值</p>
+
             </article>
             <hr>
             <div>
               <div class="post-metas mb-3">
                 
-                  <div class="post-meta mr-3">
-                    <i class="iconfont icon-category"></i>
-                    
-                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
-                    
-                  </div>
-                
                 
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/CommonJs-AMD-CMD/">CommonJs AMD CMD</a>
+                      <a class="hover-with-bg" href="/tags/javascript/">javascript</a>
                     
                   </div>
                 
@@ -250,9 +301,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/06/11/router-hash-history/">
+                      <a href="/2020/08/02/essay0802/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">前端路由</span>
+                        <span class="hidden-mobile">读少有人走的路</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -260,8 +311,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/06/09/bi-bao/">
-                        <span class="hidden-mobile">闭包，老铁安排上</span>
+                      <a href="/2020/07/14/essay0714/">
+                        <span class="hidden-mobile">药</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -433,7 +484,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "JS模块化的发展历程&nbsp;",
+        "读你不知道的javascript&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

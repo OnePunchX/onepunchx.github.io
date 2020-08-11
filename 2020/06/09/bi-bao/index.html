@@ -17,7 +17,7 @@
   <meta name="description" content="呱呱">
   <meta name="author" content="onePunch">
   <meta name="keywords" content="">
-  <title>bi-bao - OnePunchMan</title>
+  <title>闭包，老铁安排上 - OnePunchMan</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      12
        分钟
     </span>
   
@@ -204,8 +204,7 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <hr>
-<p>title: 闭包，老铁安排上<br>date: 2020-06-09 11:46:06<br>tags: 闭包<br>categories: 前端<br>—呱呱，啥是闭包？<br>天天写闭包，但是让表达出来，还真有点懵住了，<br>这玩意我都记在心里，话说不出口，都在酒里了，干杯～</p>
+              <p>呱呱，啥是闭包？<br>天天写闭包，但是让表达出来，还真有点懵住了，<br>这玩意我都记在心里，话说不出口，都在酒里了，干杯～</p>
 <p>—### 闭包是啥？</p>
 <p>来几个官方回答，可以应付面试</p>
 <ul>
@@ -274,6 +273,12 @@ bbb();
 <p>每次调用 bbb（）是新的地址，独立的，所以也是一样的道理 输出 i 为 1，2，3</p>
 </li>
 </ul>
+<pre><code class="hljs matlab"><span class="hljs-keyword">for</span> (var <span class="hljs-built_in">i</span>=<span class="hljs-number">1</span>; <span class="hljs-built_in">i</span>&lt;=<span class="hljs-number">5</span>; <span class="hljs-built_in">i</span>++) &#123; (<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">(j)</span> &#123;</span>
+setTimeout( <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">timer</span><span class="hljs-params">()</span> &#123; <span class="hljs-title">console</span>.<span class="hljs-title">log</span><span class="hljs-params">( j )</span>;</span>
+             &#125;, <span class="hljs-built_in">j</span>*<span class="hljs-number">1000</span> );
+         &#125;)( <span class="hljs-built_in">i</span> );
+&#125;</code></pre>
+
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>我没啥想总结了，有营养的都在上边了，如果看完了发现还是不太明白，那一定是我没说清楚，不怪你，那就再看看这个人对闭包的理解吧，会有帮助的<br>链接在此：<a href="http://blog.xcola.top/2018/05/23/%E5%AF%B9%E9%97%AD%E5%8C%85%E7%9A%84%E7%90%86%E8%A7%A3/" target="_blank" rel="noopener">请点击这里</a></p>
 <p><strong>冲鸭，奥利给</strong></p>
 
@@ -282,6 +287,20 @@ bbb();
             <div>
               <div class="post-metas mb-3">
                 
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%97%AD%E5%8C%85/">闭包</a>
+                    
+                  </div>
                 
               </div>
               
@@ -475,7 +494,7 @@ bbb();
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "bi-bao&nbsp;",
+        "闭包，老铁安排上&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
