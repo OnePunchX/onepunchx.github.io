@@ -55,7 +55,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>OnePunchMan</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      429 字
+      909 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      7
+      14
        分钟
     </span>
   
@@ -267,6 +267,46 @@
 <span class="hljs-regexp">Index.displayName = 'ExcelViewer';</span>
 <span class="hljs-regexp">export default Index;</span></code></pre>
 
+<p><img src="/img/sheets.png" srcset="/img/loading.gif" alt="图片"></p>
+<p>sheet[‘!ref’]：表示所有单元格的范围，例如从 A1 到 F8 则记录为 A1:F8；<br>sheet[!merges]：存放一些单元格合并信息，是一个数组，每个数组由包含 s 和 e 构成的对象组成，s 表示开始，e 表示结束，r 表示行，c 表示列；</p>
+<table>
+<thead>
+<tr>
+<th>键</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>v</td>
+<td>源数据(未经过处理的数据)</td>
+</tr>
+<tr>
+<td>w</td>
+<td>格式化后的文本(如果能够被格式化)</td>
+</tr>
+<tr>
+<td>t</td>
+<td>单元格类型</td>
+</tr>
+<tr>
+<td>r</td>
+<td>解码后的富文本</td>
+</tr>
+<tr>
+<td>h</td>
+<td>渲染成 HTML 格式的富文本</td>
+</tr>
+<tr>
+<td>c</td>
+<td>单元格注释</td>
+</tr>
+<tr>
+<td>z</td>
+<td>格式化成字符串的数值</td>
+</tr>
+</tbody></table>
+<p>v: “zhujun”<br>w: “zhujun”<br>t: “s” <code>// s 表示 string 类型，n 表示 number 类型，b 表示 boolean 类型，d 表示 date 类型，等等</code><br>r: <code>&quot;&lt;t&gt;zhujun&lt;t&gt;&quot;</code><br>h: “zhujun”</p>
+<p>XLSX.utils.sheet_to_csv：生成 CSV 格式<br>XLSX.utils.sheet_to_txt：生成纯文本格式<br>XLSX.utils.sheet_to_html：生成 HTML 格式<br>XLSX.utils.sheet_to_json：输出 JSON 格式<br>XLSX.utils.sheet_to_row_object_array：按每行数据输出数组</p>
 <p><em>几个重点：</em></p>
 <ol>
 <li>xlsx 方法的使用</li>
@@ -275,15 +315,89 @@
 <li>dangerouslySetInnerHTML 的使用</li>
 </ol>
 <p>Object.entries() 可以把一个对象的键值以数组的形式遍历出来，结果和 for…in 一致，但不会遍历原型属性。</p>
-<pre><code class="hljs prolog">
-const arr1 = [&#123; a: <span class="hljs-number">1</span> &#125;, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>];
-console.log(<span class="hljs-symbol">Object</span>.entries(arr1));  // [[<span class="hljs-string">'0'</span>, &#123; a: <span class="hljs-number">1</span> &#125;], [<span class="hljs-string">'1'</span>, <span class="hljs-string">'2'</span>], [<span class="hljs-string">'2'</span>, <span class="hljs-string">'3'</span>]]
+<pre><code class="hljs yaml">
+<span class="hljs-string">const</span> <span class="hljs-string">arr1</span> <span class="hljs-string">=</span> <span class="hljs-string">[&#123;</span> <span class="hljs-attr">a:</span> <span class="hljs-number">1</span> <span class="hljs-string">&#125;,</span> <span class="hljs-number">2</span><span class="hljs-string">,</span> <span class="hljs-number">3</span><span class="hljs-string">];</span>
+<span class="hljs-string">console.log(Object.entries(arr1));</span>  <span class="hljs-string">//</span> <span class="hljs-string">[['0',</span> <span class="hljs-string">&#123;</span> <span class="hljs-attr">a:</span> <span class="hljs-number">1</span> <span class="hljs-string">&#125;],</span> <span class="hljs-string">['1',</span> <span class="hljs-string">'2'</span><span class="hljs-string">],</span> <span class="hljs-string">['2',</span> <span class="hljs-string">'3'</span><span class="hljs-string">]]</span>
 
-const arr2 = [&#123; a: <span class="hljs-number">1</span> &#125;, &#123; b: <span class="hljs-number">2</span> &#125;, &#123; c: <span class="hljs-number">3</span> &#125;];
-console.log(<span class="hljs-symbol">Object</span>.entries(arr2));  // [[<span class="hljs-string">'0'</span>, &#123; a: <span class="hljs-number">1</span> &#125;], [<span class="hljs-string">'1'</span>, &#123; b: <span class="hljs-number">2</span> &#125;], [<span class="hljs-string">'2'</span>, &#123; c: <span class="hljs-number">3</span> &#125;]]</code></pre>
+<span class="hljs-string">const</span> <span class="hljs-string">arr2</span> <span class="hljs-string">=</span> <span class="hljs-string">[&#123;</span> <span class="hljs-attr">a:</span> <span class="hljs-number">1</span> <span class="hljs-string">&#125;,</span> <span class="hljs-string">&#123;</span> <span class="hljs-attr">b:</span> <span class="hljs-number">2</span> <span class="hljs-string">&#125;,</span> <span class="hljs-string">&#123;</span> <span class="hljs-attr">c:</span> <span class="hljs-number">3</span> <span class="hljs-string">&#125;];</span>
+<span class="hljs-string">console.log(Object.entries(arr2));</span>  <span class="hljs-string">//</span> <span class="hljs-string">[['0',</span> <span class="hljs-string">&#123;</span> <span class="hljs-attr">a:</span> <span class="hljs-number">1</span> <span class="hljs-string">&#125;],</span> <span class="hljs-string">['1',</span> <span class="hljs-string">&#123;</span> <span class="hljs-attr">b:</span> <span class="hljs-number">2</span> <span class="hljs-string">&#125;],</span> <span class="hljs-string">['2',</span> <span class="hljs-string">&#123;</span> <span class="hljs-attr">c:</span> <span class="hljs-number">3</span> <span class="hljs-string">&#125;]]</span>
+
+<span class="hljs-string">const</span> <span class="hljs-string">obj</span> <span class="hljs-string">=</span> <span class="hljs-string">&#123;</span> <span class="hljs-attr">sheet1:</span> <span class="hljs-string">&#123;</span> <span class="hljs-attr">zhujun:</span> <span class="hljs-number">666</span> <span class="hljs-string">&#125;&#125;;</span>
+<span class="hljs-string">console.log(Object.entries(obj));</span>  <span class="hljs-string">//</span>  <span class="hljs-string">[</span> <span class="hljs-string">'sheet1'</span><span class="hljs-string">,&#123;</span> <span class="hljs-attr">zhujun:</span> <span class="hljs-number">666</span> <span class="hljs-string">&#125;</span> <span class="hljs-string">]</span></code></pre>
 
 <p>在 react 中，展示富文本 ，字符串的方法，注意用法！</p>
 <pre><code class="hljs applescript">&lt;<span class="hljs-keyword">div</span> dangerouslySetInnerHTML=&#123;&#123; __html: '&lt;<span class="hljs-keyword">div</span>&gt;<span class="hljs-number">123</span>&lt;/<span class="hljs-keyword">div</span>&gt;' &#125;&#125; /&gt;</code></pre>
+
+<hr>
+<pre><code class="hljs javascript"><span class="hljs-keyword">import</span> React, &#123; Fragment, PureComponent &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> XLSX <span class="hljs-keyword">from</span> <span class="hljs-string">'xlsx'</span>;
+<span class="hljs-keyword">import</span> &#123; Card, Spin, Tabs &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'antd'</span>;
+<span class="hljs-keyword">import</span> &#123; formatMessage &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'umi-plugin-react/locale'</span>;
+<span class="hljs-keyword">import</span> &#123; Table &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'@/components/Enhanced'</span>;
+<span class="hljs-keyword">import</span> &#123; request &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'@/utils/Enhanced'</span>;
+
+<span class="hljs-keyword">const</span> &#123; TabPane &#125; = Tabs;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Index</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">PureComponent</span> </span>&#123;
+  <span class="hljs-keyword">constructor</span>(props) &#123;
+    <span class="hljs-keyword">super</span>(props);
+    <span class="hljs-keyword">this</span>.state = &#123;
+      workbook: <span class="hljs-literal">null</span>,
+      isLoading: <span class="hljs-literal">true</span>,
+    &#125;;
+  &#125;
+
+  componentDidMount() &#123;
+    <span class="hljs-keyword">const</span> &#123; src &#125; = <span class="hljs-keyword">this</span>.props;
+    <span class="hljs-keyword">if</span> (src) &#123;
+      request(src, &#123;
+        method: <span class="hljs-string">'get'</span>,
+        download: <span class="hljs-literal">true</span>,
+      &#125;).then(<span class="hljs-function"><span class="hljs-params">resp</span> =&gt;</span> &#123;
+        <span class="hljs-keyword">const</span> data = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Uint8Array</span>(resp.response.data);
+        <span class="hljs-keyword">const</span> workbook = XLSX.read(data, &#123; <span class="hljs-attr">type</span>: <span class="hljs-string">'array'</span> &#125;);
+        <span class="hljs-keyword">this</span>.setState(&#123;
+          isLoading: <span class="hljs-literal">false</span>,
+          workbook,
+        &#125;);
+      &#125;);
+    &#125;
+  &#125;
+
+  render() &#123;
+    <span class="hljs-keyword">const</span> &#123; isLoading, workbook &#125; = <span class="hljs-keyword">this</span>.state;
+
+    <span class="hljs-keyword">return</span> (
+      &lt;Fragment&gt;
+        &#123;isLoading ? (
+          &lt;Spin size=<span class="hljs-string">"large"</span> /&gt;
+        ) : (
+          &lt;Tabs&gt;
+            &#123;workbook.SheetNames.map(<span class="hljs-function">(<span class="hljs-params">sheetName, sheetIndex</span>) =&gt;</span> &#123;
+              <span class="hljs-keyword">return</span> (
+                &lt;TabPane tab=&#123;sheetName&#125; key=&#123;sheetIndex&#125;&gt;
+                  &lt;Table
+                    columns=&#123;<span class="hljs-built_in">Object</span>.keys(
+                      XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName])[<span class="hljs-number">0</span>],
+                    ).map(<span class="hljs-function">(<span class="hljs-params">columnItem, columnIndex</span>) =&gt;</span> &#123;
+                      <span class="hljs-keyword">return</span> &#123;
+                        title: formatMessage(&#123; <span class="hljs-attr">id</span>: <span class="hljs-string">`<span class="hljs-subst">$&#123;columnItem&#125;</span>`</span> &#125;),
+                        dataIndex: columnItem,
+                        key: columnIndex,
+                      &#125;;
+                    &#125;)&#125;
+                    dataSource=&#123;XLSX.utils.sheet_to_row_object_array(workbook.Sheets[sheetName])&#125;
+                  /&gt;
+                &lt;<span class="hljs-regexp">/TabPane&gt;</span>
+<span class="hljs-regexp">              );</span>
+<span class="hljs-regexp">            &#125;)&#125;</span>
+<span class="hljs-regexp">          &lt;/</span>Tabs&gt;
+        )&#125;
+      &lt;<span class="hljs-regexp">/Fragment&gt;</span>
+<span class="hljs-regexp">    );</span>
+<span class="hljs-regexp">  &#125;</span>
+<span class="hljs-regexp">&#125;</span>
+<span class="hljs-regexp"></span>
+<span class="hljs-regexp">export default Index;</span></code></pre>
 
             </article>
             <hr>
@@ -301,7 +415,7 @@ console.log(<span class="hljs-symbol">Object</span>.entries(arr2));  // [[<span 
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/%E9%A2%84%E8%A7%88excel/">预览excel</a>
+                      <a class="hover-with-bg" href="/tags/%E9%A2%84%E8%A7%88excel-XLSX/">预览excel XLSX</a>
                     
                   </div>
                 
@@ -316,7 +430,7 @@ console.log(<span class="hljs-symbol">Object</span>.entries(arr2));  // [[<span 
                     
                       <a href="/2020/08/13/form-render/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">FormRender</span>
+                        <span class="hidden-mobile">用FormRender快速开发表单</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
