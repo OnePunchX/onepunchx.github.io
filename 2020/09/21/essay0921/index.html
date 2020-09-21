@@ -17,7 +17,7 @@
   <meta name="description" content="呱呱">
   <meta name="author" content="onePunch">
   <meta name="keywords" content="">
-  <title>了解一下webpack吧 - OnePunchMan</title>
+  <title>读《穿过大半个中国去睡你》 - OnePunchMan</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -152,8 +152,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-09-15 15:14">
-      2020年9月15日 下午
+    <time datetime="2020-09-21 17:26">
+      2020年9月21日 下午
     </time>
   </div>
 
@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      723 字
+      1.2k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9
+      11
        分钟
     </span>
   
@@ -204,95 +204,42 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <h2 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h2><p>模块打包机：它做的事情是，分析你的项目结构，找到 JavaScript 模块以及其它的一些浏览器不能直接运行的拓展语言（Scss，TypeScript 等），并将其转换和打包为合适的格式供浏览器使用。</p>
-<p>所有模块都是 JS 模块 webpack 只支持 JS 模块，所有其他类型的模块，比如图片，css 等，都需要通过对应的 loader 转成 JS 模块。所以在 webpack 中无论任何类型的资源，本质上都被当成 JS 模块处理。</p>
-<p>就像个面条机器，面放进去，面条出来</p>
-<p>好像是这样，，我们敲代码的时候分模块实现页面功能。但是其实它是一个单页面应用，理论上就是只有一个页面<br>这个 webpack 就是把我们写的一堆模块放进一个 index 文件里面。称为模块打包<br>因为 webpack 只搞 js 文件，所以遇见其他文件就通过各种 loader 给搞成 js 文件</p>
-<h3 id="简介-babel-loader"><a href="#简介-babel-loader" class="headerlink" title="简介 babel-loader"></a>简介 babel-loader</h3><pre><code class="hljs javascript"><span class="hljs-comment">//  原封不动return出来</span>
-<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">source</span>) </span>&#123;
-  <span class="hljs-keyword">return</span> source
-&#125;
+              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>提示：下面有关于性的讨论。反感的就别看了。</p>
+<hr>
+<p>今天偶然读到了这首诗， 一首在 2015 年火起来的饱受争议的诗。<br>不记得我之前有没有读过，不过<br>2015 年那时候在读海子，仓央嘉错，纳兰容若，这首不是我的菜<br>恐怕读过我也没印象 😂<br>今天读过能够 get 到了<br>有觉得震撼，在了解到作者背景后更是感慨万千。</p>
+<h3 id="诗句"><a href="#诗句" class="headerlink" title="诗句"></a>诗句</h3><p>《穿过大半个中国去睡你》 ———— 余秀华</p>
+<p>其实，睡你和被你睡是差不多的，无非是</p>
+<p>两具肉体碰撞的力， 无非是这力催开的花朵</p>
+<p>无非是这花朵虚拟出的春天让我们误以为生命被重新打开</p>
+<p>大半个中国，什么都在发生：火山在喷，河流在枯</p>
+<p>一些不被关心的政治犯和流民</p>
+<p>一路在枪口的麋鹿和丹顶鹤</p>
+<p>我是穿过枪林弹雨去睡你</p>
+<p>我是把无数的黑夜摁进一个黎明去睡你</p>
+<p>我是无数个我奔跑成一个我去睡你</p>
+<p>当然我也会被一些蝴蝶带入歧途</p>
+<p>把一些赞美当成春天</p>
+<p>把一个和横店类似的村庄当成故乡</p>
+<p>而它们</p>
+<p>都是我去睡你必不可少的理由</p>
+<h3 id="对诗的感受"><a href="#对诗的感受" class="headerlink" title="对诗的感受"></a>对诗的感受</h3><p>以我现在的阅历和人生观，领悟了三层感受。<br>抛开诗人的经历，过往，人设。只谈作品本身给我的感受。</p>
+<h4 id="一-肉欲"><a href="#一-肉欲" class="headerlink" title="一 肉欲"></a>一 肉欲</h4><p>第一句就抓住我了<br>第二句就震撼到我了<br>睡你和被你睡是差不多的，因为我们都是愿意的，都是享受这场性爱的<br>不是 I fuck you<br>而是 We have sex<br>两具肉体碰撞的力<br>这句话，这几个字激起了太多感官感受<br>是<br>两具身体碰撞的声音<br>柔软细腻的肌肤<br>紧实有弹性的大腿<br>褶皱潮湿的床单<br>掉落在地上的枕头</p>
+<p>整首诗用的文字的直观感受都很直白<br>对比一下</p>
+<blockquote>
+<p>我是天空里的一片云，偶尔投影在你的波心 —— 徐志摩</p>
+</blockquote>
+<blockquote>
+<p>你见，或者不见我，我就在那里，不悲不喜。 —— 扎西拉姆·多多</p>
+</blockquote>
+<blockquote>
+<p>我如果爱你，绝不像攀援的凌霄花，借你的高枝炫耀自己; ——— 舒婷</p>
+</blockquote>
+<p>别人写爱情都很委婉唯美，作者就很直接，就是睡你，就是有力，简单粗暴，爱咋咋地<br>如此粗砺的文字却直击灵魂，刺激每个人的生理欲望。</p>
+<p>非常强烈的性欲<br>其他人<br>或者是自己都无法满足这欲望<br>就是要你<br>就是要睡你<br>要你用力催开我的花朵<br>要你在生命大和谐中打开我生命的春天<br>即使跋山涉水，路上误入迷途<br>也一定要睡你</p>
+<h4 id="二-情绪起伏"><a href="#二-情绪起伏" class="headerlink" title="二 情绪起伏"></a>二 情绪起伏</h4><p>经历过很多，所以才会有连续几个“无非是”<br>看到这个世界的糟糕<br>对自然环境变化的无奈<br>对人与人关系冷漠的悲悯<br>对人向动物发起杀戮的愤怒与心痛<br>也隐约描述了自己的经历<br>捱过难熬的日日夜夜<br>也在感情路上的摸爬滚打后<br>意识到曾经的错误后<br>终于认识了你<br>感觉就像黎明的曙光<br>是我渴求的爱情所散发的光芒<br>我愿意穿过枪林弹雨<br>我愿意为之付出一切<br>同时也不后悔过去的一切<br>正是过去每一天的我<br>正是经历过无数事情的我<br>才让我变成现在的我<br>我带着我的一切向你奔跑<br>不远万里<br>要去睡你<br>要去爱你</p>
+<h4 id="三-生命力"><a href="#三-生命力" class="headerlink" title="三 生命力"></a>三 生命力</h4><p>这首诗体现出的生命力实在是太强大了<br>表面上是追求满足性欲和性爱<br>实际上是生存价值和生活的追求<br>不管是现实的枪林弹雨让我千疮百孔<br>还是感情虐我千百遍让我遍体鳞伤<br>无论如何，都要很好的活着，有所追求的活着</p>
+<h3 id="对诗人经历的感受"><a href="#对诗人经历的感受" class="headerlink" title="对诗人经历的感受"></a>对诗人经历的感受</h3><p>诗人余秀华她天生脑瘫，行动不便，口齿不清。高中文凭，被现实压迫接受了没有爱情的婚姻。<br>她也想拥有爱情啊<br>可是注定她这一生也不会拥有<br>她唯一能做的就是<br>摆脱那段恶心的婚姻。<br>总比在压迫压抑中度过一生要好得多。<br>生活总是如此艰难，我们都要加油啊…</p>
 
-<span class="hljs-comment">// 用babel处理一下，然后return出来</span>
-<span class="hljs-keyword">var</span> babel = <span class="hljs-built_in">require</span>(<span class="hljs-string">"babel-core"</span>)
-<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">source</span>) </span>&#123;
-  <span class="hljs-keyword">var</span> babelOptions = &#123;
-    presets: [<span class="hljs-string">'env'</span>]
-  &#125;
-  <span class="hljs-keyword">var</span> result = babel.transform(source, babelOptions)
-  <span class="hljs-keyword">return</span> result.code
-&#125;
-
-<span class="hljs-comment">//  终极版自定义babel-loader</span>
-
-<span class="hljs-keyword">var</span> babel = <span class="hljs-built_in">require</span>(<span class="hljs-string">"babel-core"</span>)
-
-<span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">source, inputSourceMap</span>) </span>&#123;
-  <span class="hljs-keyword">var</span> babelOptions = &#123;
-    presets: [<span class="hljs-string">'env'</span>],
-    inputSourceMap: inputSourceMap,
-    filename: <span class="hljs-keyword">this</span>.request.split(<span class="hljs-string">'!'</span>)[<span class="hljs-number">1</span>].split(<span class="hljs-string">'/'</span>).pop(),
-    sourceMaps: <span class="hljs-literal">true</span>
-  &#125;
-  <span class="hljs-keyword">var</span> result = babel.transform(source, babelOptions)
-  <span class="hljs-keyword">this</span>.callback(<span class="hljs-literal">null</span>, result.code, result.map)
-&#125;</code></pre>
-
-<p><a href="https://github.com/lihongxun945/diving-into-webpack/blob/master/2-babel-loader.md" target="_blank" rel="noopener">链接，自定义 babel-loader 相关内容</a></p>
-<h3 id="简介-css-loader-amp-style-loader"><a href="#简介-css-loader-amp-style-loader" class="headerlink" title="简介 css-loader &amp; style-loader"></a>简介 css-loader &amp; style-loader</h3><p>css-loader 的作用是处理 css 中的 @import 和 url 这样的外部资源<br>style-loader 的作用是把样式插入到 DOM 中，方法是在 head 中插入一个 style 标签，并把样式写入到这个标签的 innerHTML 里</p>
-<pre><code class="hljs css">
-&#123;
-  <span class="hljs-attribute">module</span>: &#123;
-    rules: [
-      &#123;
-        test: /\.css$/,
-        use: [
-          &#123; loader: <span class="hljs-string">"style-loader"</span> &#125;,
-          &#123; <span class="hljs-attribute">loader</span>: <span class="hljs-string">"css-loader"</span> &#125;
-        ]
-      &#125;
-    ]
-  &#125;
-&#125;</code></pre>
-
-<p>即我们的 CSS 代码会先被 css-loader 处理一次，然后再交给 style-loader 进行处理。</p>
-<p><a href="https://blog.csdn.net/sinat_17775997/article/details/84030720" target="_blank" rel="noopener">源码相关文档</a></p>
-<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>我们可以将一些编译选项放在配置文件中，以便于统一管理：</p>
-<p>创建 webpack.config.js 文件，代码如下所示：</p>
-<pre><code class="hljs dts">module.exports = &#123;
-<span class="hljs-symbol">    entry:</span> <span class="hljs-string">"./runoob1.js"</span>,
-<span class="hljs-symbol">    output:</span> &#123;
-<span class="hljs-symbol">        path:</span> __dirname,
-<span class="hljs-symbol">        filename:</span> <span class="hljs-string">"bundle.js"</span>
-    &#125;,
-<span class="hljs-symbol">    module:</span> &#123;
-<span class="hljs-symbol">        loaders:</span> [
-            &#123; test: /\.css$/, loader: <span class="hljs-string">"style-loader!css-loader"</span> &#125;
-        ]
-    &#125;
-&#125;;</code></pre>
-
-<h3 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h3><p>插件在 webpack 的配置信息 plugins 选项中指定，用于完成一些 loader 不能完成的工。<br>webpack 自带一些插件，你可以通过 cnpm 安装一些插件。<br>使用内置插件需要通过以下命令来安装：cnpm install webpack –save-dev</p>
-<p>比如我们可以安装内置的 BannerPlugin 插件，用于在文件头部输出一些注释信息。<br>修改 webpack.config.js，代码如下：</p>
-<pre><code class="hljs typescript"><span class="hljs-keyword">var</span> webpack=<span class="hljs-built_in">require</span>(<span class="hljs-string">'webpack'</span>);
-
-<span class="hljs-built_in">module</span>.exports = &#123;
-    entry: <span class="hljs-string">"./runoob1.js"</span>,
-    output: &#123;
-        path: __dirname,
-        filename: <span class="hljs-string">"bundle.js"</span>
-    &#125;,
-    <span class="hljs-keyword">module</span>: &#123;
-        loaders: [
-            &#123; test: <span class="hljs-regexp">/\.css$/</span>, loader: <span class="hljs-string">"style-loader!css-loader"</span> &#125;
-        ]
-    &#125;,
-    plugins:[
-    <span class="hljs-keyword">new</span> webpack.BannerPlugin(<span class="hljs-string">'菜鸟教程 webpack 实例'</span>)
-    ]
-&#125;;</code></pre>
-
-<h3 id="使用技巧"><a href="#使用技巧" class="headerlink" title="使用技巧"></a>使用技巧</h3>
             </article>
             <hr>
             <div>
@@ -301,7 +248,7 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                      <a class="hover-with-bg" href="/categories/%E8%AF%BB%E4%B9%A6%E5%BF%83%E5%BE%97/">读书心得</a>
                     
                   </div>
                 
@@ -309,7 +256,7 @@
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/webpack/">webpack</a>
+                      <a class="hover-with-bg" href="/tags/%E4%BD%99%E7%A7%80%E5%8D%8E/">余秀华</a>
                     
                   </div>
                 
@@ -322,18 +269,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/09/21/essay0921/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">读《穿过大半个中国去睡你》</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/09/14/movie0914/">
-                        <span class="hidden-mobile">电影《信条》</span>
+                      <a href="/2020/09/15/webpack/">
+                        <span class="hidden-mobile">了解一下webpack吧</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -505,7 +446,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "了解一下webpack吧&nbsp;",
+        "读《穿过大半个中国去睡你》&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
