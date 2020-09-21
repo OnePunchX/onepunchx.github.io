@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      957 字
+      1.1k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      12
        分钟
     </span>
   
@@ -227,11 +227,12 @@ git push</code></pre>
 <h4 id="git-reset-–hard"><a href="#git-reset-–hard" class="headerlink" title="git reset –hard"></a>git reset –hard</h4><p>比如 git reset –hard origin master 这时会清空暂存区，也就是说没有 commit 的内容都会被清除掉<br>重置位置的同时，直接将 working Tree 工作目录、 index 暂存区及 repository 都重置成目标 Reset 节点的內容,所以效果看起来等同于清空暂存区和工作区。</p>
 <h4 id="git-reseet-–mixed-或者说不加参数"><a href="#git-reseet-–mixed-或者说不加参数" class="headerlink" title="git reseet –mixed 或者说不加参数"></a>git reseet –mixed 或者说不加参数</h4><p>保留工作目录，并清空暂存区<br>工作目录的内容和 –soft 一样会被保留，但和 –soft 的区别在于，它会把暂存区清空,并把原节点和 reset 节点的差异的文件放在工作目录，总而言之就是，工作目录的修改、暂存区的内容以及由 reset 所导致的新的文件差异，都会被放进工作目录</p>
 <h4 id="git-reset-–soft"><a href="#git-reset-–soft" class="headerlink" title="git reset –soft"></a>git reset –soft</h4><p>保留工作目录，并把重置 HEAD 所带来的新的差异放进暂存区<br>–hard 会清空工作目录和暂存区的改动,而 –soft 则会保留工作目录的内容，并把因为保留工作目录内容所带来的新的文件差异放进暂存区。</p>
-<h3 id="git-cherry-pick-某次提交"><a href="#git-cherry-pick-某次提交" class="headerlink" title="git cherry-pick 某次提交"></a>git cherry-pick 某次提交</h3><p>可以单独合并某次提交的代码，比如 A 分支有 3 次提交，想要把第 2 次合并到 B 分支。</p>
+<h3 id="git-cherry-pick"><a href="#git-cherry-pick" class="headerlink" title="git cherry-pick"></a>git cherry-pick</h3><p>某次提交可以单独合并某次提交的代码，比如 A 分支有 3 次提交，想要把第 2 次合并到 B 分支。</p>
 <p>如果遇到了代码冲突，解决冲突然后<br>git add .<br>git cherry-pick –continue</p>
 <p><strong>–abort</strong><br>代码冲突，取消合并代码的事件</p>
 <p><strong>–quit</strong><br>代码冲突，推出 cherry-pick，但是不会倒操作前的代码</p>
 <h3 id="git-fetch"><a href="#git-fetch" class="headerlink" title="git fetch"></a>git fetch</h3><p>差不多可以这样理解<br>git pull = git fetch + git merge<br>最常用的是，多人协同开发，别人新建的分支，在你 git branch -a 看不到的时候<br>执行一下 git fetch<br>完事</p>
+<h3 id="git-tag"><a href="#git-tag" class="headerlink" title="git tag"></a>git tag</h3><p>通常发布的时候，每个版本都会打对应的 tag，方便后期回溯<br>git tag -a v2.4.9 （tag 的版本号）-m “描述”<br>-a 参数来创建一个带备注的 tag，备注信息由-m 指定。如果你未传入-m 则创建过程系统会自动为你打开编辑器让你填写备注信息。<br>git show 命令可以查看 tag 的详细信息，包括 commit 号等。</p>
 
             </article>
             <hr>
