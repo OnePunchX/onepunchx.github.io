@@ -17,7 +17,7 @@
   <meta name="description" content="呱呱">
   <meta name="author" content="onePunch">
   <meta name="keywords" content="">
-  <title>. - OnePunchMan</title>
+  <title>组件卸载生命周期遇见的坑 - OnePunchMan</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -152,8 +152,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-01-18 18:15">
-      2020年1月18日 晚上
+    <time datetime="2020-10-13 19:55">
+      2020年10月13日 晚上
     </time>
   </div>
 
@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      293 字
+      541 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      6
        分钟
     </span>
   
@@ -204,14 +204,49 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>hi，someone. this is not for anybody,but maybe this is for the future you</p>
-<p>有人现在说喜欢小溪<br>是因为还没见过大海<br>而我已经见过了银河<br>却仍然只爱你这颗星</p>
-<p>—《what can i hold you with? 》<br>__ Jorges Luis Borges</p>
-<p>i offer you lean streets,desperate sunsets, the moon of the jagged suburbs<br>i offer you the bitterness of a man who has looked long and long at the lonely moon<br>i offer you my ancestors, my family<br>i offer you whatever insight my books may hold<br>whatever manliness or humour my life<br>i offer you the loyalty of a man who has never been loyal<br>i offer you explanations of yourself,theories about yourself,authentic and surprising news of yourself<br>i can give you my loneliness ,my darkness,the hunger of my heart<br>i am trying to bribe you with uncertainty,with danger,with defeat</p>
-<p>《 爱你 就像爱生命 》 ————王小波<br>我把我整个灵魂都给你，连同它的怪癖，耍小脾气，忽明忽暗，一千八百种坏毛病。它真讨厌，只有一点好，爱你。</p>
-<p>你是非常可爱的人，真应该遇见最好的人，我也真希望我就是。</p>
-<p>“我遇见你，我记得你，这座城市天生就适合恋爱，你天生就适合我的灵魂。” ——杜拉斯</p>
-<p>如果你给我的，和你给别人的是一样的，那我就不要了。 ———— 三毛</p>
+              <h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>刚刚在敲码时候遇见了个离谱的问题，排查发现与组件卸载相关。<br>刚好写个博，一来趁热记录一下刚刚走过的坑，二来总结学习一下相关的问题其余的坑。</p>
+<h3 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h3><p>在页面挂载了一个 pubsub 监听程序，，啊，突然发现 pubsub 使用方法的博客还没写，留了个坑<br>问题是触发该 pubsub 的时候，本该执行一次的函数被执行了多次，并且发现每次热更新就会多执行一次函数</p>
+<h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><p>经过排查啊，页面组件是只加载一次的，所以就一定是 pubsub 的监听被触发了多次或者生成了多个监听程序</p>
+<h3 id="上代码实战分析"><a href="#上代码实战分析" class="headerlink" title="上代码实战分析"></a>上代码实战分析</h3><pre><code class="hljs typescript">PubSub.subscribe(<span class="hljs-string">'电子签名'</span>, <span class="hljs-function">(<span class="hljs-params">keyword, data</span>) =&gt;</span> &#123;
+     <span class="hljs-keyword">const</span> &#123; functionalModuleId, caseName, caseObject, okFn, ...rest &#125; = data;
+
+     <span class="hljs-keyword">const</span> eSignAuth = getEsignAuthorities().find(
+       item =&gt; <span class="hljs-string">`<span class="hljs-subst">$&#123;item.id&#125;</span>`</span> === <span class="hljs-string">`<span class="hljs-subst">$&#123;functionalModuleId&#125;</span>`</span>,
+     ); <span class="hljs-comment">// 获取电子签名权限信息</span>
+     <span class="hljs-comment">//  判断电子签名是否开启</span>
+     <span class="hljs-keyword">const</span> newDisabled = !(
+       eSignAuth &amp;&amp;
+       (eSignAuth.electronicSignatureIdentifier === <span class="hljs-number">1</span> ||
+         eSignAuth.electronicSignatureIdentifier === <span class="hljs-number">3</span>)
+     );
+     <span class="hljs-keyword">if</span> (!functionalModuleId || newDisabled) &#123;
+       okFn(&#123;&#125;);
+       <span class="hljs-keyword">return</span>;
+     &#125;
+     <span class="hljs-keyword">this</span>.setState(&#123;
+       isModalShow: <span class="hljs-literal">true</span>,
+       functionalModuleId,
+       caseName,
+       caseObject,
+       okFn,
+       ...rest,
+     &#125;);
+   &#125;);</code></pre>
+
+<p>原来上面这段代码写在 componentDidMount 的生命周期里。后来放进类构造函数里，用 componentWillUnmount 处理<br>代码如下</p>
+<pre><code class="hljs kotlin">
+componentDidMount() &#123;
+  <span class="hljs-keyword">this</span>.esignPubsub;
+&#125;
+
+componentWillUnmount() &#123;
+  PubSub.unsubscribe(<span class="hljs-keyword">this</span>.esignPubsub);
+&#125;</code></pre>
+
+<p>这里其实还涉及一些其他的点，比如<br>热更新 websocket 推送过去的，只更新变化的 bundle。<br>浏览器刷新全量更新除缓存外所有文件。</p>
+<p>所以每次保存代码热更新，，都没有清空上一次程序的线程，会导致多次运行同一个程序<br>类似的还有：</p>
+<p>websocket 的运行等</p>
+<h4 id="这个组件卸载的生命周期啊，就是这个-componentWillUnmount-生命周期还要注意定时器的清楚。这已经是老生常谈了哈哈哈"><a href="#这个组件卸载的生命周期啊，就是这个-componentWillUnmount-生命周期还要注意定时器的清楚。这已经是老生常谈了哈哈哈" class="headerlink" title="这个组件卸载的生命周期啊，就是这个 componentWillUnmount 生命周期还要注意定时器的清楚。这已经是老生常谈了哈哈哈"></a>这个组件卸载的生命周期啊，就是这个 componentWillUnmount 生命周期还要注意定时器的清楚。这已经是老生常谈了哈哈哈</h4><h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>解决这个问题还是收获挺多的。挺开心。以前害怕遇见问题解决不了，现在希望能遇见更多的问题，从中学到更多的遗漏的知识点。<br>心态的改变，也印证了自我的成长。继续前行吧</p>
 
             </article>
             <hr>
@@ -221,10 +256,17 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
                     
                   </div>
                 
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E7%BB%84%E4%BB%B6%E5%8D%B8%E8%BD%BD-componentWillUnmount/">组件卸载 componentWillUnmount</a>
+                    
+                  </div>
                 
               </div>
               
@@ -235,18 +277,12 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/06/05/hello-world/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Hello World</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </div>
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/01/17/secret0817/">
-                        <span class="hidden-mobile">.</span>
+                      <a href="/2020/10/09/pubsub/">
+                        <span class="hidden-mobile">监听与触发机制——pubsub</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -418,7 +454,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        ".&nbsp;",
+        "组件卸载生命周期遇见的坑&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

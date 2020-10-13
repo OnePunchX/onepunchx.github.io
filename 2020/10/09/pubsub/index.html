@@ -17,7 +17,7 @@
   <meta name="description" content="呱呱">
   <meta name="author" content="onePunch">
   <meta name="keywords" content="">
-  <title>. - OnePunchMan</title>
+  <title>监听与触发机制——pubsub - OnePunchMan</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
@@ -152,8 +152,8 @@
               
   <div class="mt-3 post-meta">
     <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-    <time datetime="2020-01-18 18:15">
-      2020年1月18日 晚上
+    <time datetime="2020-10-09 10:58">
+      2020年10月9日 上午
     </time>
   </div>
 
@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      293 字
+      459 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      4
+      6
        分钟
     </span>
   
@@ -204,14 +204,89 @@
           <div class="post-content mx-auto" id="post">
             
             <article class="markdown-body">
-              <p>hi，someone. this is not for anybody,but maybe this is for the future you</p>
-<p>有人现在说喜欢小溪<br>是因为还没见过大海<br>而我已经见过了银河<br>却仍然只爱你这颗星</p>
-<p>—《what can i hold you with? 》<br>__ Jorges Luis Borges</p>
-<p>i offer you lean streets,desperate sunsets, the moon of the jagged suburbs<br>i offer you the bitterness of a man who has looked long and long at the lonely moon<br>i offer you my ancestors, my family<br>i offer you whatever insight my books may hold<br>whatever manliness or humour my life<br>i offer you the loyalty of a man who has never been loyal<br>i offer you explanations of yourself,theories about yourself,authentic and surprising news of yourself<br>i can give you my loneliness ,my darkness,the hunger of my heart<br>i am trying to bribe you with uncertainty,with danger,with defeat</p>
-<p>《 爱你 就像爱生命 》 ————王小波<br>我把我整个灵魂都给你，连同它的怪癖，耍小脾气，忽明忽暗，一千八百种坏毛病。它真讨厌，只有一点好，爱你。</p>
-<p>你是非常可爱的人，真应该遇见最好的人，我也真希望我就是。</p>
-<p>“我遇见你，我记得你，这座城市天生就适合恋爱，你天生就适合我的灵魂。” ——杜拉斯</p>
-<p>如果你给我的，和你给别人的是一样的，那我就不要了。 ———— 三毛</p>
+              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>刚刚敲完组件卸载那个博客，趁热来填坑。pubsub 这个是前一段接触到的，为了实现全局性的事件触发。<br>触发一个事件，调用对应的函数。同样的功能我能用另外两种方式实现<br>不过用这个新的技术，也挺好，也不是坏事。<br>多学会个东西总是好的。遇见新东西还是不要抵触。</p>
+<h3 id="pubsub-使用"><a href="#pubsub-使用" class="headerlink" title="pubsub 使用"></a>pubsub 使用</h3><p>分为几步<br>引入<br>注册事件<br>触发事件<br>销毁</p>
+<pre><code class="hljs typescript"><span class="hljs-comment">//  引入</span>
+<span class="hljs-keyword">import</span> PubSub <span class="hljs-keyword">from</span> <span class="hljs-string">'pubsub-js'</span>
+
+
+<span class="hljs-comment">//  注册事件</span>
+<span class="hljs-keyword">var</span> token = PubSub.subscribe(<span class="hljs-string">'MY TOPIC'</span>, <span class="hljs-function">(<span class="hljs-params">msg,data</span>)=&gt;</span> <span class="hljs-built_in">console</span>.log(msg,data))
+<span class="hljs-comment">// msg第一个参数是事件名，这里就是“MY TOPIC”</span>
+<span class="hljs-comment">// data是触发事件的时候传过来的参数</span>
+
+
+<span class="hljs-comment">//  触发事件</span>
+PubSub.publish(<span class="hljs-string">'MY TOPIC'</span>, <span class="hljs-string">'hello world!'</span>);
+<span class="hljs-comment">//  这里的“hello world”会被当作参数传过去</span>
+
+
+<span class="hljs-comment">//  注销</span>
+PubSub.unsubscribe(token);</code></pre>
+
+<p>总体来说，还是比较简单的</p>
+<h3 id="实战代码"><a href="#实战代码" class="headerlink" title="实战代码"></a>实战代码</h3><pre><code class="hljs typescript"><span class="hljs-comment">//  注册</span>
+    <span class="hljs-keyword">this</span>.esignPubsub = PubSub.subscribe(<span class="hljs-string">'电子签名'</span>, <span class="hljs-function">(<span class="hljs-params">keyword, data</span>) =&gt;</span> &#123;
+      <span class="hljs-keyword">const</span> &#123; functionalModuleId, caseName, caseObject, okFn, ...rest &#125; = data;
+
+      <span class="hljs-keyword">const</span> eSignAuth = getEsignAuthorities().find(
+        item =&gt; <span class="hljs-string">`<span class="hljs-subst">$&#123;item.id&#125;</span>`</span> === <span class="hljs-string">`<span class="hljs-subst">$&#123;functionalModuleId&#125;</span>`</span>,
+      ); <span class="hljs-comment">// 获取电子签名权限信息</span>
+      <span class="hljs-comment">//  判断电子签名是否开启</span>
+      <span class="hljs-keyword">const</span> newDisabled = !(
+        eSignAuth &amp;&amp;
+        (eSignAuth.electronicSignatureIdentifier === <span class="hljs-number">1</span> ||
+          eSignAuth.electronicSignatureIdentifier === <span class="hljs-number">3</span>)
+      );
+      <span class="hljs-keyword">if</span> (!functionalModuleId || newDisabled) &#123;
+        okFn(&#123;&#125;);
+        <span class="hljs-keyword">return</span>;
+      &#125;
+      <span class="hljs-keyword">this</span>.setState(&#123;
+        isModalShow: <span class="hljs-literal">true</span>,
+        functionalModuleId,
+        caseName,
+        caseObject,
+        okFn,
+        ...rest,
+      &#125;);
+    &#125;);
+
+  componentDidMount() &#123;
+    <span class="hljs-keyword">this</span>.esignPubsub;
+  &#125;
+
+
+<span class="hljs-comment">//  触发</span>
+        PubSub.publish(<span class="hljs-string">'电子签名'</span>, &#123;
+                    functionalModuleId: <span class="hljs-string">'2003000003'</span>,
+                    caseName: record.fileName,
+                    caseObject: <span class="hljs-string">'fileName'</span>,
+                    okFn: <span class="hljs-function">(<span class="hljs-params">&#123; signature &#125;</span>) =&gt;</span> &#123;
+                      saveRecord(&#123;
+                        ...record,
+                        ...newRecord,
+                        signature,
+                      &#125;).then(<span class="hljs-function">(<span class="hljs-params">&#123; success, response &#125;</span>) =&gt;</span> &#123;
+                        <span class="hljs-keyword">if</span> (success) &#123;
+                          loadRecords();
+                          modalSuccess();
+                        &#125; <span class="hljs-keyword">else</span> &#123;
+                          message.error(response.data.message);
+                        &#125;
+                      &#125;);
+                    &#125;,
+                  &#125;)
+
+
+  <span class="hljs-comment">//  注销</span>
+  componentWillUnmount() &#123;
+    PubSub.unsubscribe(<span class="hljs-keyword">this</span>.esignPubsub);
+  &#125;</code></pre>
+
+<h3 id="可用于"><a href="#可用于" class="headerlink" title="可用于"></a>可用于</h3><p>跨页面触发事件，传递参数的需求。<br>或者是多页面公用一些事件触发机制。</p>
+<p>这种事件触发可能类似于 dva 里的 subscribtion，其实用 model 层也能解决类似问题</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>没啥总结的哈哈，这玩意用起来不难</p>
 
             </article>
             <hr>
@@ -221,10 +296,17 @@
                   <div class="post-meta mr-3">
                     <i class="iconfont icon-category"></i>
                     
-                      <a class="hover-with-bg" href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a>
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
                     
                   </div>
                 
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/pubsub/">pubsub</a>
+                    
+                  </div>
                 
               </div>
               
@@ -235,9 +317,9 @@
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/06/05/hello-world/">
+                      <a href="/2020/10/13/componentwillunmount/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Hello World</span>
+                        <span class="hidden-mobile">组件卸载生命周期遇见的坑</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -245,8 +327,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/01/17/secret0817/">
-                        <span class="hidden-mobile">.</span>
+                      <a href="/2020/09/21/essay0921/">
+                        <span class="hidden-mobile">读《穿过大半个中国去睡你》</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -418,7 +500,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        ".&nbsp;",
+        "监听与触发机制——pubsub&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

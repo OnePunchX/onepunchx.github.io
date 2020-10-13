@@ -4,6 +4,56 @@
   
   
   <entry>
+    <title>组件卸载生命周期遇见的坑</title>
+    <link href="/2020/10/13/componentwillunmount/"/>
+    <url>/2020/10/13/componentwillunmount/</url>
+    
+    <content type="html"><![CDATA[<h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>刚刚在敲码时候遇见了个离谱的问题，排查发现与组件卸载相关。<br>刚好写个博，一来趁热记录一下刚刚走过的坑，二来总结学习一下相关的问题其余的坑。</p><h3 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h3><p>在页面挂载了一个 pubsub 监听程序，，啊，突然发现 pubsub 使用方法的博客还没写，留了个坑<br>问题是触发该 pubsub 的时候，本该执行一次的函数被执行了多次，并且发现每次热更新就会多执行一次函数</p><h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><p>经过排查啊，页面组件是只加载一次的，所以就一定是 pubsub 的监听被触发了多次或者生成了多个监听程序</p><h3 id="上代码实战分析"><a href="#上代码实战分析" class="headerlink" title="上代码实战分析"></a>上代码实战分析</h3><pre><code class="hljs typescript">PubSub.subscribe(<span class="hljs-string">'电子签名'</span>, <span class="hljs-function">(<span class="hljs-params">keyword, data</span>) =&gt;</span> &#123;     <span class="hljs-keyword">const</span> &#123; functionalModuleId, caseName, caseObject, okFn, ...rest &#125; = data;     <span class="hljs-keyword">const</span> eSignAuth = getEsignAuthorities().find(       item =&gt; <span class="hljs-string">`<span class="hljs-subst">$&#123;item.id&#125;</span>`</span> === <span class="hljs-string">`<span class="hljs-subst">$&#123;functionalModuleId&#125;</span>`</span>,     ); <span class="hljs-comment">// 获取电子签名权限信息</span>     <span class="hljs-comment">//  判断电子签名是否开启</span>     <span class="hljs-keyword">const</span> newDisabled = !(       eSignAuth &amp;&amp;       (eSignAuth.electronicSignatureIdentifier === <span class="hljs-number">1</span> ||         eSignAuth.electronicSignatureIdentifier === <span class="hljs-number">3</span>)     );     <span class="hljs-keyword">if</span> (!functionalModuleId || newDisabled) &#123;       okFn(&#123;&#125;);       <span class="hljs-keyword">return</span>;     &#125;     <span class="hljs-keyword">this</span>.setState(&#123;       isModalShow: <span class="hljs-literal">true</span>,       functionalModuleId,       caseName,       caseObject,       okFn,       ...rest,     &#125;);   &#125;);</code></pre><p>原来上面这段代码写在 componentDidMount 的生命周期里。后来放进类构造函数里，用 componentWillUnmount 处理<br>代码如下</p><pre><code class="hljs kotlin">componentDidMount() &#123;  <span class="hljs-keyword">this</span>.esignPubsub;&#125;componentWillUnmount() &#123;  PubSub.unsubscribe(<span class="hljs-keyword">this</span>.esignPubsub);&#125;</code></pre><p>这里其实还涉及一些其他的点，比如<br>热更新 websocket 推送过去的，只更新变化的 bundle。<br>浏览器刷新全量更新除缓存外所有文件。</p><p>所以每次保存代码热更新，，都没有清空上一次程序的线程，会导致多次运行同一个程序<br>类似的还有：</p><p>websocket 的运行等</p><h4 id="这个组件卸载的生命周期啊，就是这个-componentWillUnmount-生命周期还要注意定时器的清楚。这已经是老生常谈了哈哈哈"><a href="#这个组件卸载的生命周期啊，就是这个-componentWillUnmount-生命周期还要注意定时器的清楚。这已经是老生常谈了哈哈哈" class="headerlink" title="这个组件卸载的生命周期啊，就是这个 componentWillUnmount 生命周期还要注意定时器的清楚。这已经是老生常谈了哈哈哈"></a>这个组件卸载的生命周期啊，就是这个 componentWillUnmount 生命周期还要注意定时器的清楚。这已经是老生常谈了哈哈哈</h4><h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>解决这个问题还是收获挺多的。挺开心。以前害怕遇见问题解决不了，现在希望能遇见更多的问题，从中学到更多的遗漏的知识点。<br>心态的改变，也印证了自我的成长。继续前行吧</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>前端</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>组件卸载 componentWillUnmount</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>监听与触发机制——pubsub</title>
+    <link href="/2020/10/09/pubsub/"/>
+    <url>/2020/10/09/pubsub/</url>
+    
+    <content type="html"><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>刚刚敲完组件卸载那个博客，趁热来填坑。pubsub 这个是前一段接触到的，为了实现全局性的事件触发。<br>触发一个事件，调用对应的函数。同样的功能我能用另外两种方式实现<br>不过用这个新的技术，也挺好，也不是坏事。<br>多学会个东西总是好的。遇见新东西还是不要抵触。</p><h3 id="pubsub-使用"><a href="#pubsub-使用" class="headerlink" title="pubsub 使用"></a>pubsub 使用</h3><p>分为几步<br>引入<br>注册事件<br>触发事件<br>销毁</p><pre><code class="hljs typescript"><span class="hljs-comment">//  引入</span><span class="hljs-keyword">import</span> PubSub <span class="hljs-keyword">from</span> <span class="hljs-string">'pubsub-js'</span><span class="hljs-comment">//  注册事件</span><span class="hljs-keyword">var</span> token = PubSub.subscribe(<span class="hljs-string">'MY TOPIC'</span>, <span class="hljs-function">(<span class="hljs-params">msg,data</span>)=&gt;</span> <span class="hljs-built_in">console</span>.log(msg,data))<span class="hljs-comment">// msg第一个参数是事件名，这里就是“MY TOPIC”</span><span class="hljs-comment">// data是触发事件的时候传过来的参数</span><span class="hljs-comment">//  触发事件</span>PubSub.publish(<span class="hljs-string">'MY TOPIC'</span>, <span class="hljs-string">'hello world!'</span>);<span class="hljs-comment">//  这里的“hello world”会被当作参数传过去</span><span class="hljs-comment">//  注销</span>PubSub.unsubscribe(token);</code></pre><p>总体来说，还是比较简单的</p><h3 id="实战代码"><a href="#实战代码" class="headerlink" title="实战代码"></a>实战代码</h3><pre><code class="hljs typescript"><span class="hljs-comment">//  注册</span>    <span class="hljs-keyword">this</span>.esignPubsub = PubSub.subscribe(<span class="hljs-string">'电子签名'</span>, <span class="hljs-function">(<span class="hljs-params">keyword, data</span>) =&gt;</span> &#123;      <span class="hljs-keyword">const</span> &#123; functionalModuleId, caseName, caseObject, okFn, ...rest &#125; = data;      <span class="hljs-keyword">const</span> eSignAuth = getEsignAuthorities().find(        item =&gt; <span class="hljs-string">`<span class="hljs-subst">$&#123;item.id&#125;</span>`</span> === <span class="hljs-string">`<span class="hljs-subst">$&#123;functionalModuleId&#125;</span>`</span>,      ); <span class="hljs-comment">// 获取电子签名权限信息</span>      <span class="hljs-comment">//  判断电子签名是否开启</span>      <span class="hljs-keyword">const</span> newDisabled = !(        eSignAuth &amp;&amp;        (eSignAuth.electronicSignatureIdentifier === <span class="hljs-number">1</span> ||          eSignAuth.electronicSignatureIdentifier === <span class="hljs-number">3</span>)      );      <span class="hljs-keyword">if</span> (!functionalModuleId || newDisabled) &#123;        okFn(&#123;&#125;);        <span class="hljs-keyword">return</span>;      &#125;      <span class="hljs-keyword">this</span>.setState(&#123;        isModalShow: <span class="hljs-literal">true</span>,        functionalModuleId,        caseName,        caseObject,        okFn,        ...rest,      &#125;);    &#125;);  componentDidMount() &#123;    <span class="hljs-keyword">this</span>.esignPubsub;  &#125;<span class="hljs-comment">//  触发</span>        PubSub.publish(<span class="hljs-string">'电子签名'</span>, &#123;                    functionalModuleId: <span class="hljs-string">'2003000003'</span>,                    caseName: record.fileName,                    caseObject: <span class="hljs-string">'fileName'</span>,                    okFn: <span class="hljs-function">(<span class="hljs-params">&#123; signature &#125;</span>) =&gt;</span> &#123;                      saveRecord(&#123;                        ...record,                        ...newRecord,                        signature,                      &#125;).then(<span class="hljs-function">(<span class="hljs-params">&#123; success, response &#125;</span>) =&gt;</span> &#123;                        <span class="hljs-keyword">if</span> (success) &#123;                          loadRecords();                          modalSuccess();                        &#125; <span class="hljs-keyword">else</span> &#123;                          message.error(response.data.message);                        &#125;                      &#125;);                    &#125;,                  &#125;)  <span class="hljs-comment">//  注销</span>  componentWillUnmount() &#123;    PubSub.unsubscribe(<span class="hljs-keyword">this</span>.esignPubsub);  &#125;</code></pre><h3 id="可用于"><a href="#可用于" class="headerlink" title="可用于"></a>可用于</h3><p>跨页面触发事件，传递参数的需求。<br>或者是多页面公用一些事件触发机制。</p><p>这种事件触发可能类似于 dva 里的 subscribtion，其实用 model 层也能解决类似问题</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>没啥总结的哈哈，这玩意用起来不难</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>前端</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>pubsub</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>读《穿过大半个中国去睡你》</title>
     <link href="/2020/09/21/essay0921/"/>
     <url>/2020/09/21/essay0921/</url>
@@ -828,7 +878,7 @@
     <link href="/2020/01/18/secret0818/"/>
     <url>/2020/01/18/secret0818/</url>
     
-    <content type="html"><![CDATA[<p>hi，someone. this is not for anybody,but maybe this is for the future you</p><p>有人现在说喜欢小溪<br>是因为还没见过大海<br>而我已经见过了银河<br>却仍然只爱你这颗星</p><p>—《what can i hold you with? 》<br>__ Jorges Luis Borges</p><p>i offer you lean streets,desperate sunsets, the moon of the jagged suburbs<br>i offer you the bitterness of a man who has looked long and long at the lonely moon<br>i offer you my ancestors, my family<br>i offer you whatever insight my books may hold<br>whatever manliness or humour my life<br>i offer you the loyalty of a man who has never been loyal<br>i offer you explanations of yourself,theories about yourself,authentic and surprising news of yourself<br>i can give you my loneliness ,my darkness,the hunger of my heart<br>i am trying to bribe you with uncertainty,with danger,with defeat</p>]]></content>
+    <content type="html"><![CDATA[<p>hi，someone. this is not for anybody,but maybe this is for the future you</p><p>有人现在说喜欢小溪<br>是因为还没见过大海<br>而我已经见过了银河<br>却仍然只爱你这颗星</p><p>—《what can i hold you with? 》<br>__ Jorges Luis Borges</p><p>i offer you lean streets,desperate sunsets, the moon of the jagged suburbs<br>i offer you the bitterness of a man who has looked long and long at the lonely moon<br>i offer you my ancestors, my family<br>i offer you whatever insight my books may hold<br>whatever manliness or humour my life<br>i offer you the loyalty of a man who has never been loyal<br>i offer you explanations of yourself,theories about yourself,authentic and surprising news of yourself<br>i can give you my loneliness ,my darkness,the hunger of my heart<br>i am trying to bribe you with uncertainty,with danger,with defeat</p><p>《 爱你 就像爱生命 》 ————王小波<br>我把我整个灵魂都给你，连同它的怪癖，耍小脾气，忽明忽暗，一千八百种坏毛病。它真讨厌，只有一点好，爱你。</p><p>你是非常可爱的人，真应该遇见最好的人，我也真希望我就是。</p><p>“我遇见你，我记得你，这座城市天生就适合恋爱，你天生就适合我的灵魂。” ——杜拉斯</p><p>如果你给我的，和你给别人的是一样的，那我就不要了。 ———— 三毛</p>]]></content>
     
     
     <categories>
@@ -847,7 +897,7 @@
     <link href="/2020/01/17/secret0817/"/>
     <url>/2020/01/17/secret0817/</url>
     
-    <content type="html"><![CDATA[<p>他想隐藏在这个世界，又想发出声音。<br>他喜欢炽热的欢愉，也喜欢冷淡的静默。<br>明明是炎热的 8 月，他为什么会感到冷呢<br>真是个奇怪的人啊</p><p>他在期待着什么呢？<br>午夜他在外游荡撒野<br>躺在草坪<br>望着星空<br>闻到了湖边若有若无的潮湿<br>听见拂面温柔静谧的风<br>嘴上与朋友谈心说笑<br>心里又在想着什么呢？<br>我也不知道</p>]]></content>
+    <content type="html"><![CDATA[<p>他想隐藏在这个世界，又想发出声音。<br>他喜欢炽热的欢愉，也喜欢冷淡的静默。<br>明明是炎热的 8 月，他为什么会感到冷呢<br>真是个奇怪的人啊</p><p>他在期待着什么呢？<br>午夜他在外游荡撒野<br>躺在草坪<br>望着星空<br>闻到了湖边若有若无的潮湿<br>听见拂面温柔静谧的风<br>嘴上与朋友谈心说笑<br>心里又在想着什么呢？<br>我也不知道</p><p>仔细想想<br>他也是个挺浪漫的人</p><p>他做错了事情<br>我知道他做错了<br>我劝他戒酒<br>又不希望他变成滴酒不沾没有情趣的人</p>]]></content>
     
     
     
