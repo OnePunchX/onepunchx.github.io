@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="呱呱">
+  <meta name="author" content="onePunch">
+  <meta name="keywords" content="">
+  <title>JS高阶函数 - OnePunchMan</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>OnePunchMan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/fushishan.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-06-15 10:49">
+      2020年6月15日 上午
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      828 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      10
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h2 id="可以接收另一个参数作为参数的函数，就叫做高阶函数。"><a href="#可以接收另一个参数作为参数的函数，就叫做高阶函数。" class="headerlink" title="可以接收另一个参数作为参数的函数，就叫做高阶函数。"></a>可以接收另一个参数作为参数的函数，就叫做高阶函数。</h2><h3 id="常见高阶函数"><a href="#常见高阶函数" class="headerlink" title="常见高阶函数"></a>常见高阶函数</h3><ol>
+<li>Array.prototype.map,</li>
+<li>Array.prototype.filter,</li>
+<li>Array.prototype.reduce,</li>
+</ol>
+<p>既然提到了这几个数组方法，那也就顺便说一说哈</p>
+<ul>
+<li>map 是啥，就不在这里说了，不知道就百度去。map() 方法的回调函数接受 3 个参数。 item index arraySelf 。 item 是数组的每一个元素 ，index 是该元素的下标（数组中的第几个元素），arraySelf 是调用 map 方法的这个数组，当然了，这些参数不是固定叫 item，index 啥的，这是入参，叫啥都行，位置对的上相应的位置就行。比如：</li>
+</ul>
+<pre><code class="hljs stata">[1,2,3].map((<span class="hljs-keyword">one</span>,<span class="hljs-keyword">two</span>,three)=&gt;&#123;
+  <span class="hljs-comment">// 这里的one就对应上面我说的item ，two就是index，这样说就能明白吧？</span>
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">one</span> + <span class="hljs-keyword">two</span> + three.length
+&#125;)</code></pre>
+
+<p>map 有返回值，会返回一个新的数组，而类似的 forEach（）方法，就没有返回值，所以哟，用 forEach 的时候经常会搭配 Array.push() 😁 还有啊，写 jsx 的时候，map 遍历出来的玩意你得加个 key 值，通常可以是 index，比如哈，我举个栗子 🌰</p>
+<pre><code class="hljs javascript">&lt;ul&gt;
+[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>].map(<span class="hljs-function">(<span class="hljs-params">item, index</span>) =&gt;</span> &#123;
+  <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span> <span class="hljs-attr">key</span> = <span class="hljs-string">&#123;index&#125;</span> <span class="hljs-attr">value</span> = <span class="hljs-string">&#123;item&#125;</span> &gt;</span>item<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span>
+&#125;)
+&lt;<span class="hljs-regexp">/ul&gt;</span></code></pre>
+
+<p>这玩意写的好像有点多余。。。好像会 map 的都能知道，不会 map 看了我这也看不懂。😂</p>
+<pre><code class="hljs angelscript">[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>].filter(item=&gt;item &gt; <span class="hljs-number">1</span>)
+
+[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>].reduce((x,y)=&gt;&#123;
+<span class="hljs-keyword">return</span> x + y
+&#125;)</code></pre>
+
+<p>react-redux</p>
+<p>connect 方法 嘻嘻 弄一波这个～</p>
+<p>connect 方法做的事情是将 state 和 dispatch 绑定到 Connect 组件的参数上，然后 Connect 组件将你当前的 App 组件封装起来，使得 App 组件可以通过 props 获取到父组件 Connect 传递的 state 和 props。</p>
+<p>这也就是为什么你可以在自己写的组件上面直接通过 this.props 访问到 state 和 action。有的人是通过 store 去读取 state 和 dispatch action，也是一样的道理。</p>
+<p>从 connect 方法的实现，我们看到了非常多 react 组件的影子，生命周期，props 传递，context 上下文。</p>
+<p>对比 Provider 组件：</p>
+<p>Provider 是顶层组件的作用，将 store 作为上下文提供给全局共享，而 Connect 组件是局部组件，将某个 react 组件包装起来，传递指定的 state 和 props 给该组件访问。</p>
+<h3 id="非常遗憾，我没有彻底看懂-connect-的源码，所以暂时不写什么感想了，留个链接后续再试试继续理解"><a href="#非常遗憾，我没有彻底看懂-connect-的源码，所以暂时不写什么感想了，留个链接后续再试试继续理解" class="headerlink" title="非常遗憾，我没有彻底看懂 connect 的源码，所以暂时不写什么感想了，留个链接后续再试试继续理解"></a>非常遗憾，我没有彻底看懂 connect 的源码，所以暂时不写什么感想了，留个链接后续再试试继续理解</h3><p><a href="https://www.cnblogs.com/williamjie/p/9591826.html" target="_blank" rel="noopener">这是别人博客，connect 解析源码的</a></p>
+<h4 id="发现了另一个博客，简化版的，大概的逻辑就看懂了，但是那个-480-行的源码还是不明白具体咋回事。"><a href="#发现了另一个博客，简化版的，大概的逻辑就看懂了，但是那个-480-行的源码还是不明白具体咋回事。" class="headerlink" title="发现了另一个博客，简化版的，大概的逻辑就看懂了，但是那个 480 行的源码还是不明白具体咋回事。"></a>发现了另一个博客，简化版的，大概的逻辑就看懂了，但是那个 480 行的源码还是不明白具体咋回事。</h4><pre><code class="hljs kotlin">export <span class="hljs-keyword">default</span> function connect(mapStateToProps, mapDispatchToProps, mergeProps, options = &#123;&#125;) &#123;
+<span class="hljs-keyword">return</span> function wrapWithConnect(WrappedComponent) &#123;
+  <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Connect</span> <span class="hljs-title">extends</span> <span class="hljs-title">Component</span> </span>&#123;
+    <span class="hljs-keyword">constructor</span>(props, context) &#123;
+      <span class="hljs-comment">// 从祖先Component处获得store</span>
+      <span class="hljs-keyword">this</span>.store = props.store || context.store
+      <span class="hljs-keyword">this</span>.stateProps = computeStateProps(<span class="hljs-keyword">this</span>.store, props)
+      <span class="hljs-keyword">this</span>.dispatchProps = computeDispatchProps(<span class="hljs-keyword">this</span>.store, props)
+      <span class="hljs-keyword">this</span>.state = &#123; storeState: <span class="hljs-literal">null</span> &#125;
+      <span class="hljs-comment">// 对stateProps、dispatchProps、parentProps进行合并</span>
+      <span class="hljs-keyword">this</span>.updateState()
+    &#125;
+    shouldComponentUpdate(nextProps, nextState) &#123;
+      <span class="hljs-comment">// 进行判断，当数据发生改变时，Component重新渲染</span>
+      <span class="hljs-keyword">if</span> (propsChanged || mapStateProducedChange || dispatchPropsChanged) &#123;
+        <span class="hljs-keyword">this</span>.updateState(nextProps)
+          <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>
+        &#125;
+      &#125;
+      componentDidMount() &#123;
+        <span class="hljs-comment">// 改变Component的state</span>
+        <span class="hljs-keyword">this</span>.store.subscribe(() = &#123;
+          <span class="hljs-keyword">this</span>.setState(&#123;
+            storeState: <span class="hljs-keyword">this</span>.store.getState()
+          &#125;)
+        &#125;)
+      &#125;
+      render() &#123;
+        <span class="hljs-comment">// 生成包裹组件Connect</span>
+        <span class="hljs-keyword">return</span> (
+          &lt;WrappedComponent &#123;...<span class="hljs-keyword">this</span>.nextState&#125; /&gt;
+        )
+      &#125;
+    &#125;
+    Connect.contextTypes = &#123;
+      store: storeShape
+    &#125;
+    <span class="hljs-keyword">return</span> Connect;
+  &#125;
+&#125;</code></pre>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E9%AB%98%E9%98%B6%E5%87%BD%E6%95%B0-react-redux-connect/">高阶函数 react-redux connect</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://onepunchx.github.io/overlordClause/" target="_blank" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/06/15/dom0-dom2/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">dom0-dom2</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/06/11/router-hash-history/">
+                        <span class="hidden-mobile">前端路由</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "JS高阶函数&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

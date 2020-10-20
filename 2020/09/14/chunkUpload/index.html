@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="呱呱">
+  <meta name="author" content="onePunch">
+  <meta name="keywords" content="">
+  <title>配合antd上传组件的分片上传实现 - OnePunchMan</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>OnePunchMan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/fushishan.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-09-14 18:13">
+      2020年9月14日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      683 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      11
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h2 id="分片上传"><a href="#分片上传" class="headerlink" title="分片上传"></a>分片上传</h2><p>项目中遇见了超过 1G 的大文件，在上传接口调用的时候会超时，报错。<br>为了解决问题，搞了个分片上传，配合 antd 的 Upload 组件<br>主要是利用了 Blob 文件的 blob.slice 方法切割文件<br>然后把切割出来的文件传给后端</p>
+<pre><code class="hljs typescript">&lt;Upload
+  action=&#123;<span class="hljs-string">`/server/api/orderFiles/cus/<span class="hljs-subst">$&#123;order.id&#125;</span>/enable/1/dipServices/<span class="hljs-subst">$&#123;order.dipService?.id&#125;</span>`</span>&#125;
+  autoUpload=&#123;<span class="hljs-literal">false</span>&#125;
+  multiple
+  beforeUpload=&#123;<span class="hljs-function">(<span class="hljs-params">file, fileList</span>) =&gt;</span> &#123;
+    <span class="hljs-keyword">if</span> (file.size &lt;= <span class="hljs-number">0</span>) &#123;
+      message.warning(formatMessage(&#123; id: <span class="hljs-string">'文件无效，请重新上传!'</span> &#125;));
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    &#125;
+    <span class="hljs-keyword">if</span> (fileList.length &gt; <span class="hljs-number">10</span> - originFiles.length &amp;&amp; fileList.indexOf(file) === <span class="hljs-number">0</span>) &#123;
+      message.warning(formatMessage(&#123; id: <span class="hljs-string">'选择文件数量超出限制，请重新选择'</span> &#125;));
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    &#125;
+    <span class="hljs-keyword">if</span> (fileList.length &gt; <span class="hljs-number">10</span> - originFiles.length) &#123;
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    &#125;
+    <span class="hljs-keyword">if</span> (originFiles.length &gt; <span class="hljs-number">10</span>) &#123;
+      message.warning(formatMessage(&#123; id: <span class="hljs-string">'已上传文件数量超过限制，无法上传'</span> &#125;));
+      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+    &#125;
+
+    <span class="hljs-comment">// if (file.size &gt; 1024 * 1024 * 5) &#123;</span>
+    <span class="hljs-comment">//   message.warning(formatMessage(&#123; id: `文件：$&#123;file.name&#125; 超过5M，无法上传!` &#125;));</span>
+    <span class="hljs-comment">//   return false;</span>
+    <span class="hljs-comment">// &#125;</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  &#125;&#125;
+  customRequest=&#123;<span class="hljs-function">(<span class="hljs-params">&#123; file, onError, onSuccess &#125;</span>) =&gt;</span> &#123;
+    <span class="hljs-comment">//  如果小于5M 上传整个文件，如果超过5M分片上传</span>
+    <span class="hljs-keyword">const</span> bytesPerPiece = <span class="hljs-number">1024</span> * <span class="hljs-number">1024</span> * <span class="hljs-number">5</span>; <span class="hljs-comment">// 每个文件切片大小定为5MB .</span>
+    <span class="hljs-comment">// const uid = uuid.v4();</span>
+    <span class="hljs-keyword">if</span> (file.size &lt; bytesPerPiece) &#123;
+      <span class="hljs-keyword">const</span> formData = <span class="hljs-keyword">new</span> FormData();
+      formData.append(<span class="hljs-string">'file'</span>, file);
+      formData.append(<span class="hljs-string">'chunkFlag'</span>, <span class="hljs-literal">false</span>);
+      formData.append(<span class="hljs-string">'chunk'</span>, <span class="hljs-number">0</span>); <span class="hljs-comment">//  第几片</span>
+      formData.append(<span class="hljs-string">'chunkSize'</span>, bytesPerPiece); <span class="hljs-comment">//  分片大小</span>
+      formData.append(<span class="hljs-string">'chunks'</span>, <span class="hljs-number">1</span>); <span class="hljs-comment">// 分片总数</span>
+      formData.append(<span class="hljs-string">'uuid'</span>, file.uid); <span class="hljs-comment">//  整个文件的标识</span>
+
+      request(
+        <span class="hljs-string">`/server/api/orderFiles/cus/<span class="hljs-subst">$&#123;order.id&#125;</span>/enable/1/dipServices/<span class="hljs-subst">$&#123;order.dipService?.id&#125;</span>`</span>,
+        &#123;
+          method: <span class="hljs-string">'post'</span>,
+          body: formData,
+        &#125;,
+      ).then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+        <span class="hljs-keyword">if</span> (res.success) &#123;
+          onSuccess(res, file);
+        &#125; <span class="hljs-keyword">else</span> &#123;
+          onError();
+        &#125;
+        getOriginFiles(&#123;
+          id: order.id,
+        &#125;);
+      &#125;);
+      <span class="hljs-keyword">return</span>;
+    &#125;
+    <span class="hljs-comment">// 发送请求</span>
+
+    <span class="hljs-keyword">const</span> blob = <span class="hljs-keyword">new</span> Blob([file]);
+    <span class="hljs-keyword">let</span> start = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">let</span> end;
+    <span class="hljs-keyword">let</span> index = <span class="hljs-number">0</span>;
+    <span class="hljs-keyword">const</span> filesize = blob.size;
+    <span class="hljs-comment">// const filename = blob.name;</span>
+    <span class="hljs-comment">// 计算文件切片总数</span>
+    <span class="hljs-keyword">const</span> totalPieces = <span class="hljs-built_in">Math</span>.ceil(filesize / bytesPerPiece);
+    <span class="hljs-keyword">const</span> filePieces = [];
+    <span class="hljs-keyword">while</span> (start &lt; filesize) &#123;
+      end = start + bytesPerPiece;
+      <span class="hljs-keyword">if</span> (end &gt; filesize) &#123;
+        end = filesize;
+      &#125; <span class="hljs-comment">// 匹配最后一个分片的情况</span>
+
+      <span class="hljs-keyword">const</span> chunk = blob.slice(start, end); <span class="hljs-comment">// 切割文件</span>
+      <span class="hljs-keyword">const</span> sliceIndex = file.name;
+      <span class="hljs-keyword">const</span> formData = <span class="hljs-keyword">new</span> FormData();
+      formData.append(<span class="hljs-string">'file'</span>, chunk, sliceIndex);
+      formData.append(<span class="hljs-string">'chunk'</span>, index); <span class="hljs-comment">//  第几片</span>
+      formData.append(<span class="hljs-string">'chunkSize'</span>, bytesPerPiece); <span class="hljs-comment">//  分片大小</span>
+      formData.append(<span class="hljs-string">'chunks'</span>, totalPieces); <span class="hljs-comment">// 分片总数</span>
+      formData.append(<span class="hljs-string">'chunkFlag'</span>, <span class="hljs-literal">true</span>); <span class="hljs-comment">//  是否分片</span>
+      formData.append(<span class="hljs-string">'uuid'</span>, file.uid); <span class="hljs-comment">//  整个文件的标识</span>
+      filePieces.push(formData);
+      <span class="hljs-comment">// request(</span>
+      <span class="hljs-comment">//   `/server/api/orderFiles/cus/$&#123;order.id&#125;/enable/1/dipServices/$&#123;order.dipService?.id&#125;`,</span>
+      <span class="hljs-comment">//   &#123;</span>
+      <span class="hljs-comment">//     method: 'post',</span>
+      <span class="hljs-comment">//     body: formData,</span>
+      <span class="hljs-comment">//   &#125;,</span>
+      <span class="hljs-comment">// ).then(() =&gt;</span>
+      <span class="hljs-comment">//   getOriginFiles(&#123;</span>
+      <span class="hljs-comment">//     id: order.id,</span>
+      <span class="hljs-comment">//   &#125;),</span>
+      <span class="hljs-comment">// );</span>
+
+      start = end;
+      index += <span class="hljs-number">1</span>;
+    &#125;
+
+    <span class="hljs-built_in">Promise</span>.all(
+      filePieces
+        .filter(<span class="hljs-function">(<span class="hljs-params">item, arrayIndex, array</span>) =&gt;</span> &#123;
+          <span class="hljs-keyword">return</span> arrayIndex &lt; array.length - <span class="hljs-number">1</span>;
+        &#125;)
+        .map(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
+          <span class="hljs-keyword">return</span> request(
+            <span class="hljs-string">`/server/api/orderFiles/cus/<span class="hljs-subst">$&#123;order.id&#125;</span>/enable/1/dipServices/<span class="hljs-subst">$&#123;order.dipService?.id&#125;</span>`</span>,
+            &#123;
+              method: <span class="hljs-string">'post'</span>,
+              body: item,
+            &#125;,
+          );
+        &#125;),
+    ).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+      request(
+        <span class="hljs-string">`/server/api/orderFiles/cus/<span class="hljs-subst">$&#123;order.id&#125;</span>/enable/1/dipServices/<span class="hljs-subst">$&#123;order.dipService?.id&#125;</span>`</span>,
+        &#123;
+          method: <span class="hljs-string">'post'</span>,
+          body: filePieces[filePieces.length - <span class="hljs-number">1</span>],
+        &#125;,
+      ).then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+        <span class="hljs-keyword">if</span> (res.success) &#123;
+          onSuccess(res, file);
+        &#125; <span class="hljs-keyword">else</span> &#123;
+          onError();
+        &#125;
+        getOriginFiles(&#123;
+          id: order.id,
+        &#125;);
+      &#125;);
+    &#125;);
+  &#125;&#125;
+  <span class="hljs-comment">// onAllComplete=&#123;() =&gt; &#123;</span>
+
+  <span class="hljs-comment">// &#125;&#125;</span>
+/&gt;</code></pre>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E5%88%86%E7%89%87%E4%B8%8A%E4%BC%A0/">分片上传</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://onepunchx.github.io/overlordClause/" target="_blank" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/09/14/movie0914/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">电影《信条》</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/09/11/essay0911/">
+                        <span class="hidden-mobile">读《人间失格》</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "配合antd上传组件的分片上传实现&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="呱呱">
+  <meta name="author" content="onePunch">
+  <meta name="keywords" content="">
+  <title>js-proxy对象代理 - OnePunchMan</title>
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+  
+
+  
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_yg9cfy8wd6.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_pjno9b9zyxs.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script  src="/js/utils.js" ></script>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>OnePunchMan</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background" parallax=true
+         style="background: url('/img/fushishan.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              
+  <div class="mt-3 post-meta">
+    <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+    <time datetime="2020-08-18 18:14">
+      2020年8月18日 晚上
+    </time>
+  </div>
+
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      972 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      13
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <div class="post-content mx-auto" id="post">
+            
+            <article class="markdown-body">
+              <h3 id="What"><a href="#What" class="headerlink" title="What"></a>What</h3><p><strong>Proxy</strong> 是 ES6 中新增的功能，它可以用来自定义对象中的操作。<br>Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。Proxy 这个词的原意是代理，用在这里表示由它来“代理”某些操作，可以译为“代理器”。</p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy" target="_blank" rel="noopener">官网链接</a></p>
+<h3 id="How"><a href="#How" class="headerlink" title="How"></a>How</h3><pre><code class="hljs aspectj"><span class="hljs-keyword">const</span> p = <span class="hljs-keyword">new</span> Proxy(<span class="hljs-keyword">target</span>, <span class="hljs-keyword">handler</span>)</code></pre>
+
+<p>target<br>要使用 Proxy 包装的目标对象（可以是任何类型的对象，包括原生数组，函数，甚至另一个代理）。<br>handler<br>一个通常以函数作为属性的对象，各属性中的函数分别定义了在执行各种操作时代理 p 的行为。</p>
+<p>handler.has()<br>in 操作符的捕捉器。<br>handler.get()<br>属性读取操作的捕捉器。<br>handler.set()<br>属性设置操作的捕捉器。</p>
+<p>举几个个 🌰</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">const</span> handler = &#123;
+    <span class="hljs-keyword">get</span>: function(obj, prop) &#123;
+        <span class="hljs-keyword">return</span> prop <span class="hljs-keyword">in</span> obj ? obj[prop] : <span class="hljs-number">37</span>;
+    &#125;
+&#125;;
+
+<span class="hljs-keyword">const</span> p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(&#123;&#125;, handler);
+p.a = <span class="hljs-number">1</span>;
+p.b = <span class="hljs-literal">undefined</span>;
+
+<span class="hljs-built_in">console</span>.log(p.a, p.b);      <span class="hljs-comment">// 1, undefined</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'c'</span> <span class="hljs-keyword">in</span> p, p.c); <span class="hljs-comment">// false, 37</span>
+
+<span class="hljs-comment">//  这是一条分割线 ================</span>
+
+<span class="hljs-comment">//  转发操作</span>
+<span class="hljs-keyword">let</span> target = &#123;&#125;;
+<span class="hljs-keyword">let</span> p = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(target, &#123;&#125;);
+
+p.a = <span class="hljs-number">37</span>;   <span class="hljs-comment">// 操作转发到目标</span>
+
+<span class="hljs-built_in">console</span>.log(target.a);    <span class="hljs-comment">// 37. 操作已经被正确地转发</span>
+
+
+<span class="hljs-comment">//  这也是一条分割线  ===================</span>
+
+<span class="hljs-comment">// 用于校验，也很ok</span>
+
+<span class="hljs-keyword">let</span> validator = &#123;
+  <span class="hljs-keyword">set</span>: function(obj, prop, value) &#123;
+    <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">'age'</span>) &#123;
+      <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Number</span>.isInteger(value)) &#123;
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'The age is not an integer'</span>);
+      &#125;
+      <span class="hljs-keyword">if</span> (value &gt; <span class="hljs-number">200</span>) &#123;
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">RangeError</span>(<span class="hljs-string">'The age seems invalid'</span>);
+      &#125;
+    &#125;
+
+    <span class="hljs-comment">// The default behavior to store the value</span>
+    obj[prop] = value;
+
+    <span class="hljs-comment">// 表示成功</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+  &#125;
+&#125;;
+
+<span class="hljs-keyword">let</span> person = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(&#123;&#125;, validator);
+
+person.age = <span class="hljs-number">100</span>;
+
+<span class="hljs-built_in">console</span>.log(person.age);
+<span class="hljs-comment">// 100</span>
+
+person.age = <span class="hljs-string">'young'</span>;
+<span class="hljs-comment">// 抛出异常: Uncaught TypeError: The age is not an integer</span>
+
+person.age = <span class="hljs-number">300</span>;
+<span class="hljs-comment">// 抛出异常: Uncaught RangeError: The age seems invalid</span></code></pre>
+
+<p>还可以扩展构造函数，<br>还可以操作 dom，比如互换两个不同元素的属性或类名</p>
+<p>重点在于，拦截 =&gt; 操作<br>这个官网写的挺全面，如果有需要就点击上面那个链接到官网看吧～</p>
+<h3 id="相关"><a href="#相关" class="headerlink" title="相关"></a>相关</h3><h4 id="Reflect"><a href="#Reflect" class="headerlink" title="Reflect"></a>Reflect</h4><pre><code class="hljs qml"><span class="hljs-comment">//  我再分割一波 ==============================</span>
+
+<span class="hljs-comment">//  看了下面能更好的理解，理解，会用，就ok！ 这里有个reflect 代码下面文字解析一波</span>
+<span class="hljs-keyword">let</span> onWatch = (obj, setBind, getLogger) =&gt; &#123;
+  <span class="hljs-keyword">let</span> handler = &#123;
+    get(target, <span class="hljs-keyword">property</span><span class="hljs-string"></span>, receiver) &#123;
+      getLogger(target, <span class="hljs-keyword">property</span><span class="hljs-string">)</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">Reflect</span>.get(target, <span class="hljs-keyword">property</span><span class="hljs-string"></span>, receiver)
+    &#125;,
+    set(target, <span class="hljs-keyword">property</span><span class="hljs-string"></span>, value, receiver) &#123;
+      setBind(value, <span class="hljs-keyword">property</span><span class="hljs-string">)</span>
+      <span class="hljs-keyword">return</span> <span class="hljs-built_in">Reflect</span>.set(target, <span class="hljs-keyword">property</span><span class="hljs-string"></span>, value)
+    &#125;
+  &#125;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(obj, handler)
+&#125;
+
+<span class="hljs-keyword">let</span> obj = &#123; <span class="hljs-attribute">a</span>: <span class="hljs-number">1</span> &#125;
+<span class="hljs-keyword">let</span> p = onWatch(
+  obj,
+  (v, <span class="hljs-keyword">property</span><span class="hljs-string">) </span>=&gt; &#123;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`监听到属性<span class="hljs-subst">$&#123;property&#125;</span>改变为<span class="hljs-subst">$&#123;v&#125;</span>`</span>)
+  &#125;,
+  (target, <span class="hljs-keyword">property</span><span class="hljs-string">) </span>=&gt; &#123;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`'<span class="hljs-subst">$&#123;property&#125;</span>' = <span class="hljs-subst">$&#123;target[property]&#125;</span>`</span>)
+  &#125;
+)
+p.a = <span class="hljs-number">2</span> <span class="hljs-comment">// 监听到属性a改变</span>
+p.a <span class="hljs-comment">// 'a' = 2</span></code></pre>
+
+<p>Reflect 是一个内置的对象，它提供拦截 JavaScript 操作的方法。这些方法与 proxy handlers 的方法相同。Reflect 不是一个函数对象，因此它是不可构造的。<br>Reflect 的所有属性和方法都是静态的（就像 Math 对象）。</p>
+<p><em>Reflect.apply(target, thisArgument, argumentsList)</em><br>对一个函数进行调用操作，同时可以传入一个数组作为调用参数。和 Function.prototype.apply() 功能类似。</p>
+<p><em>Reflect.get(target, propertyKey[, receiver])</em><br>获取对象身上某个属性的值，类似于 target[name]。</p>
+<p><em>Reflect.has(target, propertyKey)</em><br>判断一个对象是否存在某个属性，和 in 运算符 的功能完全相同</p>
+<p><em>Reflect.set(target, propertyKey, value[, receiver])</em><br>将值分配给属性的函数。返回一个 Boolean，如果更新成功，则返回 true。</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">const</span> duck = &#123;
+  name: <span class="hljs-string">'Maurice'</span>,
+  color: <span class="hljs-string">'white'</span>,
+  greeting: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Quaaaack! My name is <span class="hljs-subst">$&#123;<span class="hljs-keyword">this</span>.name&#125;</span>`</span>);
+  &#125;
+&#125;
+
+<span class="hljs-built_in">Reflect</span>.has(duck, <span class="hljs-string">'color'</span>);
+<span class="hljs-comment">// true</span>
+<span class="hljs-built_in">Reflect</span>.has(duck, <span class="hljs-string">'haircut'</span>);
+<span class="hljs-comment">// false</span>
+
+
+<span class="hljs-comment">//  还是一个分割线 哈哈====================</span>
+
+<span class="hljs-built_in">Reflect</span>.set(duck, <span class="hljs-string">'eyes'</span>, <span class="hljs-string">'black'</span>);
+<span class="hljs-comment">// returns "true" if successful</span>
+<span class="hljs-comment">// "duck" now contains the property "eyes: 'black'"</span></code></pre>
+
+<p>所以上面的代码中<br><code>return Reflect.set(target, property, value)</code><br>这就是添加了一个新的属性 ，例如 target : { property:value }</p>
+<h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>ok ，那这就是 proxy 相关的一些内容，这里是朱军 ❤️ _bye ～</p>
+
+            </article>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/js-proxy-%E6%8B%A6%E6%88%AA%E5%AF%B9%E8%B1%A1-%E5%AF%B9%E8%B1%A1%E4%BB%A3%E7%90%86/">js-proxy 拦截对象 对象代理</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://onepunchx.github.io/overlordClause/" target="_blank" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <div class="post-prev col-6">
+                    
+                    
+                      <a href="/2020/09/01/operator/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">一些实用的操作符</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </div>
+                  <div class="post-next col-6">
+                    
+                    
+                      <a href="/2020/08/17/immer/">
+                        <span class="hidden-mobile">immer一个很酷的immutable库</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </div>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <div class="comments" id="comments">
+                
+                
+
+              </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  
+
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <div>
+      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a>
+      <i class="iconfont icon-love"></i>
+      <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener">
+        <span>Fluid</span></a>
+    </div>
+    
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+    
+
+    
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: 'article.markdown-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "js-proxy对象代理&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+
+
+</body>
+</html>
