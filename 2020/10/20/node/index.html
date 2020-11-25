@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      24 字
+      127 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      1
+      2
        分钟
     </span>
   
@@ -206,6 +206,35 @@
             <article class="markdown-body">
               <p>序言<br>准备学习 node<br>多学几个框架</p>
 <p>注：node 官网有对 package.json 的指南</p>
+<h3 id="koa"><a href="#koa" class="headerlink" title="koa"></a>koa</h3><p>基于 Node.js 平台的下一代 web 开发框架</p>
+<pre><code class="hljs javascript"><span class="hljs-keyword">const</span> Koa = <span class="hljs-built_in">require</span>(<span class="hljs-string">'koa'</span>);
+<span class="hljs-keyword">const</span> app = <span class="hljs-keyword">new</span> Koa();
+
+<span class="hljs-comment">// x-response-time</span>
+
+app.use(<span class="hljs-keyword">async</span> (ctx, next) =&gt; &#123;
+  <span class="hljs-keyword">const</span> start = <span class="hljs-built_in">Date</span>.now();
+  <span class="hljs-keyword">await</span> next();
+  <span class="hljs-keyword">const</span> ms = <span class="hljs-built_in">Date</span>.now() - start;
+  ctx.set(<span class="hljs-string">'X-Response-Time'</span>, <span class="hljs-string">`<span class="hljs-subst">$&#123;ms&#125;</span>ms`</span>);
+&#125;);
+
+<span class="hljs-comment">// logger</span>
+
+app.use(<span class="hljs-keyword">async</span> (ctx, next) =&gt; &#123;
+  <span class="hljs-keyword">const</span> start = <span class="hljs-built_in">Date</span>.now();
+  <span class="hljs-keyword">await</span> next();
+  <span class="hljs-keyword">const</span> ms = <span class="hljs-built_in">Date</span>.now() - start;
+  <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">$&#123;ctx.method&#125;</span> <span class="hljs-subst">$&#123;ctx.url&#125;</span> - <span class="hljs-subst">$&#123;ms&#125;</span>`</span>);
+&#125;);
+
+<span class="hljs-comment">// response</span>
+
+app.use(<span class="hljs-keyword">async</span> ctx =&gt; &#123;
+  ctx.body = <span class="hljs-string">'Hello World'</span>;
+&#125;);
+
+app.listen(<span class="hljs-number">3000</span>);</code></pre>
 
             </article>
             <hr>

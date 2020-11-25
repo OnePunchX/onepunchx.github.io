@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      723 字
+      1k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      9
+      13
        分钟
     </span>
   
@@ -292,7 +292,44 @@
     ]
 &#125;;</code></pre>
 
-<h3 id="使用技巧"><a href="#使用技巧" class="headerlink" title="使用技巧"></a>使用技巧</h3>
+<h3 id="使用技巧"><a href="#使用技巧" class="headerlink" title="使用技巧"></a>使用技巧</h3><h3 id="webpack-热更新"><a href="#webpack-热更新" class="headerlink" title="webpack 热更新"></a>webpack 热更新</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>模块热替换（HMR - Hot Module Replacement）是 webpack 提供的最有用的功能之一。<br>它允许在运行时替换，添加，删除各种模块，而无需进行完全刷新重新加载整个页面，其思路主要有以下几个方面</p>
+<ul>
+<li>保留在完全重新加载页面时丢失的应用程序的状态</li>
+<li>只更新改变的内容，以节省开发时间</li>
+<li>调整样式更加快速，几乎等同于就在浏览器调试器中更改样式</li>
+</ul>
+<h4 id="启用热更新"><a href="#启用热更新" class="headerlink" title="启用热更新"></a>启用热更新</h4><p>第一种方法：webpack 配置形式 1.引入 webpack 库 2.使用 new webpack.HotModuleReplacementPlugin() 3.设置 devServer 选项中的 hot 字段为 true</p>
+<p>第二种方法：node 命令行形式<br><code>webpack-dev-sever --hot</code></p>
+<hr>
+<p>package.json 文件</p>
+<pre><code class="hljs stata"><span class="hljs-string">"scripts"</span>: &#123;
+   <span class="hljs-string">"test"</span>: <span class="hljs-string">"echo \"</span><span class="hljs-keyword">Error</span>: <span class="hljs-keyword">no</span> <span class="hljs-keyword">test</span> specified\<span class="hljs-string">" &amp;&amp; exit 1"</span>,
+   <span class="hljs-string">"build"</span>: <span class="hljs-string">"webpack"</span>,
+   <span class="hljs-string">"watch"</span>: <span class="hljs-string">"webpack --watch"</span>,
+   <span class="hljs-string">"dev"</span>: <span class="hljs-string">"webpack-dev-server --open"</span> <span class="hljs-comment">// open参数 构建完自动刷新浏览器</span>
+ &#125;,</code></pre>
+
+<p>webpack.config.js 文件</p>
+<pre><code class="hljs less"><span class="hljs-attribute">mode</span>: <span class="hljs-string">'development'</span>,
+ <span class="hljs-attribute">plugins</span>: [
+     new webpack.HotModuleReplacementPlugin()
+ ],
+ <span class="hljs-attribute">devServer</span>: &#123;
+     <span class="hljs-attribute">contentBase</span>: <span class="hljs-string">'./dist'</span>,  <span class="hljs-comment">// 服务基础目录</span>
+     <span class="hljs-attribute">hot</span>: true,  <span class="hljs-comment">// 热更新</span>
+     <span class="hljs-comment">// hotOnly: true</span>
+     <span class="hljs-attribute">proxy</span>: &#123;  <span class="hljs-comment">// 反向代理跨域</span>
+         <span class="hljs-string">"/api"</span>: &#123;
+             <span class="hljs-attribute">target</span>: <span class="hljs-string">"http://localhost:3000"</span>,
+             <span class="hljs-attribute">pathRewrite</span>: &#123;
+                 <span class="hljs-string">"^/api"</span>: <span class="hljs-string">""</span>
+             &#125;
+         &#125;
+     &#125;
+ &#125;
+
+ ```</code></pre>
+
             </article>
             <hr>
             <div>
