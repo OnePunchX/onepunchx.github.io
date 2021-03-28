@@ -47,7 +47,7 @@
 
 
   <script  src="/js/utils.js" ></script>
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 
 <body>
@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1k 字
+      1.1k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      13
+      14
        分钟
     </span>
   
@@ -214,10 +214,10 @@
 &#125;
 
 <span class="hljs-comment">// 用babel处理一下，然后return出来</span>
-<span class="hljs-keyword">var</span> babel = <span class="hljs-built_in">require</span>(<span class="hljs-string">"babel-core"</span>)
+<span class="hljs-keyword">var</span> babel = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;babel-core&quot;</span>)
 <span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">source</span>) </span>&#123;
   <span class="hljs-keyword">var</span> babelOptions = &#123;
-    presets: [<span class="hljs-string">'env'</span>]
+    presets: [<span class="hljs-string">&#x27;env&#x27;</span>]
   &#125;
   <span class="hljs-keyword">var</span> result = babel.transform(source, babelOptions)
   <span class="hljs-keyword">return</span> result.code
@@ -225,20 +225,21 @@
 
 <span class="hljs-comment">//  终极版自定义babel-loader</span>
 
-<span class="hljs-keyword">var</span> babel = <span class="hljs-built_in">require</span>(<span class="hljs-string">"babel-core"</span>)
+<span class="hljs-keyword">var</span> babel = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;babel-core&quot;</span>)
 
 <span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">source, inputSourceMap</span>) </span>&#123;
   <span class="hljs-keyword">var</span> babelOptions = &#123;
-    presets: [<span class="hljs-string">'env'</span>],
+    presets: [<span class="hljs-string">&#x27;env&#x27;</span>],
     inputSourceMap: inputSourceMap,
-    filename: <span class="hljs-keyword">this</span>.request.split(<span class="hljs-string">'!'</span>)[<span class="hljs-number">1</span>].split(<span class="hljs-string">'/'</span>).pop(),
+    filename: <span class="hljs-built_in">this</span>.request.split(<span class="hljs-string">&#x27;!&#x27;</span>)[<span class="hljs-number">1</span>].split(<span class="hljs-string">&#x27;/&#x27;</span>).pop(),
     sourceMaps: <span class="hljs-literal">true</span>
   &#125;
   <span class="hljs-keyword">var</span> result = babel.transform(source, babelOptions)
-  <span class="hljs-keyword">this</span>.callback(<span class="hljs-literal">null</span>, result.code, result.map)
-&#125;</code></pre>
+  <span class="hljs-built_in">this</span>.callback(<span class="hljs-literal">null</span>, result.code, result.map)
+&#125;
 
-<p><a href="https://github.com/lihongxun945/diving-into-webpack/blob/master/2-babel-loader.md" target="_blank" rel="noopener">链接，自定义 babel-loader 相关内容</a></p>
+</code></pre>
+<p><a target="_blank" rel="noopener" href="https://github.com/lihongxun945/diving-into-webpack/blob/master/2-babel-loader.md">链接，自定义 babel-loader 相关内容</a></p>
 <h3 id="简介-css-loader-amp-style-loader"><a href="#简介-css-loader-amp-style-loader" class="headerlink" title="简介 css-loader &amp; style-loader"></a>简介 css-loader &amp; style-loader</h3><p>css-loader 的作用是处理 css 中的 @import 和 url 这样的外部资源<br>style-loader 的作用是把样式插入到 DOM 中，方法是在 head 中插入一个 style 标签，并把样式写入到这个标签的 innerHTML 里</p>
 <pre><code class="hljs css">
 &#123;
@@ -247,51 +248,50 @@
       &#123;
         test: /\.css$/,
         use: [
-          &#123; loader: <span class="hljs-string">"style-loader"</span> &#125;,
-          &#123; <span class="hljs-attribute">loader</span>: <span class="hljs-string">"css-loader"</span> &#125;
+          &#123; loader: <span class="hljs-string">&quot;style-loader&quot;</span> &#125;,
+          &#123; <span class="hljs-attribute">loader</span>: <span class="hljs-string">&quot;css-loader&quot;</span> &#125;
         ]
       &#125;
     ]
   &#125;
 &#125;</code></pre>
-
 <p>即我们的 CSS 代码会先被 css-loader 处理一次，然后再交给 style-loader 进行处理。</p>
-<p><a href="https://blog.csdn.net/sinat_17775997/article/details/84030720" target="_blank" rel="noopener">源码相关文档</a></p>
+<p><a target="_blank" rel="noopener" href="https://blog.csdn.net/sinat_17775997/article/details/84030720">源码相关文档</a></p>
 <h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>我们可以将一些编译选项放在配置文件中，以便于统一管理：</p>
 <p>创建 webpack.config.js 文件，代码如下所示：</p>
 <pre><code class="hljs dts">module.exports = &#123;
-<span class="hljs-symbol">    entry:</span> <span class="hljs-string">"./runoob1.js"</span>,
+<span class="hljs-symbol">    entry:</span> <span class="hljs-string">&quot;./runoob1.js&quot;</span>,
 <span class="hljs-symbol">    output:</span> &#123;
 <span class="hljs-symbol">        path:</span> __dirname,
-<span class="hljs-symbol">        filename:</span> <span class="hljs-string">"bundle.js"</span>
+<span class="hljs-symbol">        filename:</span> <span class="hljs-string">&quot;bundle.js&quot;</span>
     &#125;,
 <span class="hljs-symbol">    module:</span> &#123;
 <span class="hljs-symbol">        loaders:</span> [
-            &#123; test: /\.css$/, loader: <span class="hljs-string">"style-loader!css-loader"</span> &#125;
+            &#123; test: /\.css$/, loader: <span class="hljs-string">&quot;style-loader!css-loader&quot;</span> &#125;
         ]
     &#125;
-&#125;;</code></pre>
-
+&#125;;
+</code></pre>
 <h3 id="插件"><a href="#插件" class="headerlink" title="插件"></a>插件</h3><p>插件在 webpack 的配置信息 plugins 选项中指定，用于完成一些 loader 不能完成的工。<br>webpack 自带一些插件，你可以通过 cnpm 安装一些插件。<br>使用内置插件需要通过以下命令来安装：cnpm install webpack –save-dev</p>
 <p>比如我们可以安装内置的 BannerPlugin 插件，用于在文件头部输出一些注释信息。<br>修改 webpack.config.js，代码如下：</p>
-<pre><code class="hljs typescript"><span class="hljs-keyword">var</span> webpack=<span class="hljs-built_in">require</span>(<span class="hljs-string">'webpack'</span>);
+<pre><code class="hljs javascript"><span class="hljs-keyword">var</span> webpack=<span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;webpack&#x27;</span>);
 
 <span class="hljs-built_in">module</span>.exports = &#123;
-    entry: <span class="hljs-string">"./runoob1.js"</span>,
+    entry: <span class="hljs-string">&quot;./runoob1.js&quot;</span>,
     output: &#123;
         path: __dirname,
-        filename: <span class="hljs-string">"bundle.js"</span>
+        filename: <span class="hljs-string">&quot;bundle.js&quot;</span>
     &#125;,
-    <span class="hljs-keyword">module</span>: &#123;
+    <span class="hljs-built_in">module</span>: &#123;
         loaders: [
-            &#123; test: <span class="hljs-regexp">/\.css$/</span>, loader: <span class="hljs-string">"style-loader!css-loader"</span> &#125;
+            &#123; <span class="hljs-attr">test</span>: <span class="hljs-regexp">/\.css$/</span>, loader: <span class="hljs-string">&quot;style-loader!css-loader&quot;</span> &#125;
         ]
     &#125;,
     plugins:[
-    <span class="hljs-keyword">new</span> webpack.BannerPlugin(<span class="hljs-string">'菜鸟教程 webpack 实例'</span>)
+    <span class="hljs-keyword">new</span> webpack.BannerPlugin(<span class="hljs-string">&#x27;菜鸟教程 webpack 实例&#x27;</span>)
     ]
-&#125;;</code></pre>
-
+&#125;;
+</code></pre>
 <h3 id="使用技巧"><a href="#使用技巧" class="headerlink" title="使用技巧"></a>使用技巧</h3><h3 id="webpack-热更新"><a href="#webpack-热更新" class="headerlink" title="webpack 热更新"></a>webpack 热更新</h3><h4 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h4><p>模块热替换（HMR - Hot Module Replacement）是 webpack 提供的最有用的功能之一。<br>它允许在运行时替换，添加，删除各种模块，而无需进行完全刷新重新加载整个页面，其思路主要有以下几个方面</p>
 <ul>
 <li>保留在完全重新加载页面时丢失的应用程序的状态</li>
@@ -302,34 +302,32 @@
 <p>第二种方法：node 命令行形式<br><code>webpack-dev-sever --hot</code></p>
 <hr>
 <p>package.json 文件</p>
-<pre><code class="hljs stata"><span class="hljs-string">"scripts"</span>: &#123;
-   <span class="hljs-string">"test"</span>: <span class="hljs-string">"echo \"</span><span class="hljs-keyword">Error</span>: <span class="hljs-keyword">no</span> <span class="hljs-keyword">test</span> specified\<span class="hljs-string">" &amp;&amp; exit 1"</span>,
-   <span class="hljs-string">"build"</span>: <span class="hljs-string">"webpack"</span>,
-   <span class="hljs-string">"watch"</span>: <span class="hljs-string">"webpack --watch"</span>,
-   <span class="hljs-string">"dev"</span>: <span class="hljs-string">"webpack-dev-server --open"</span> <span class="hljs-comment">// open参数 构建完自动刷新浏览器</span>
+<pre><code class="hljs stata"><span class="hljs-string">&quot;scripts&quot;</span>: &#123;
+   <span class="hljs-string">&quot;test&quot;</span>: <span class="hljs-string">&quot;echo \&quot;</span><span class="hljs-keyword">Error</span>: <span class="hljs-keyword">no</span> <span class="hljs-keyword">test</span> specified\<span class="hljs-string">&quot; &amp;&amp; exit 1&quot;</span>,
+   <span class="hljs-string">&quot;build&quot;</span>: <span class="hljs-string">&quot;webpack&quot;</span>,
+   <span class="hljs-string">&quot;watch&quot;</span>: <span class="hljs-string">&quot;webpack --watch&quot;</span>,
+   <span class="hljs-string">&quot;dev&quot;</span>: <span class="hljs-string">&quot;webpack-dev-server --open&quot;</span> <span class="hljs-comment">// open参数 构建完自动刷新浏览器</span>
  &#125;,</code></pre>
-
 <p>webpack.config.js 文件</p>
-<pre><code class="hljs less"><span class="hljs-attribute">mode</span>: <span class="hljs-string">'development'</span>,
+<pre><code class="hljs less"><span class="hljs-attribute">mode</span>: <span class="hljs-string">&#x27;development&#x27;</span>,
  <span class="hljs-attribute">plugins</span>: [
      new webpack.HotModuleReplacementPlugin()
  ],
  <span class="hljs-attribute">devServer</span>: &#123;
-     <span class="hljs-attribute">contentBase</span>: <span class="hljs-string">'./dist'</span>,  <span class="hljs-comment">// 服务基础目录</span>
+     <span class="hljs-attribute">contentBase</span>: <span class="hljs-string">&#x27;./dist&#x27;</span>,  <span class="hljs-comment">// 服务基础目录</span>
      <span class="hljs-attribute">hot</span>: true,  <span class="hljs-comment">// 热更新</span>
      <span class="hljs-comment">// hotOnly: true</span>
      <span class="hljs-attribute">proxy</span>: &#123;  <span class="hljs-comment">// 反向代理跨域</span>
-         <span class="hljs-string">"/api"</span>: &#123;
-             <span class="hljs-attribute">target</span>: <span class="hljs-string">"http://localhost:3000"</span>,
+         <span class="hljs-string">&quot;/api&quot;</span>: &#123;
+             <span class="hljs-attribute">target</span>: <span class="hljs-string">&quot;http://localhost:3000&quot;</span>,
              <span class="hljs-attribute">pathRewrite</span>: &#123;
-                 <span class="hljs-string">"^/api"</span>: <span class="hljs-string">""</span>
+                 <span class="hljs-string">&quot;^/api&quot;</span>: <span class="hljs-string">&quot;&quot;</span>
              &#125;
          &#125;
      &#125;
  &#125;
 
  ```</code></pre>
-
             </article>
             <hr>
             <div>
@@ -352,7 +350,7 @@
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://onepunchx.github.io/overlordClause/" target="_blank" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://onepunchx.github.io/overlordClause/" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">
@@ -369,8 +367,8 @@
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/09/14/movie0914/">
-                        <span class="hidden-mobile">电影《信条》</span>
+                      <a href="/2020/09/14/chunkUpload/">
+                        <span class="hidden-mobile">配合antd上传组件的分片上传实现</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

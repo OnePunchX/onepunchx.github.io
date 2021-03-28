@@ -47,7 +47,7 @@
 
 
   <script  src="/js/utils.js" ></script>
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 
 <body>
@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      972 字
+      1k 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      13
+      14
        分钟
     </span>
   
@@ -205,14 +205,14 @@
             
             <article class="markdown-body">
               <h3 id="What"><a href="#What" class="headerlink" title="What"></a>What</h3><p><strong>Proxy</strong> 是 ES6 中新增的功能，它可以用来自定义对象中的操作。<br>Proxy 可以理解成，在目标对象之前架设一层“拦截”，外界对该对象的访问，都必须先通过这层拦截，因此提供了一种机制，可以对外界的访问进行过滤和改写。Proxy 这个词的原意是代理，用在这里表示由它来“代理”某些操作，可以译为“代理器”。</p>
-<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy" target="_blank" rel="noopener">官网链接</a></p>
-<h3 id="How"><a href="#How" class="headerlink" title="How"></a>How</h3><pre><code class="hljs aspectj"><span class="hljs-keyword">const</span> p = <span class="hljs-keyword">new</span> Proxy(<span class="hljs-keyword">target</span>, <span class="hljs-keyword">handler</span>)</code></pre>
-
+<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Proxy">官网链接</a></p>
+<h3 id="How"><a href="#How" class="headerlink" title="How"></a>How</h3><pre><code class="hljs aspectj"><span class="hljs-keyword">const</span> p = <span class="hljs-keyword">new</span> Proxy(<span class="hljs-keyword">target</span>, <span class="hljs-keyword">handler</span>)
+</code></pre>
 <p>target<br>要使用 Proxy 包装的目标对象（可以是任何类型的对象，包括原生数组，函数，甚至另一个代理）。<br>handler<br>一个通常以函数作为属性的对象，各属性中的函数分别定义了在执行各种操作时代理 p 的行为。</p>
 <p>handler.has()<br>in 操作符的捕捉器。<br>handler.get()<br>属性读取操作的捕捉器。<br>handler.set()<br>属性设置操作的捕捉器。</p>
 <p>举几个个 🌰</p>
 <pre><code class="hljs javascript"><span class="hljs-keyword">const</span> handler = &#123;
-    <span class="hljs-keyword">get</span>: function(obj, prop) &#123;
+    get: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">obj, prop</span>) </span>&#123;
         <span class="hljs-keyword">return</span> prop <span class="hljs-keyword">in</span> obj ? obj[prop] : <span class="hljs-number">37</span>;
     &#125;
 &#125;;
@@ -222,7 +222,7 @@ p.a = <span class="hljs-number">1</span>;
 p.b = <span class="hljs-literal">undefined</span>;
 
 <span class="hljs-built_in">console</span>.log(p.a, p.b);      <span class="hljs-comment">// 1, undefined</span>
-<span class="hljs-built_in">console</span>.log(<span class="hljs-string">'c'</span> <span class="hljs-keyword">in</span> p, p.c); <span class="hljs-comment">// false, 37</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;c&#x27;</span> <span class="hljs-keyword">in</span> p, p.c); <span class="hljs-comment">// false, 37</span>
 
 <span class="hljs-comment">//  这是一条分割线 ================</span>
 
@@ -240,13 +240,13 @@ p.a = <span class="hljs-number">37</span>;   <span class="hljs-comment">// 操�
 <span class="hljs-comment">// 用于校验，也很ok</span>
 
 <span class="hljs-keyword">let</span> validator = &#123;
-  <span class="hljs-keyword">set</span>: function(obj, prop, value) &#123;
-    <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">'age'</span>) &#123;
+  set: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">obj, prop, value</span>) </span>&#123;
+    <span class="hljs-keyword">if</span> (prop === <span class="hljs-string">&#x27;age&#x27;</span>) &#123;
       <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Number</span>.isInteger(value)) &#123;
-        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">'The age is not an integer'</span>);
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">&#x27;The age is not an integer&#x27;</span>);
       &#125;
       <span class="hljs-keyword">if</span> (value &gt; <span class="hljs-number">200</span>) &#123;
-        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">RangeError</span>(<span class="hljs-string">'The age seems invalid'</span>);
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">RangeError</span>(<span class="hljs-string">&#x27;The age seems invalid&#x27;</span>);
       &#125;
     &#125;
 
@@ -265,12 +265,15 @@ person.age = <span class="hljs-number">100</span>;
 <span class="hljs-built_in">console</span>.log(person.age);
 <span class="hljs-comment">// 100</span>
 
-person.age = <span class="hljs-string">'young'</span>;
+person.age = <span class="hljs-string">&#x27;young&#x27;</span>;
 <span class="hljs-comment">// 抛出异常: Uncaught TypeError: The age is not an integer</span>
 
 person.age = <span class="hljs-number">300</span>;
-<span class="hljs-comment">// 抛出异常: Uncaught RangeError: The age seems invalid</span></code></pre>
+<span class="hljs-comment">// 抛出异常: Uncaught RangeError: The age seems invalid</span>
 
+
+
+</code></pre>
 <p>还可以扩展构造函数，<br>还可以操作 dom，比如互换两个不同元素的属性或类名</p>
 <p>重点在于，拦截 =&gt; 操作<br>这个官网写的挺全面，如果有需要就点击上面那个链接到官网看吧～</p>
 <h3 id="相关"><a href="#相关" class="headerlink" title="相关"></a>相关</h3><h4 id="Reflect"><a href="#Reflect" class="headerlink" title="Reflect"></a>Reflect</h4><pre><code class="hljs qml"><span class="hljs-comment">//  我再分割一波 ==============================</span>
@@ -297,37 +300,38 @@ person.age = <span class="hljs-number">300</span>;
     <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`监听到属性<span class="hljs-subst">$&#123;property&#125;</span>改变为<span class="hljs-subst">$&#123;v&#125;</span>`</span>)
   &#125;,
   (target, <span class="hljs-keyword">property</span><span class="hljs-string">) </span>=&gt; &#123;
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`'<span class="hljs-subst">$&#123;property&#125;</span>' = <span class="hljs-subst">$&#123;target[property]&#125;</span>`</span>)
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`&#x27;<span class="hljs-subst">$&#123;property&#125;</span>&#x27; = <span class="hljs-subst">$&#123;target[property]&#125;</span>`</span>)
   &#125;
 )
 p.a = <span class="hljs-number">2</span> <span class="hljs-comment">// 监听到属性a改变</span>
-p.a <span class="hljs-comment">// 'a' = 2</span></code></pre>
+p.a <span class="hljs-comment">// &#x27;a&#x27; = 2</span>
 
+</code></pre>
 <p>Reflect 是一个内置的对象，它提供拦截 JavaScript 操作的方法。这些方法与 proxy handlers 的方法相同。Reflect 不是一个函数对象，因此它是不可构造的。<br>Reflect 的所有属性和方法都是静态的（就像 Math 对象）。</p>
 <p><em>Reflect.apply(target, thisArgument, argumentsList)</em><br>对一个函数进行调用操作，同时可以传入一个数组作为调用参数。和 Function.prototype.apply() 功能类似。</p>
 <p><em>Reflect.get(target, propertyKey[, receiver])</em><br>获取对象身上某个属性的值，类似于 target[name]。</p>
 <p><em>Reflect.has(target, propertyKey)</em><br>判断一个对象是否存在某个属性，和 in 运算符 的功能完全相同</p>
 <p><em>Reflect.set(target, propertyKey, value[, receiver])</em><br>将值分配给属性的函数。返回一个 Boolean，如果更新成功，则返回 true。</p>
 <pre><code class="hljs javascript"><span class="hljs-keyword">const</span> duck = &#123;
-  name: <span class="hljs-string">'Maurice'</span>,
-  color: <span class="hljs-string">'white'</span>,
+  name: <span class="hljs-string">&#x27;Maurice&#x27;</span>,
+  color: <span class="hljs-string">&#x27;white&#x27;</span>,
   greeting: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
-    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Quaaaack! My name is <span class="hljs-subst">$&#123;<span class="hljs-keyword">this</span>.name&#125;</span>`</span>);
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`Quaaaack! My name is <span class="hljs-subst">$&#123;<span class="hljs-built_in">this</span>.name&#125;</span>`</span>);
   &#125;
 &#125;
 
-<span class="hljs-built_in">Reflect</span>.has(duck, <span class="hljs-string">'color'</span>);
+<span class="hljs-built_in">Reflect</span>.has(duck, <span class="hljs-string">&#x27;color&#x27;</span>);
 <span class="hljs-comment">// true</span>
-<span class="hljs-built_in">Reflect</span>.has(duck, <span class="hljs-string">'haircut'</span>);
+<span class="hljs-built_in">Reflect</span>.has(duck, <span class="hljs-string">&#x27;haircut&#x27;</span>);
 <span class="hljs-comment">// false</span>
 
 
 <span class="hljs-comment">//  还是一个分割线 哈哈====================</span>
 
-<span class="hljs-built_in">Reflect</span>.set(duck, <span class="hljs-string">'eyes'</span>, <span class="hljs-string">'black'</span>);
-<span class="hljs-comment">// returns "true" if successful</span>
-<span class="hljs-comment">// "duck" now contains the property "eyes: 'black'"</span></code></pre>
-
+<span class="hljs-built_in">Reflect</span>.set(duck, <span class="hljs-string">&#x27;eyes&#x27;</span>, <span class="hljs-string">&#x27;black&#x27;</span>);
+<span class="hljs-comment">// returns &quot;true&quot; if successful</span>
+<span class="hljs-comment">// &quot;duck&quot; now contains the property &quot;eyes: &#x27;black&#x27;&quot;</span>
+</code></pre>
 <p>所以上面的代码中<br><code>return Reflect.set(target, property, value)</code><br>这就是添加了一个新的属性 ，例如 target : { property:value }</p>
 <h3 id="结束"><a href="#结束" class="headerlink" title="结束"></a>结束</h3><p>ok ，那这就是 proxy 相关的一些内容，这里是朱军 ❤️ _bye ～</p>
 
@@ -353,7 +357,7 @@ p.a <span class="hljs-comment">// 'a' = 2</span></code></pre>
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://onepunchx.github.io/overlordClause/" target="_blank" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://onepunchx.github.io/overlordClause/" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

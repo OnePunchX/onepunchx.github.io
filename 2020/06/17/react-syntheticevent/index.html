@@ -47,7 +47,7 @@
 
 
   <script  src="/js/utils.js" ></script>
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 
 <body>
@@ -206,7 +206,7 @@
             <article class="markdown-body">
               <p>这个不是很重要，而且想真弄懂，得看源码。我看的是一头雾水。但是大概思路可以表达出来</p>
 <h3 id="React-合成事件一套机制：React-并不是将-click-事件直接绑定在-dom-上面，而是采用事件冒泡的形式冒泡到-document-上面，当事件发生并冒泡至-document-处时，React-将事件内容封装交给中间层-SyntheticEvent（负责所有事件合成），然后-React-将事件封装给正式的函数处理运行和处理。"><a href="#React-合成事件一套机制：React-并不是将-click-事件直接绑定在-dom-上面，而是采用事件冒泡的形式冒泡到-document-上面，当事件发生并冒泡至-document-处时，React-将事件内容封装交给中间层-SyntheticEvent（负责所有事件合成），然后-React-将事件封装给正式的函数处理运行和处理。" class="headerlink" title="React 合成事件一套机制：React 并不是将 click 事件直接绑定在 dom 上面，而是采用事件冒泡的形式冒泡到 document 上面，当事件发生并冒泡至 document 处时，React 将事件内容封装交给中间层 SyntheticEvent（负责所有事件合成），然后 React 将事件封装给正式的函数处理运行和处理。"></a>React 合成事件一套机制：React 并不是将 click 事件直接绑定在 dom 上面，而是采用事件冒泡的形式冒泡到 document 上面，当事件发生并冒泡至 document 处时，React 将事件内容封装交给中间层 SyntheticEvent（负责所有事件合成），然后 React 将事件封装给正式的函数处理运行和处理。</h3><p>为啥有这种 react 合成事件 这种东西？ 存在即合理。<br>如果 dom 上绑定了特别多的事件处理函数，那指定会卡。为了不会卡，所以有了这个 react 合成事件，并且对浏览器兼容性，不用担心 ie 的坑了。</p>
-<h3 id="注意：React-事件和原生事件最好不要混用。原生事件中如果执行了-stopPropagation-方法，则会导致其他-React-事件失效。因为所有元素的事件将无法冒泡到-document-上，导致所有的-React-事件都将无法被触发。"><a href="#注意：React-事件和原生事件最好不要混用。原生事件中如果执行了-stopPropagation-方法，则会导致其他-React-事件失效。因为所有元素的事件将无法冒泡到-document-上，导致所有的-React-事件都将无法被触发。" class="headerlink" title="注意：React 事件和原生事件最好不要混用。原生事件中如果执行了 stopPropagation 方法，则会导致其他 React 事件失效。因为所有元素的事件将无法冒泡到 document 上，导致所有的 React 事件都将无法被触发。"></a>注意：React 事件和原生事件最好不要混用。原生事件中如果执行了 stopPropagation 方法，则会导致其他 React 事件失效。因为所有元素的事件将无法冒泡到 document 上，导致所有的 React 事件都将无法被触发。</h3><p>下面留个链接，是大佬分析源码的东西。<br><a href="https://zhuanlan.zhihu.com/p/25883536" target="_blank" rel="noopener">点击跳转</a></p>
+<h3 id="注意：React-事件和原生事件最好不要混用。原生事件中如果执行了-stopPropagation-方法，则会导致其他-React-事件失效。因为所有元素的事件将无法冒泡到-document-上，导致所有的-React-事件都将无法被触发。"><a href="#注意：React-事件和原生事件最好不要混用。原生事件中如果执行了-stopPropagation-方法，则会导致其他-React-事件失效。因为所有元素的事件将无法冒泡到-document-上，导致所有的-React-事件都将无法被触发。" class="headerlink" title="注意：React 事件和原生事件最好不要混用。原生事件中如果执行了 stopPropagation 方法，则会导致其他 React 事件失效。因为所有元素的事件将无法冒泡到 document 上，导致所有的 React 事件都将无法被触发。"></a>注意：React 事件和原生事件最好不要混用。原生事件中如果执行了 stopPropagation 方法，则会导致其他 React 事件失效。因为所有元素的事件将无法冒泡到 document 上，导致所有的 React 事件都将无法被触发。</h3><p>下面留个链接，是大佬分析源码的东西。<br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/25883536">点击跳转</a></p>
 
             </article>
             <hr>
@@ -230,7 +230,7 @@
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://onepunchx.github.io/overlordClause/" target="_blank" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://onepunchx.github.io/overlordClause/" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

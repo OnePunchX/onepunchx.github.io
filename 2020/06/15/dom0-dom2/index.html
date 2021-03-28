@@ -47,7 +47,7 @@
 
 
   <script  src="/js/utils.js" ></script>
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 
 <body>
@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      830 字
+      882 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      10
+      11
        分钟
     </span>
   
@@ -205,54 +205,53 @@
             
             <article class="markdown-body">
               <h2 id="dom0"><a href="#dom0" class="headerlink" title="dom0"></a>dom0</h2><p>或者叫 0 级 dom ，如下</p>
-<pre><code class="hljs scilab">&lt;input id=<span class="hljs-string">"btn"</span> <span class="hljs-built_in">type</span>=<span class="hljs-string">"button"</span> onclick=<span class="hljs-string">"console.log('</span>You clicked the button!<span class="hljs-string">');"</span> value=<span class="hljs-string">"Click"</span> /&gt;
+<pre><code class="hljs scilab">&lt;input id=<span class="hljs-string">&quot;btn&quot;</span> <span class="hljs-built_in">type</span>=<span class="hljs-string">&quot;button&quot;</span> onclick=<span class="hljs-string">&quot;console.log(&#x27;</span>You clicked the button!<span class="hljs-string">&#x27;);&quot;</span> value=<span class="hljs-string">&quot;Click&quot;</span> /&gt;
 
 <span class="hljs-comment">//  或者js写法</span>
-document.getElementById(<span class="hljs-string">'btn'</span>).onclick = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> &#123;</span>
-            console.<span class="hljs-built_in">log</span>(<span class="hljs-string">'Ｉ　am ｐｒｏｃｅｓｓｅｄ by dom0!'</span>);
+document.getElementById(<span class="hljs-string">&#x27;btn&#x27;</span>).onclick = <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span> &#123;</span>
+            console.<span class="hljs-built_in">log</span>(<span class="hljs-string">&#x27;Ｉ　am ｐｒｏｃｅｓｓｅｄ by dom0!&#x27;</span>);
         &#125;;</code></pre>
-
 <h3 id="这种写法，后面的代码会覆盖前面的，也就是说如果多次输出，也只会输出最后一条。"><a href="#这种写法，后面的代码会覆盖前面的，也就是说如果多次输出，也只会输出最后一条。" class="headerlink" title="这种写法，后面的代码会覆盖前面的，也就是说如果多次输出，也只会输出最后一条。"></a>这种写法，后面的代码会覆盖前面的，也就是说如果多次输出，也只会输出最后一条。</h3><h2 id="dom2"><a href="#dom2" class="headerlink" title="dom2"></a>dom2</h2><p>或者叫 2 级 dom，继续如下呗</p>
-<pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">input</span> <span class="hljs-attr">id</span>=<span class="hljs-string">'input'</span> <span class="hljs-attr">type</span>=<span class="hljs-string">"text"</span> <span class="hljs-attr">onclick</span>=<span class="hljs-string">"alert('haha')"</span> /&gt;</span>
- <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span>
-<span class="javascript">     <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'input'</span>).onclick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span>
-<span class="actionscript">         alert(<span class="hljs-string">'fff'</span>)</span>
-<span class="actionscript">     &#125;; <span class="hljs-comment">// 目标阶段</span></span>
-<span class="javascript">     <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'input'</span>).addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span>
-<span class="actionscript">         alert(<span class="hljs-string">'mmm'</span>)</span>
-<span class="actionscript">     &#125;, <span class="hljs-literal">true</span>)  <span class="hljs-comment">// 捕获阶段</span></span>
-<span class="javascript">     <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'input'</span>).addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span>
-<span class="actionscript">         alert(<span class="hljs-string">'ooooo'</span>)</span>
-<span class="actionscript">     &#125;, <span class="hljs-literal">true</span>)  <span class="hljs-comment">// 捕获阶段</span></span>
-<span class="javascript">     <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'input'</span>).addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span>
-<span class="actionscript">         alert(<span class="hljs-string">'pppp'</span>)</span>
-<span class="actionscript">     &#125;, <span class="hljs-literal">false</span>)  <span class="hljs-comment">// 冒泡阶段</span></span>
+<pre><code class="hljs typescript">&lt;input id=<span class="hljs-string">&#x27;input&#x27;</span> <span class="hljs-keyword">type</span>=<span class="hljs-string">&quot;text&quot;</span> onclick=<span class="hljs-string">&quot;alert(&#x27;haha&#x27;)&quot;</span> /&gt;
+ &lt;script&gt;
+     <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;input&#x27;</span>).onclick = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+         alert(<span class="hljs-string">&#x27;fff&#x27;</span>)
+     &#125;; <span class="hljs-comment">// 目标阶段</span>
+     <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;input&#x27;</span>).addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+         alert(<span class="hljs-string">&#x27;mmm&#x27;</span>)
+     &#125;, <span class="hljs-literal">true</span>)  <span class="hljs-comment">// 捕获阶段</span>
+     <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;input&#x27;</span>).addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+         alert(<span class="hljs-string">&#x27;ooooo&#x27;</span>)
+     &#125;, <span class="hljs-literal">true</span>)  <span class="hljs-comment">// 捕获阶段</span>
+     <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;input&#x27;</span>).addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+         alert(<span class="hljs-string">&#x27;pppp&#x27;</span>)
+     &#125;, <span class="hljs-literal">false</span>)  <span class="hljs-comment">// 冒泡阶段</span>
 
-<span class="actionscript">     <span class="hljs-comment">// 兼容低版本IE的写法</span></span>
-<span class="javascript">     <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'input'</span>).attachEvent(<span class="hljs-string">"onclick"</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span>
-<span class="actionscript">         alert(<span class="hljs-string">'pppp'</span>)</span>
+     <span class="hljs-comment">// 兼容低版本IE的写法</span>
+     <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">&#x27;input&#x27;</span>).attachEvent(<span class="hljs-string">&quot;onclick&quot;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
+         alert(<span class="hljs-string">&#x27;pppp&#x27;</span>)
      &#125;);
- <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+ &lt;/script&gt;
 
- // mmm ooooo fff pppp</code></pre>
-
+ <span class="hljs-comment">// mmm ooooo fff pppp</span></code></pre>
 <p>dom2 把事情分为 3 步 ———— 事件捕获阶段、处于目标阶段和事件冒泡阶段</p>
-<pre><code class="hljs actionscript">addEventListener(<span class="hljs-string">'click'</span>,<span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">()</span></span>&#123;&#125;,<span class="hljs-literal">true</span>/<span class="hljs-literal">false</span>)
+<pre><code class="hljs awk">addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>,<span class="hljs-keyword">function</span>()&#123;&#125;,true/false)
 
-<span class="hljs-comment">// 第一个参数，表明是啥触发事件</span>
-<span class="hljs-comment">// 第二个参数，事件触发以后的回调函数</span>
-<span class="hljs-comment">// 第三个参数，true或者false ，true是第二个参数那个回调函数在捕获阶段调用 ，false在冒泡阶段 ，默认是false</span>
-<span class="hljs-comment">// 2015年底，扩展了第三个参数</span>
+<span class="hljs-regexp">//</span> 第一个参数，表明是啥触发事件
+<span class="hljs-regexp">//</span> 第二个参数，事件触发以后的回调函数
+<span class="hljs-regexp">//</span> 第三个参数，true或者false ，true是第二个参数那个回调函数在捕获阶段调用 ，false在冒泡阶段 ，默认是false
+<span class="hljs-regexp">//</span> <span class="hljs-number">2015</span>年底，扩展了第三个参数
 
 el.addEventListener(type, listener, &#123;
-    capture: <span class="hljs-literal">false</span>, <span class="hljs-comment">// useCapture</span>
-    once: <span class="hljs-literal">false</span>,    <span class="hljs-comment">// 是否设置单次监听</span>
-    passive: <span class="hljs-literal">false</span>  <span class="hljs-comment">// 是否让阻止默认行为preventDefault()失效</span>
+    capture: false, <span class="hljs-regexp">//</span> useCapture
+    once: false,    <span class="hljs-regexp">//</span> 是否设置单次监听
+    passive: false  <span class="hljs-regexp">//</span> 是否让阻止默认行为preventDefault()失效
 
-    <span class="hljs-comment">//  由于 touchmove 事件对象的 cancelable 属性为 true，也就是说它的默认行为可以被监听器通过 preventDefault() 方法阻止。那它的默认行为是什么呢，通常来说就是滚动当前页面（还可能是缩放页面），如果它的默认行为被阻止了，页面就必须静止不动。但浏览器无法预先知道一个监听器会不会调用 preventDefault()，它能做的只有等监听器执行完后再去执行默认行为，而监听器执行是要耗时的，有些甚至耗时很明显，这样就会导致页面卡顿。即便监听器是个空函数，也会产生一定的卡顿，毕竟空函数的执行也会耗时。当设置了passive为true，则会忽略代码中的preventDefault(), 因此页面会变得更流畅</span>
+    <span class="hljs-regexp">//</span>  由于 touchmove 事件对象的 cancelable 属性为 true，也就是说它的默认行为可以被监听器通过 preventDefault() 方法阻止。那它的默认行为是什么呢，通常来说就是滚动当前页面（还可能是缩放页面），如果它的默认行为被阻止了，页面就必须静止不动。但浏览器无法预先知道一个监听器会不会调用 preventDefault()，它能做的只有等监听器执行完后再去执行默认行为，而监听器执行是要耗时的，有些甚至耗时很明显，这样就会导致页面卡顿。即便监听器是个空函数，也会产生一定的卡顿，毕竟空函数的执行也会耗时。当设置了passive为true，则会忽略代码中的preventDefault(), 因此页面会变得更流畅
 
-&#125;)</code></pre>
+&#125;)
 
+</code></pre>
 <p>window =&gt; document =&gt; body =&gt; div 捕获</p>
 <p>div =&gt; body =&gt; document =&gt; window 冒泡</p>
 <h3 id="这种写法，不会覆盖，会依次输出所有项"><a href="#这种写法，不会覆盖，会依次输出所有项" class="headerlink" title="这种写法，不会覆盖，会依次输出所有项"></a>这种写法，不会覆盖，会依次输出所有项</h3><p>顺便提一嘴 dom3 ，增加了更多的事件类型，比如：<br>       DOM3 级事件在 DOM2 级事件的基础上添加了更多的事件类型，全部类型如下：</p>
@@ -289,7 +288,7 @@ el.addEventListener(type, listener, &#123;
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://onepunchx.github.io/overlordClause/" target="_blank" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://onepunchx.github.io/overlordClause/" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

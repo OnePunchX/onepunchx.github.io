@@ -47,7 +47,7 @@
 
 
   <script  src="/js/utils.js" ></script>
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 
 <body>
@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      363 字
+      367 字
     </span>
   
 
@@ -213,19 +213,17 @@
 <span class="hljs-built_in">let</span> result = someInterface.customMethod?.();
 
 <span class="hljs-built_in">let</span> arrayItem = arr?.[<span class="hljs-number">42</span>]</code></pre>
-
 <h3 id="空值合并操作符"><a href="#空值合并操作符" class="headerlink" title="?? 空值合并操作符"></a>?? 空值合并操作符</h3><p>第一次见的时候，觉得不就是 || 这种操作么， 比如 false || ‘zhujun’<br>结果当然不是那么简单<br>让我来 show you something</p>
 <p>|| 这种叫做 逻辑或操作符，左边成立用左边，左边 false 用右边 可是如果左边有值为 0 的时候，就不对了 ，举个 🌰</p>
-<pre><code class="hljs angelscript"><span class="hljs-keyword">const</span> wanghao = &#123; IQ:<span class="hljs-number">0</span> , cm:<span class="hljs-number">150</span> &#125;;
-<span class="hljs-keyword">const</span> value = wanghao.IQ || <span class="hljs-number">100</span>
-console.log(value)  <span class="hljs-comment">//  100</span>
+<pre><code class="hljs awk">const wanghao = &#123; IQ:<span class="hljs-number">0</span> , cm:<span class="hljs-number">150</span> &#125;;
+const value = wanghao.IQ || <span class="hljs-number">100</span>
+console.log(value)  <span class="hljs-regexp">//</span>  <span class="hljs-number">100</span>
 
-<span class="hljs-comment">//  这就不对了，它的IQ明明是0 。。。。哈哈</span>
-<span class="hljs-comment">//  假值（0,'',NaN,null,undefined） 对于空字符串和数字0，就只用用逻辑操作符 || 会有问题的</span>
+<span class="hljs-regexp">//</span>  这就不对了，它的IQ明明是<span class="hljs-number">0</span> 。。。。哈哈
+<span class="hljs-regexp">//</span>  假值（<span class="hljs-number">0</span>,<span class="hljs-string">&#x27;&#x27;</span>,NaN,null,undefined） 对于空字符串和数字<span class="hljs-number">0</span>，就只用用逻辑操作符 || 会有问题的
 
-<span class="hljs-keyword">const</span> newValue = wanghao.IQ ?? <span class="hljs-string">'wanghao is really smart'</span>
-console.log(newValue)  <span class="hljs-comment">// 0  这就对了，，哈哈😄</span></code></pre>
-
+const newValue = wanghao.IQ ?? <span class="hljs-string">&#x27;wanghao is really smart&#x27;</span>
+console.log(newValue)  <span class="hljs-regexp">//</span> <span class="hljs-number">0</span>  这就对了，，哈哈😄</code></pre>
 <p>用了?? 保证没有 null 或者 undefined ~</p>
 <p>tips：null || undefined ?? “foo”; // 抛出 SyntaxError</p>
 <p>空值合并操作符针对 undefined 与 null 这两个值，可选链式操作符（?.） 也是如此。在这访问属性可能为 undefined 与 null 的对象时，可选链式操作符非常有用。</p>
@@ -252,7 +250,7 @@ console.log(newValue)  <span class="hljs-comment">// 0  这就对了，，哈哈
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://onepunchx.github.io/overlordClause/" target="_blank" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://onepunchx.github.io/overlordClause/" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

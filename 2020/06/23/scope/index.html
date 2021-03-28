@@ -47,7 +47,7 @@
 
 
   <script  src="/js/utils.js" ></script>
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 
 <body>
@@ -210,25 +210,24 @@
 <p>1.当执行函数时，总是先从函数内部找寻局部变量</p>
 <p>2.如果内部找不到（函数的局部作用域没有），则会向创建函数的作用域（声明函数的作用域）寻找，依次向上</p>
 <hr>
-<pre><code class="hljs delphi"><span class="hljs-keyword">var</span> bb = <span class="hljs-number">1</span>;
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span><span class="hljs-params">(bb)</span><span class="hljs-comment">&#123;</span></span>
-<span class="hljs-function"><span class="hljs-comment">  bb = 2 ;</span></span>
-<span class="hljs-function"><span class="hljs-comment">  alert(bb)</span></span>
-<span class="hljs-function"><span class="hljs-comment">&#125;</span></span>
-<span class="hljs-function"><span class="hljs-title">fn</span><span class="hljs-params">(bb)</span>;</span>
+<pre><code class="hljs zephir"><span class="hljs-keyword">var</span> bb = <span class="hljs-number">1</span>;
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span><span class="hljs-params">(bb)</span></span>&#123;
+  bb = <span class="hljs-number">2</span> ;
+  alert(bb)
+&#125;
+<span class="hljs-function"><span class="hljs-keyword">fn</span><span class="hljs-params">(bb)</span></span>;
 alert(bb)
 
 <span class="hljs-comment">//  2,1</span>
 
 
 <span class="hljs-keyword">var</span> bb = <span class="hljs-number">1</span> ;
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span><span class="hljs-params">()</span><span class="hljs-comment">&#123;</span></span>
-<span class="hljs-function"><span class="hljs-comment">  alert(bb)</span></span>
-<span class="hljs-function"><span class="hljs-comment">&#125;</span></span>
-<span class="hljs-function"></span>
-<span class="hljs-function"><span class="hljs-title">fn</span><span class="hljs-params">()</span></span>
-<span class="hljs-function"><span class="hljs-comment">// undefined</span></span></code></pre>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span><span class="hljs-params">()</span></span>&#123;
+  alert(bb)
+&#125;
 
+<span class="hljs-function"><span class="hljs-keyword">fn</span><span class="hljs-params">()</span></span>
+<span class="hljs-function">// <span class="hljs-title">undefined</span></span></code></pre>
             </article>
             <hr>
             <div>
@@ -251,7 +250,7 @@ alert(bb)
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://onepunchx.github.io/overlordClause/" target="_blank" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://onepunchx.github.io/overlordClause/" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

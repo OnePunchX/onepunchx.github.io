@@ -47,7 +47,7 @@
 
 
   <script  src="/js/utils.js" ></script>
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 
 <body>
@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      541 字
+      543 字
     </span>
   
 
@@ -207,7 +207,7 @@
               <h3 id="前言："><a href="#前言：" class="headerlink" title="前言："></a>前言：</h3><p>刚刚在敲码时候遇见了个离谱的问题，排查发现与组件卸载相关。<br>刚好写个博，一来趁热记录一下刚刚走过的坑，二来总结学习一下相关的问题其余的坑。</p>
 <h3 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h3><p>在页面挂载了一个 pubsub 监听程序，，啊，突然发现 pubsub 使用方法的博客还没写，留了个坑<br>问题是触发该 pubsub 的时候，本该执行一次的函数被执行了多次，并且发现每次热更新就会多执行一次函数</p>
 <h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><p>经过排查啊，页面组件是只加载一次的，所以就一定是 pubsub 的监听被触发了多次或者生成了多个监听程序</p>
-<h3 id="上代码实战分析"><a href="#上代码实战分析" class="headerlink" title="上代码实战分析"></a>上代码实战分析</h3><pre><code class="hljs typescript">PubSub.subscribe(<span class="hljs-string">'电子签名'</span>, <span class="hljs-function">(<span class="hljs-params">keyword, data</span>) =&gt;</span> &#123;
+<h3 id="上代码实战分析"><a href="#上代码实战分析" class="headerlink" title="上代码实战分析"></a>上代码实战分析</h3><pre><code class="hljs javascript">PubSub.subscribe(<span class="hljs-string">&#x27;电子签名&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">keyword, data</span>) =&gt;</span> &#123;
      <span class="hljs-keyword">const</span> &#123; functionalModuleId, caseName, caseObject, okFn, ...rest &#125; = data;
 
      <span class="hljs-keyword">const</span> eSignAuth = getEsignAuthorities().find(
@@ -223,7 +223,7 @@
        okFn(&#123;&#125;);
        <span class="hljs-keyword">return</span>;
      &#125;
-     <span class="hljs-keyword">this</span>.setState(&#123;
+     <span class="hljs-built_in">this</span>.setState(&#123;
        isModalShow: <span class="hljs-literal">true</span>,
        functionalModuleId,
        caseName,
@@ -231,18 +231,18 @@
        okFn,
        ...rest,
      &#125;);
-   &#125;);</code></pre>
-
+   &#125;);
+</code></pre>
 <p>原来上面这段代码写在 componentDidMount 的生命周期里。后来放进类构造函数里，用 componentWillUnmount 处理<br>代码如下</p>
-<pre><code class="hljs kotlin">
-componentDidMount() &#123;
-  <span class="hljs-keyword">this</span>.esignPubsub;
+<pre><code class="hljs javascript">
+<span class="hljs-function"><span class="hljs-title">componentDidMount</span>(<span class="hljs-params"></span>)</span> &#123;
+  <span class="hljs-built_in">this</span>.esignPubsub;
 &#125;
 
-componentWillUnmount() &#123;
-  PubSub.unsubscribe(<span class="hljs-keyword">this</span>.esignPubsub);
-&#125;</code></pre>
-
+<span class="hljs-function"><span class="hljs-title">componentWillUnmount</span>(<span class="hljs-params"></span>)</span> &#123;
+  PubSub.unsubscribe(<span class="hljs-built_in">this</span>.esignPubsub);
+&#125;
+</code></pre>
 <p>这里其实还涉及一些其他的点，比如<br>热更新 websocket 推送过去的，只更新变化的 bundle。<br>浏览器刷新全量更新除缓存外所有文件。</p>
 <p>所以每次保存代码热更新，，都没有清空上一次程序的线程，会导致多次运行同一个程序<br>类似的还有：</p>
 <p>websocket 的运行等</p>
@@ -270,7 +270,7 @@ componentWillUnmount() &#123;
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://onepunchx.github.io/overlordClause/" target="_blank" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://onepunchx.github.io/overlordClause/" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">
@@ -287,8 +287,8 @@ componentWillUnmount() &#123;
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/10/10/movie1014/">
-                        <span class="hidden-mobile">电影《我和我的家乡》</span>
+                      <a href="/2020/10/09/pubsub/">
+                        <span class="hidden-mobile">监听与触发机制——pubsub</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

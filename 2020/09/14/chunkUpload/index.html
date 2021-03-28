@@ -47,7 +47,7 @@
 
 
   <script  src="/js/utils.js" ></script>
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 
 <body>
@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      683 字
+      721 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      12
        分钟
     </span>
   
@@ -205,53 +205,53 @@
             
             <article class="markdown-body">
               <h2 id="分片上传"><a href="#分片上传" class="headerlink" title="分片上传"></a>分片上传</h2><p>项目中遇见了超过 1G 的大文件，在上传接口调用的时候会超时，报错。<br>为了解决问题，搞了个分片上传，配合 antd 的 Upload 组件<br>主要是利用了 Blob 文件的 blob.slice 方法切割文件<br>然后把切割出来的文件传给后端</p>
-<pre><code class="hljs typescript">&lt;Upload
-  action=&#123;<span class="hljs-string">`/server/api/orderFiles/cus/<span class="hljs-subst">$&#123;order.id&#125;</span>/enable/1/dipServices/<span class="hljs-subst">$&#123;order.dipService?.id&#125;</span>`</span>&#125;
-  autoUpload=&#123;<span class="hljs-literal">false</span>&#125;
+<pre><code class="hljs awk">&lt;Upload
+  action=&#123;`<span class="hljs-regexp">/server/</span>api<span class="hljs-regexp">/orderFiles/</span>cus<span class="hljs-regexp">/$&#123;order.id&#125;/</span>enable<span class="hljs-regexp">/1/</span>dipServices/<span class="hljs-variable">$&#123;order.dipService?.id&#125;</span>`&#125;
+  autoUpload=&#123;false&#125;
   multiple
-  beforeUpload=&#123;<span class="hljs-function">(<span class="hljs-params">file, fileList</span>) =&gt;</span> &#123;
+  beforeUpload=&#123;(file, fileList) =&gt; &#123;
     <span class="hljs-keyword">if</span> (file.size &lt;= <span class="hljs-number">0</span>) &#123;
-      message.warning(formatMessage(&#123; id: <span class="hljs-string">'文件无效，请重新上传!'</span> &#125;));
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+      message.warning(formatMessage(&#123; id: <span class="hljs-string">&#x27;文件无效，请重新上传!&#x27;</span> &#125;));
+      return false;
     &#125;
     <span class="hljs-keyword">if</span> (fileList.length &gt; <span class="hljs-number">10</span> - originFiles.length &amp;&amp; fileList.indexOf(file) === <span class="hljs-number">0</span>) &#123;
-      message.warning(formatMessage(&#123; id: <span class="hljs-string">'选择文件数量超出限制，请重新选择'</span> &#125;));
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+      message.warning(formatMessage(&#123; id: <span class="hljs-string">&#x27;选择文件数量超出限制，请重新选择&#x27;</span> &#125;));
+      return false;
     &#125;
     <span class="hljs-keyword">if</span> (fileList.length &gt; <span class="hljs-number">10</span> - originFiles.length) &#123;
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+      return false;
     &#125;
     <span class="hljs-keyword">if</span> (originFiles.length &gt; <span class="hljs-number">10</span>) &#123;
-      message.warning(formatMessage(&#123; id: <span class="hljs-string">'已上传文件数量超过限制，无法上传'</span> &#125;));
-      <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+      message.warning(formatMessage(&#123; id: <span class="hljs-string">&#x27;已上传文件数量超过限制，无法上传&#x27;</span> &#125;));
+      return false;
     &#125;
 
-    <span class="hljs-comment">// if (file.size &gt; 1024 * 1024 * 5) &#123;</span>
-    <span class="hljs-comment">//   message.warning(formatMessage(&#123; id: `文件：$&#123;file.name&#125; 超过5M，无法上传!` &#125;));</span>
-    <span class="hljs-comment">//   return false;</span>
-    <span class="hljs-comment">// &#125;</span>
-    <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+    <span class="hljs-regexp">//</span> <span class="hljs-keyword">if</span> (file.size &gt; <span class="hljs-number">1024</span> * <span class="hljs-number">1024</span> * <span class="hljs-number">5</span>) &#123;
+    <span class="hljs-regexp">//</span>   message.warning(formatMessage(&#123; id: `文件：<span class="hljs-variable">$&#123;file.name&#125;</span> 超过<span class="hljs-number">5</span>M，无法上传!` &#125;));
+    <span class="hljs-regexp">//</span>   return false;
+    <span class="hljs-regexp">//</span> &#125;
+    return true;
   &#125;&#125;
-  customRequest=&#123;<span class="hljs-function">(<span class="hljs-params">&#123; file, onError, onSuccess &#125;</span>) =&gt;</span> &#123;
-    <span class="hljs-comment">//  如果小于5M 上传整个文件，如果超过5M分片上传</span>
-    <span class="hljs-keyword">const</span> bytesPerPiece = <span class="hljs-number">1024</span> * <span class="hljs-number">1024</span> * <span class="hljs-number">5</span>; <span class="hljs-comment">// 每个文件切片大小定为5MB .</span>
-    <span class="hljs-comment">// const uid = uuid.v4();</span>
+  customRequest=&#123;(&#123; file, onError, onSuccess &#125;) =&gt; &#123;
+    <span class="hljs-regexp">//</span>  如果小于<span class="hljs-number">5</span>M 上传整个文件，如果超过<span class="hljs-number">5</span>M分片上传
+    const bytesPerPiece = <span class="hljs-number">1024</span> * <span class="hljs-number">1024</span> * <span class="hljs-number">5</span>; <span class="hljs-regexp">//</span> 每个文件切片大小定为<span class="hljs-number">5</span>MB .
+    <span class="hljs-regexp">//</span> const uid = uuid.v4();
     <span class="hljs-keyword">if</span> (file.size &lt; bytesPerPiece) &#123;
-      <span class="hljs-keyword">const</span> formData = <span class="hljs-keyword">new</span> FormData();
-      formData.append(<span class="hljs-string">'file'</span>, file);
-      formData.append(<span class="hljs-string">'chunkFlag'</span>, <span class="hljs-literal">false</span>);
-      formData.append(<span class="hljs-string">'chunk'</span>, <span class="hljs-number">0</span>); <span class="hljs-comment">//  第几片</span>
-      formData.append(<span class="hljs-string">'chunkSize'</span>, bytesPerPiece); <span class="hljs-comment">//  分片大小</span>
-      formData.append(<span class="hljs-string">'chunks'</span>, <span class="hljs-number">1</span>); <span class="hljs-comment">// 分片总数</span>
-      formData.append(<span class="hljs-string">'uuid'</span>, file.uid); <span class="hljs-comment">//  整个文件的标识</span>
+      const formData = new FormData();
+      formData.append(<span class="hljs-string">&#x27;file&#x27;</span>, file);
+      formData.append(<span class="hljs-string">&#x27;chunkFlag&#x27;</span>, false);
+      formData.append(<span class="hljs-string">&#x27;chunk&#x27;</span>, <span class="hljs-number">0</span>); <span class="hljs-regexp">//</span>  第几片
+      formData.append(<span class="hljs-string">&#x27;chunkSize&#x27;</span>, bytesPerPiece); <span class="hljs-regexp">//</span>  分片大小
+      formData.append(<span class="hljs-string">&#x27;chunks&#x27;</span>, <span class="hljs-number">1</span>); <span class="hljs-regexp">//</span> 分片总数
+      formData.append(<span class="hljs-string">&#x27;uuid&#x27;</span>, file.uid); <span class="hljs-regexp">//</span>  整个文件的标识
 
       request(
-        <span class="hljs-string">`/server/api/orderFiles/cus/<span class="hljs-subst">$&#123;order.id&#125;</span>/enable/1/dipServices/<span class="hljs-subst">$&#123;order.dipService?.id&#125;</span>`</span>,
+        `<span class="hljs-regexp">/server/</span>api<span class="hljs-regexp">/orderFiles/</span>cus<span class="hljs-regexp">/$&#123;order.id&#125;/</span>enable<span class="hljs-regexp">/1/</span>dipServices/<span class="hljs-variable">$&#123;order.dipService?.id&#125;</span>`,
         &#123;
-          method: <span class="hljs-string">'post'</span>,
+          method: <span class="hljs-string">&#x27;post&#x27;</span>,
           body: formData,
         &#125;,
-      ).then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+      ).then(res =&gt; &#123;
         <span class="hljs-keyword">if</span> (res.success) &#123;
           onSuccess(res, file);
         &#125; <span class="hljs-keyword">else</span> &#123;
@@ -261,73 +261,73 @@
           id: order.id,
         &#125;);
       &#125;);
-      <span class="hljs-keyword">return</span>;
+      return;
     &#125;
-    <span class="hljs-comment">// 发送请求</span>
+    <span class="hljs-regexp">//</span> 发送请求
 
-    <span class="hljs-keyword">const</span> blob = <span class="hljs-keyword">new</span> Blob([file]);
-    <span class="hljs-keyword">let</span> start = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">let</span> end;
-    <span class="hljs-keyword">let</span> index = <span class="hljs-number">0</span>;
-    <span class="hljs-keyword">const</span> filesize = blob.size;
-    <span class="hljs-comment">// const filename = blob.name;</span>
-    <span class="hljs-comment">// 计算文件切片总数</span>
-    <span class="hljs-keyword">const</span> totalPieces = <span class="hljs-built_in">Math</span>.ceil(filesize / bytesPerPiece);
-    <span class="hljs-keyword">const</span> filePieces = [];
+    const blob = new Blob([file]);
+    let start = <span class="hljs-number">0</span>;
+    let end;
+    let index = <span class="hljs-number">0</span>;
+    const filesize = blob.size;
+    <span class="hljs-regexp">//</span> const filename = blob.name;
+    <span class="hljs-regexp">//</span> 计算文件切片总数
+    const totalPieces = Math.ceil(filesize / bytesPerPiece);
+    const filePieces = [];
     <span class="hljs-keyword">while</span> (start &lt; filesize) &#123;
       end = start + bytesPerPiece;
       <span class="hljs-keyword">if</span> (end &gt; filesize) &#123;
         end = filesize;
-      &#125; <span class="hljs-comment">// 匹配最后一个分片的情况</span>
+      &#125; <span class="hljs-regexp">//</span> 匹配最后一个分片的情况
 
-      <span class="hljs-keyword">const</span> chunk = blob.slice(start, end); <span class="hljs-comment">// 切割文件</span>
-      <span class="hljs-keyword">const</span> sliceIndex = file.name;
-      <span class="hljs-keyword">const</span> formData = <span class="hljs-keyword">new</span> FormData();
-      formData.append(<span class="hljs-string">'file'</span>, chunk, sliceIndex);
-      formData.append(<span class="hljs-string">'chunk'</span>, index); <span class="hljs-comment">//  第几片</span>
-      formData.append(<span class="hljs-string">'chunkSize'</span>, bytesPerPiece); <span class="hljs-comment">//  分片大小</span>
-      formData.append(<span class="hljs-string">'chunks'</span>, totalPieces); <span class="hljs-comment">// 分片总数</span>
-      formData.append(<span class="hljs-string">'chunkFlag'</span>, <span class="hljs-literal">true</span>); <span class="hljs-comment">//  是否分片</span>
-      formData.append(<span class="hljs-string">'uuid'</span>, file.uid); <span class="hljs-comment">//  整个文件的标识</span>
+      const chunk = blob.slice(start, end); <span class="hljs-regexp">//</span> 切割文件
+      const sliceIndex = file.name;
+      const formData = new FormData();
+      formData.append(<span class="hljs-string">&#x27;file&#x27;</span>, chunk, sliceIndex);
+      formData.append(<span class="hljs-string">&#x27;chunk&#x27;</span>, index); <span class="hljs-regexp">//</span>  第几片
+      formData.append(<span class="hljs-string">&#x27;chunkSize&#x27;</span>, bytesPerPiece); <span class="hljs-regexp">//</span>  分片大小
+      formData.append(<span class="hljs-string">&#x27;chunks&#x27;</span>, totalPieces); <span class="hljs-regexp">//</span> 分片总数
+      formData.append(<span class="hljs-string">&#x27;chunkFlag&#x27;</span>, true); <span class="hljs-regexp">//</span>  是否分片
+      formData.append(<span class="hljs-string">&#x27;uuid&#x27;</span>, file.uid); <span class="hljs-regexp">//</span>  整个文件的标识
       filePieces.push(formData);
-      <span class="hljs-comment">// request(</span>
-      <span class="hljs-comment">//   `/server/api/orderFiles/cus/$&#123;order.id&#125;/enable/1/dipServices/$&#123;order.dipService?.id&#125;`,</span>
-      <span class="hljs-comment">//   &#123;</span>
-      <span class="hljs-comment">//     method: 'post',</span>
-      <span class="hljs-comment">//     body: formData,</span>
-      <span class="hljs-comment">//   &#125;,</span>
-      <span class="hljs-comment">// ).then(() =&gt;</span>
-      <span class="hljs-comment">//   getOriginFiles(&#123;</span>
-      <span class="hljs-comment">//     id: order.id,</span>
-      <span class="hljs-comment">//   &#125;),</span>
-      <span class="hljs-comment">// );</span>
+      <span class="hljs-regexp">//</span> request(
+      <span class="hljs-regexp">//</span>   `<span class="hljs-regexp">/server/</span>api<span class="hljs-regexp">/orderFiles/</span>cus<span class="hljs-regexp">/$&#123;order.id&#125;/</span>enable<span class="hljs-regexp">/1/</span>dipServices/<span class="hljs-variable">$&#123;order.dipService?.id&#125;</span>`,
+      <span class="hljs-regexp">//</span>   &#123;
+      <span class="hljs-regexp">//</span>     method: <span class="hljs-string">&#x27;post&#x27;</span>,
+      <span class="hljs-regexp">//</span>     body: formData,
+      <span class="hljs-regexp">//</span>   &#125;,
+      <span class="hljs-regexp">//</span> ).then(() =&gt;
+      <span class="hljs-regexp">//</span>   getOriginFiles(&#123;
+      <span class="hljs-regexp">//</span>     id: order.id,
+      <span class="hljs-regexp">//</span>   &#125;),
+      <span class="hljs-regexp">//</span> );
 
       start = end;
       index += <span class="hljs-number">1</span>;
     &#125;
 
-    <span class="hljs-built_in">Promise</span>.all(
+    Promise.all(
       filePieces
-        .filter(<span class="hljs-function">(<span class="hljs-params">item, arrayIndex, array</span>) =&gt;</span> &#123;
-          <span class="hljs-keyword">return</span> arrayIndex &lt; array.length - <span class="hljs-number">1</span>;
+        .filter((item, arrayIndex, array) =&gt; &#123;
+          return arrayIndex &lt; array.length - <span class="hljs-number">1</span>;
         &#125;)
-        .map(<span class="hljs-function"><span class="hljs-params">item</span> =&gt;</span> &#123;
-          <span class="hljs-keyword">return</span> request(
-            <span class="hljs-string">`/server/api/orderFiles/cus/<span class="hljs-subst">$&#123;order.id&#125;</span>/enable/1/dipServices/<span class="hljs-subst">$&#123;order.dipService?.id&#125;</span>`</span>,
+        .map(item =&gt; &#123;
+          return request(
+            `<span class="hljs-regexp">/server/</span>api<span class="hljs-regexp">/orderFiles/</span>cus<span class="hljs-regexp">/$&#123;order.id&#125;/</span>enable<span class="hljs-regexp">/1/</span>dipServices/<span class="hljs-variable">$&#123;order.dipService?.id&#125;</span>`,
             &#123;
-              method: <span class="hljs-string">'post'</span>,
+              method: <span class="hljs-string">&#x27;post&#x27;</span>,
               body: item,
             &#125;,
           );
         &#125;),
-    ).then(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+    ).then(() =&gt; &#123;
       request(
-        <span class="hljs-string">`/server/api/orderFiles/cus/<span class="hljs-subst">$&#123;order.id&#125;</span>/enable/1/dipServices/<span class="hljs-subst">$&#123;order.dipService?.id&#125;</span>`</span>,
+        `<span class="hljs-regexp">/server/</span>api<span class="hljs-regexp">/orderFiles/</span>cus<span class="hljs-regexp">/$&#123;order.id&#125;/</span>enable<span class="hljs-regexp">/1/</span>dipServices/<span class="hljs-variable">$&#123;order.dipService?.id&#125;</span>`,
         &#123;
-          method: <span class="hljs-string">'post'</span>,
+          method: <span class="hljs-string">&#x27;post&#x27;</span>,
           body: filePieces[filePieces.length - <span class="hljs-number">1</span>],
         &#125;,
-      ).then(<span class="hljs-function"><span class="hljs-params">res</span> =&gt;</span> &#123;
+      ).then(res =&gt; &#123;
         <span class="hljs-keyword">if</span> (res.success) &#123;
           onSuccess(res, file);
         &#125; <span class="hljs-keyword">else</span> &#123;
@@ -339,11 +339,11 @@
       &#125;);
     &#125;);
   &#125;&#125;
-  <span class="hljs-comment">// onAllComplete=&#123;() =&gt; &#123;</span>
+  <span class="hljs-regexp">//</span> onAllComplete=&#123;() =&gt; &#123;
 
-  <span class="hljs-comment">// &#125;&#125;</span>
-/&gt;</code></pre>
-
+  <span class="hljs-regexp">//</span> &#125;&#125;
+/&gt;
+</code></pre>
             </article>
             <hr>
             <div>
@@ -366,16 +366,16 @@
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://onepunchx.github.io/overlordClause/" target="_blank" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://onepunchx.github.io/overlordClause/" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/09/14/movie0914/">
+                      <a href="/2020/09/15/webpack/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">电影《信条》</span>
+                        <span class="hidden-mobile">了解一下webpack吧</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     

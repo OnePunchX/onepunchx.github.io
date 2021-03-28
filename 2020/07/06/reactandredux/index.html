@@ -47,7 +47,7 @@
 
 
   <script  src="/js/utils.js" ></script>
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 
 <body>
@@ -247,8 +247,8 @@
 <pre><code class="hljs kotlin">shouldComponentUpdata(nextProps,nextStates)&#123;
   <span class="hljs-keyword">return</span> (nextProps.caption !== <span class="hljs-keyword">this</span>.props.Caption) ||
    (nextState.count !== <span class="hljs-keyword">this</span>.state.count)
-&#125;</code></pre>
-
+&#125;
+</code></pre>
 <h4 id="卸载过程"><a href="#卸载过程" class="headerlink" title="卸载过程"></a>卸载过程</h4><h5 id="conponentWillUnmount"><a href="#conponentWillUnmount" class="headerlink" title="conponentWillUnmount"></a>conponentWillUnmount</h5><p>conponentWillUnmount 往往与 componnetDidMount 有关，比如用了非 React 的方法创造了一些 DOM 元素，<br>如果不管理的话会可能造成内存泄漏，就需要在这里处理掉</p>
 <h3 id="state-和-prop-的局限"><a href="#state-和-prop-的局限" class="headerlink" title="state 和 prop 的局限"></a>state 和 prop 的局限</h3><ol>
 <li>父组件 子组件 孙子组件什么的会有重复的数据</li>
@@ -280,12 +280,12 @@
 <li>数据改变只能通过纯函数完成<br>reducer 必须是纯函数<br>reducer 只负责计算状态，不负责存储状态。</li>
 </ul>
 <h4 id="redux-实例"><a href="#redux-实例" class="headerlink" title="redux 实例"></a>redux 实例</h4><p>我们创造一个 src/Store.js 文件，这个文件输出全局唯一的那个 Store，代码如下:</p>
-<pre><code class="hljs routeros">import &#123;createStore&#125; <span class="hljs-keyword">from</span> ’redux’
-import reducer <span class="hljs-keyword">from</span> ’. /Reducer.js ’;
-const initValues = &#123; ’First’: 0, ’Second’: 10, ’Third’: 20 &#125;
-const store= createStore (reducer, initValues);
-<span class="hljs-builtin-name">export</span><span class="hljs-built_in"> default </span>store;</code></pre>
-
+<pre><code class="hljs javascript"><span class="hljs-keyword">import</span> &#123;createStore&#125; <span class="hljs-keyword">from</span> ’redux’
+<span class="hljs-keyword">import</span> reducer <span class="hljs-keyword">from</span> ’. /Reducer.js ’;
+<span class="hljs-keyword">const</span> initValues = &#123; ’First’: <span class="hljs-number">0</span>, ’Second’: <span class="hljs-number">10</span>, ’Third’: <span class="hljs-number">20</span> &#125;
+<span class="hljs-keyword">const</span> store= createStore (reducer, initValues);
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> store;
+</code></pre>
 <p>想记点什么 又无从下手 。。这段知识，，，我不知道怎么表达</p>
 <p>在 redux 框架下，一个 react 组件基本上就是要完成以下：</p>
 <ol>
@@ -302,25 +302,22 @@ render() &#123;
 <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.props.children;
   &#125;
 &#125;</code></pre>
-
 <p>就是在每个组件外层都套上</p>
 <pre><code class="hljs apache"><span class="hljs-section">&lt;Provider&gt;</span>
   <span class="hljs-section">&lt;Children/&gt;</span>
-<span class="hljs-section">&lt;/Provider&gt;</span></code></pre>
-
+<span class="hljs-section">&lt;/Provider&gt;</span>
+</code></pre>
 <p>除了吧渲染工作完全交给子组件，Provider 还要提供一个函数 getChildContext ，这个函数返回的就是代表 Context 的对象。<br>为了让 Provider 能够被 React 认可为一个 Context 的提供者，还需要指定 Provider 的 childContextTypes 属性， 代码如下:</p>
 <pre><code class="hljs reasonml"><span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">Provider</span>.</span></span>childContextTypes = &#123;
    store: <span class="hljs-module-access"><span class="hljs-module"><span class="hljs-identifier">PropTypes</span>.</span></span>ob]ect
 &#125;</code></pre>
-
 <p>Provider 只是把渲染工作完全交给子组件，它扮演的角色只是提供 Context，包住了最顶层的 组件，也就让 context 覆盖了整个应用中所有组件。</p>
-<p>为了让 CounterContainer 能够访问到 context，必须给 CounterContainer 类的 context­<br>Types 赋值和 Provider.childContextTypes 一样的值，两者必须一致，不然就无法访问到 context，代码如下:<br><code>CounterContainer.contextTypes = { store: PropTypes.。bject</code><br>在 CounterContainer 中，所有对 store 的访问，都是通过 this.context.store 完成，因 为 this.context 就是 Provider 提供的 context 对象，所以 getOwnState 函数代码如下:</p>
+<p>为了让 CounterContainer 能够访问到 context，必须给 CounterContainer 类的 context­<br>Types 赋值和 Provider.childContextTypes 一样的值，两者必须一致，不然就无法访问到 context，代码如下:<br><code>CounterContainer.contextTypes = &#123; store: PropTypes.。bject</code><br>在 CounterContainer 中，所有对 store 的访问，都是通过 this.context.store 完成，因 为 this.context 就是 Provider 提供的 context 对象，所以 getOwnState 函数代码如下:</p>
 <pre><code class="hljs kotlin">getOwnState() &#123;
   <span class="hljs-keyword">return</span> &#123;
     value: <span class="hljs-keyword">this</span> .context. store .getState () [<span class="hljs-keyword">this</span>. props .caption]
   &#125;
 &#125;</code></pre>
-
 <p>还有一点，因为我们自己定义了构造函数，所以要用上第二个参数 context，代码<br>如下:<br>constructor (props, context) { super(props, context);<br>在调用 super 的时候，一定要带上 context 参数，这样才能让 React 组件初始化实例<br>中的 context，不然组件的其他部分就无法使用 this.context。</p>
 <h3 id="React-Redux"><a href="#React-Redux" class="headerlink" title="React-Redux"></a>React-Redux</h3><p>connect : 链接容器组件和傻瓜组件，<br>把 store 伤的状态转化为内层傻瓜组件的 prop，把内层傻瓜组件中的用户动作转化为派送给 store 的动作</p>
 <p>Provider：提供包含 store 的 context</p>
@@ -336,24 +333,22 @@ render() &#123;
     &#125;
   &#125;
 &#125;</code></pre>
-
-<h4 id="访问-ref"><a href="#访问-ref" class="headerlink" title="访问 ref"></a>访问 ref</h4><pre><code class="hljs kotlin"><span class="hljs-keyword">const</span> refsHOC =(WrappedComponent) =&gt; &#123;
-  <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HOCComponent</span> <span class="hljs-title">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>&#123;
-    <span class="hljs-keyword">constructor</span>()&#123;
-      <span class="hljs-keyword">super</span>(...arguments)
-      <span class="hljs-keyword">this</span>.linkRef = <span class="hljs-keyword">this</span>.linkRef.bind(<span class="hljs-keyword">this</span>)
+<h4 id="访问-ref"><a href="#访问-ref" class="headerlink" title="访问 ref"></a>访问 ref</h4><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> refsHOC =<span class="hljs-function">(<span class="hljs-params">WrappedComponent</span>) =&gt;</span> &#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HOCComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>&#123;
+    <span class="hljs-function"><span class="hljs-title">constructor</span>(<span class="hljs-params"></span>)</span>&#123;
+      <span class="hljs-built_in">super</span>(...arguments)
+      <span class="hljs-built_in">this</span>.linkRef = <span class="hljs-built_in">this</span>.linkRef.bind(<span class="hljs-built_in">this</span>)
     &#125;
-    linkRef(wrappedInstance)&#123;
-      <span class="hljs-keyword">this</span>._root = wrappedInstance;
+    <span class="hljs-function"><span class="hljs-title">linkRef</span>(<span class="hljs-params">wrappedInstance</span>)</span>&#123;
+      <span class="hljs-built_in">this</span>._root = wrappedInstance;
     &#125;
 
-    render()&#123;
-      <span class="hljs-keyword">const</span> props = &#123;...<span class="hljs-keyword">this</span>.props, ref: <span class="hljs-keyword">this</span>.linkRef&#125;
-      <span class="hljs-keyword">return</span> &lt;WrappedComponent &#123;...props&#125;&gt;
-    &#125;
-  &#125;
-&#125;</code></pre>
-
+    <span class="hljs-function"><span class="hljs-title">render</span>(<span class="hljs-params"></span>)</span>&#123;
+      <span class="hljs-keyword">const</span> props = &#123;...this.props, <span class="hljs-attr">ref</span>: <span class="hljs-built_in">this</span>.linkRef&#125;
+      <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">WrappedComponent</span> &#123;<span class="hljs-attr">...props</span>&#125;&gt;</span></span>
+<span class="xml">    &#125;</span>
+<span class="xml">  &#125;</span>
+<span class="xml">&#125;</span></code></pre>
 <h4 id="抽取状态"><a href="#抽取状态" class="headerlink" title="抽取状态"></a>抽取状态</h4><p>比如 react-redux 的 connect 函数<br>在傻瓜组件通常不要管理自己的状态，所有状态的管理都交给外面 的容器组件，这个模式就是“抽取状态”</p>
 <pre><code class="hljs scala">const doNothing = () =&gt; (&#123;&#125;);
 
@@ -364,12 +359,11 @@ function connect(mapStateToProps=doNothing,mapDispatchToProps=doNothing)&#123;
     &#125;
 
     <span class="hljs-type">HOCComponent</span>.contextTypes = &#123;
-      store: <span class="hljs-type">React</span>.<span class="hljs-type">PropTypes</span><span class="hljs-class">.<span class="hljs-keyword">object</span></span>
-<span class="hljs-class">    &#125;</span>
-<span class="hljs-class">    <span class="hljs-title">return</span> <span class="hljs-title">HOCComponent</span></span>;
+      store: <span class="hljs-type">React</span>.<span class="hljs-type">PropTypes</span>.<span class="hljs-keyword">object</span>
+    &#125;
+    <span class="hljs-keyword">return</span> <span class="hljs-type">HOCComponent</span>;
   &#125;
 &#125;</code></pre>
-
 <h4 id="包装组件"><a href="#包装组件" class="headerlink" title="包装组件"></a>包装组件</h4><pre><code class="hljs scala">const styleHOC = (<span class="hljs-type">WrappedComponent</span>, style) =&gt; &#123;
   <span class="hljs-keyword">return</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HOCComponent</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>&#123;
     render()&#123;
@@ -381,9 +375,8 @@ function connect(mapStateToProps=doNothing,mapDispatchToProps=doNothing)&#123;
     &#125;
   &#125;
 &#125;</code></pre>
-
 <h3 id="继承方式的高阶组件"><a href="#继承方式的高阶组件" class="headerlink" title="继承方式的高阶组件"></a>继承方式的高阶组件</h3><p>暂时不理解 ，不写了</p>
-<h3 id="fetch"><a href="#fetch" class="headerlink" title="fetch"></a>fetch</h3><p>polyfill 指的是“用于实现浏览器不支持原生功能的代码”，比如，现代浏览器应<br>该支持 fetch 函数，对于不支持的浏览器，网页中引入对应 fetch 的 polyfill 后， 这个 polyfill 就给全局的 window 对象上增加一个 fetch 函数，让这个网页中的 JavaScript 可以直接使用 fetch 函数了，就好像浏览器本来就支持 fetch 一样 。 在 这个链接上<a href="https://github.com/github/fetch可以找到fetchpolyfill的一个实现。" target="_blank" rel="noopener">https://github.com/github/fetch可以找到fetchpolyfill的一个实现。</a></p>
+<h3 id="fetch"><a href="#fetch" class="headerlink" title="fetch"></a>fetch</h3><p>polyfill 指的是“用于实现浏览器不支持原生功能的代码”，比如，现代浏览器应<br>该支持 fetch 函数，对于不支持的浏览器，网页中引入对应 fetch 的 polyfill 后， 这个 polyfill 就给全局的 window 对象上增加一个 fetch 函数，让这个网页中的 JavaScript 可以直接使用 fetch 函数了，就好像浏览器本来就支持 fetch 一样 。 在 这个链接上<a target="_blank" rel="noopener" href="https://github.com/github/fetch可以找到fetchpolyfill的一个实现。">https://github.com/github/fetch可以找到fetchpolyfill的一个实现。</a></p>
 <p>react 你本地调试的时候,你直接请求接口肯定是跨域了，你的网页应用域名 localhost，你对应的服务器域名也是这玩意，所以你跨域啊<br>但是不慌，creat react app 有代理功能 proxy （来跟我发音，抛克西）</p>
 <p>creat react-app 陌生成应用的 proxy 功能只是方便开发，在实际的生产环境中，使<br>用这个 proxy 功能就不合适了，应该要开发出自己的代理服务器来满足生产环境 的需要 。</p>
 <h4 id="redux-thunk-中间件"><a href="#redux-thunk-中间件" class="headerlink" title="redux-thunk 中间件"></a>redux-thunk 中间件</h4><p>在 reducer 调用前调用的玩意儿<br>action =&gt; 中间件（比如 thunk）=&gt; reducer =&gt; state</p>
@@ -411,7 +404,7 @@ function connect(mapStateToProps=doNothing,mapDispatchToProps=doNothing)&#123;
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://onepunchx.github.io/overlordClause/" target="_blank" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://onepunchx.github.io/overlordClause/" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

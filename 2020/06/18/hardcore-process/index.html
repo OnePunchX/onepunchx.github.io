@@ -47,7 +47,7 @@
 
 
   <script  src="/js/utils.js" ></script>
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 
 <body>
@@ -206,7 +206,7 @@
             <article class="markdown-body">
               <p>前言：不知道这玩意儿，前端也能干活。但是得进步啊。当学会了这玩意儿，对网络的理解会举头望明月，更上一层楼。<br>反正百利而无一害。嘿嘿，开始整活～</p>
 <p>第一步，手放在键盘上敲出 url，然后回车，咔哒一敲！然后页面就出来了，是不是很简单～ 😁<br>让我们的学习气氛轻松起来～ 下面正式开始，我敲个 url：</p>
-<p><a href="https://onepunchx.github.io/archives/" target="_blank" rel="noopener">https://onepunchx.github.io/archives/</a></p>
+<p><a target="_blank" rel="noopener" href="https://onepunchx.github.io/archives/">https://onepunchx.github.io/archives/</a></p>
 <h2 id="详细解析"><a href="#详细解析" class="headerlink" title="详细解析"></a>详细解析</h2><p>输入完这个网址，敲回车！浏览器做的第一件事是 解析这个 url：</p>
 <ol>
 <li><strong>通过 <em>DNS_（domain name system） 把域名（domain name）解析程 _IP</em> 地址</strong></li>
@@ -232,15 +232,15 @@
 <td>IP</td>
 </tr>
 <tr>
-<td><a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a></td>
+<td><a target="_blank" rel="noopener" href="http://www.baidu.com">www.baidu.com</a></td>
 <td>220.181.111.188</td>
 </tr>
 </tbody></table>
 <ol start="2">
 <li><strong>然后应用曾生成 HTTP 请求报文</strong><br>啥是请求报文？<br>请求报文 有起始行 首部 和 主体部分，说起来太不形象具体了，直接上代码！</li>
 </ol>
-<p>GET <a href="https://www.baidu.com/" target="_blank" rel="noopener">https://www.baidu.com/</a> HTTP/1.1 （起始行）</p>
-<p>Host: <a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a><br>Connection: keep-alive<br>Upgrade-Insecure-Requests: 1<br>User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36<br>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,<em>/</em>;q=0.8<br>X-Client-Data: CKm1yQEIhbbJAQijtskBCMG2yQEIqZ3KAQioo8oB<br>Accept-Encoding: gzip, deflate, br<br>Accept-Language: zh-CN,zh;q=0.9,en;q=0.8<br>（首部）</p>
+<p>GET <a target="_blank" rel="noopener" href="https://www.baidu.com/">https://www.baidu.com/</a> HTTP/1.1 （起始行）</p>
+<p>Host: <a target="_blank" rel="noopener" href="http://www.baidu.com">www.baidu.com</a><br>Connection: keep-alive<br>Upgrade-Insecure-Requests: 1<br>User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36<br>Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,<em>/</em>;q=0.8<br>X-Client-Data: CKm1yQEIhbbJAQijtskBCMG2yQEIqZ3KAQioo8oB<br>Accept-Encoding: gzip, deflate, br<br>Accept-Language: zh-CN,zh;q=0.9,en;q=0.8<br>（首部）</p>
 <p>然后是主体内容，get 请求的主体内容为空，post 的请求主体内容就是请求体，body 里面的内容</p>
 <p>这个 http 请求报文说起来里面学问很大，有机会的话单独写一次。这里给自己先挖个坑。。。</p>
 <ol start="3">
@@ -255,7 +255,7 @@
 <ol start="6">
 <li><p><strong>数据链路层的帧(Frame)转换成二进制形式的比特(Bit)流，从网卡发送出去，再把比特转换成电子、光学或微波信号在网络中传输</strong><br>光纤，电缆啥的这时候就派上用场啦</p>
 </li>
-<li><p><strong>服务器处理</strong><br>通俗来说，就是先弄清楚浏览器需要什么，然后找到相关数据，然后封装这些数据，然后准备传回去。打个比方，如果我们输入了百度的网址<br><a href="http://www.baidu.com" target="_blank" rel="noopener">www.baidu.com</a><br>那么这里服务器就会把百度的首页的 html 给浏览器传过去</p>
+<li><p><strong>服务器处理</strong><br>通俗来说，就是先弄清楚浏览器需要什么，然后找到相关数据，然后封装这些数据，然后准备传回去。打个比方，如果我们输入了百度的网址<br><a target="_blank" rel="noopener" href="http://www.baidu.com">www.baidu.com</a><br>那么这里服务器就会把百度的首页的 html 给浏览器传过去</p>
 </li>
 <li><p><strong>服务器处理完事，给浏览器传回去，跟传过来的时候差不多</strong></p>
 </li>
@@ -312,7 +312,7 @@
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://onepunchx.github.io/overlordClause/" target="_blank" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://onepunchx.github.io/overlordClause/" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

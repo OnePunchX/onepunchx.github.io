@@ -47,7 +47,7 @@
 
 
   <script  src="/js/utils.js" ></script>
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 
 <body>
@@ -221,10 +221,8 @@
 <pre><code class="hljs delphi"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">foo</span><span class="hljs-params">(a)</span> <span class="hljs-comment">&#123; console.log( a ); // 2</span></span>
 <span class="hljs-function"><span class="hljs-comment">&#125;</span></span>
 <span class="hljs-function"><span class="hljs-title">foo</span><span class="hljs-params">( 2 )</span>;</span></code></pre>
-
 <p>引擎:我说作用域，我需要为 foo 进行 RHS 引用。你见过它吗?<br>作用域:别说，我还真见过，编译器那小子刚刚声明了它。它是一个函数，给你。<br>引擎:哥们太够意思了!好吧，我来执行一下 foo。<br>引擎:作用域，还有个事儿。我需要为 a 进行 LHS 引用，这个你见过吗?<br>作用域:这个也见过，编译器最近把它声名为 foo 的一个形式参数了，拿去吧。<br>引擎:大恩不言谢，你总是这么棒。现在我要把 2 赋值给 a。<br>引擎:哥们，不好意思又来打扰你。我要为 console 进行 RHS 引用，你见过它吗?<br>作用域:咱俩谁跟谁啊，再说我就是干这个。这个我也有，console 是个内置对象。 给你。<br>引擎:么么哒。我得看看这里面是不是有 log(..)。太好了，找到了，是一个函数。<br>引擎:哥们，能帮我再找一下对 a 的 RHS 引用吗?虽然我记得它，但想再确认一次。<br>作用域:放心吧，这个变量没有变动过，拿走，不谢。<br>引擎:真棒。我来把 a 的值，也就是 2，传递进 log(..)。<br>……</p>
 <pre><code class="hljs stylus"><span class="hljs-selector-tag">var</span> <span class="hljs-selector-tag">a</span> = <span class="hljs-number">2</span></code></pre>
-
 <ol>
 <li>首先，var a 在其作用域中声明新变量。这会在最开始的阶段，也就是代码执行前进行。</li>
 <li>接下来，a = 2 会查询(LHS 查询)变量 a 并对其进行赋值。</li>
@@ -248,41 +246,41 @@ foo = <span class="hljs-function"><span class="hljs-keyword">function</span>(<sp
 foo(); <span class="hljs-comment">// 1</span>
 foo = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
   <span class="hljs-built_in">console</span>.log( <span class="hljs-number">2</span> );
-&#125;;</code></pre>
-
+&#125;;
+</code></pre>
 <p><strong>小结：</strong><br>我们习惯将 var a = 2;看作一个声明，而实际上 JavaScript 引擎并不这么认为。它将 var a<br>和 a = 2 当作两个单独的声明，第一个是编译阶段的任务，而第二个则是执行阶段的任务。<br>这意味着无论作用域中的声明出现在什么地方，都将在代码本身被执行前首先进行处理。 可以将这个过程形象地想象成所有的声明(变量和函数)都会被“移动”到各自作用域的 最顶端，这个过程被称为提升。</p>
 <h3 id="this"><a href="#this" class="headerlink" title="this"></a>this</h3><p>为什么用 this。 简洁 ，复用性好</p>
 <p>我觉得关于 this 真的没什么好总结的，就一句话就完事：<br>this 实际上是在函数被调用时发生的绑定，它指向什么完全取决于函数在哪里被调用。</p>
 <h3 id="属性描述符"><a href="#属性描述符" class="headerlink" title="属性描述符"></a>属性描述符</h3><p>说实在的 这玩意我在红宝书里看过的</p>
-<pre><code class="hljs yaml"><span class="hljs-string">var</span> <span class="hljs-string">myObject</span> <span class="hljs-string">=</span> <span class="hljs-string">&#123;</span> <span class="hljs-string">a:2</span>
-<span class="hljs-string">&#125;;</span>
-     <span class="hljs-string">Object.getOwnPropertyDescriptor(</span> <span class="hljs-string">myObject,</span> <span class="hljs-string">"a"</span> <span class="hljs-string">);</span>
-     <span class="hljs-string">//</span> <span class="hljs-string">&#123;</span>
-<span class="hljs-string">//</span> <span class="hljs-attr">value:</span> <span class="hljs-number">2</span><span class="hljs-string">,</span>
-<span class="hljs-string">//</span> <span class="hljs-attr">writable:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span>
-<span class="hljs-string">//</span> <span class="hljs-attr">enumerable:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span>
-<span class="hljs-string">//</span> <span class="hljs-attr">configurable:</span> <span class="hljs-literal">true</span> <span class="hljs-string">//</span> <span class="hljs-string">&#125;</span>
+<pre><code class="hljs awk">var myObject = &#123; a:<span class="hljs-number">2</span>
+&#125;;
+     Object.getOwnPropertyDescriptor( myObject, <span class="hljs-string">&quot;a&quot;</span> );
+     <span class="hljs-regexp">//</span> &#123;
+<span class="hljs-regexp">//</span> value: <span class="hljs-number">2</span>,
+<span class="hljs-regexp">//</span> writable: true,
+<span class="hljs-regexp">//</span> enumerable: true,
+<span class="hljs-regexp">//</span> configurable: true <span class="hljs-regexp">//</span> &#125;
 
 
-<span class="hljs-string">var</span> <span class="hljs-string">myObject</span> <span class="hljs-string">=</span> <span class="hljs-string">&#123;&#125;;</span>
-     <span class="hljs-string">Object.defineProperty(</span> <span class="hljs-string">myObject,</span> <span class="hljs-string">"a"</span><span class="hljs-string">,</span> <span class="hljs-string">&#123;</span>
-         <span class="hljs-attr">value:</span> <span class="hljs-number">2</span><span class="hljs-string">,</span>
-<span class="hljs-attr">writable:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span> <span class="hljs-attr">configurable:</span> <span class="hljs-literal">true</span><span class="hljs-string">,</span> <span class="hljs-attr">enumerable:</span> <span class="hljs-literal">true</span>
-     <span class="hljs-string">&#125;</span> <span class="hljs-string">);</span>
-     <span class="hljs-string">myObject.a;</span> <span class="hljs-string">//</span> <span class="hljs-number">2</span>
+var myObject = &#123;&#125;;
+     Object.defineProperty( myObject, <span class="hljs-string">&quot;a&quot;</span>, &#123;
+         value: <span class="hljs-number">2</span>,
+writable: true, configurable: true, enumerable: true
+     &#125; );
+     myObject.a; <span class="hljs-regexp">//</span> <span class="hljs-number">2</span>
 
-<span class="hljs-string">//</span>  <span class="hljs-string">禁止一个对象添加新属性并且保留已有属性</span>
-        <span class="hljs-string">Object.preventExtensions(</span> <span class="hljs-string">myObject</span> <span class="hljs-string">);</span>
-     <span class="hljs-string">myObject.b</span> <span class="hljs-string">=</span> <span class="hljs-number">3</span><span class="hljs-string">;</span>
-     <span class="hljs-string">myObject.b;</span> <span class="hljs-string">//</span> <span class="hljs-string">undefined</span></code></pre>
-
+<span class="hljs-regexp">//</span>  禁止一个对象添加新属性并且保留已有属性
+        Object.preventExtensions( myObject );
+     myObject.b = <span class="hljs-number">3</span>;
+     myObject.b; <span class="hljs-regexp">//</span> undefined
+</code></pre>
 <p>Object.seal(..) 会创建一个“密封”的对象，这个方法实际上会在一个现有对象上调用 Object.preventExtensions(..) 并把所有现有属性标记为 configurable:false</p>
 <p>Object.freeze(..) 会创建一个冻结对象，这个方法实际上会在一个现有对象上调用 Object.seal(..) 并把所有“数据访问”属性标记为 writable:false，这样就无法修改它们 的值</p>
 <p>for in 遍历对象中所有可枚举属性<br>for of 遍历对象{key:value}中的 value</p>
 <p>构造函数 原型啥的不写了</p>
 <h2 id="中卷"><a href="#中卷" class="headerlink" title="中卷"></a>中卷</h2><p>类型<br>值<br>原生函数<br>强制类型转换<br>语法<br>。。。又是 300 多页<br>我挑感兴趣的看吧</p>
 <p>鸭子类型： 当一个东西长得像鸭子，叫声也像鸭子，那么它就是个鸭子</p>
-<p>从 JavaScript 主程序(或另一个 Worker)中，可以这样实例化一个 Worker: var w1 = new Worker( “<a href="http://some.url.1/mycoolworker.js&quot;" target="_blank" rel="noopener">http://some.url.1/mycoolworker.js&quot;</a> );<br>这个 URL 应该指向一个 JavaScript 文件的位置(而不是一个 HTML 页面!)，这个文件将 被加载到一个 Worker 中。然后浏览器启动一个独立的线程，让这个文件在这个线程中作 为独立的程序运行。</p>
+<p>从 JavaScript 主程序(或另一个 Worker)中，可以这样实例化一个 Worker: var w1 = new Worker( “<a target="_blank" rel="noopener" href="http://some.url.1/mycoolworker.js&quot;">http://some.url.1/mycoolworker.js&quot;</a> );<br>这个 URL 应该指向一个 JavaScript 文件的位置(而不是一个 HTML 页面!)，这个文件将 被加载到一个 Worker 中。然后浏览器启动一个独立的线程，让这个文件在这个线程中作 为独立的程序运行。</p>
 <p>Worker 之间以及它们和主程序之间，不会共享任何作用域或资源，那会把所有多线程编程 的噩梦带到前端领域，而是通过一个基本的事件消息机制相互联系。</p>
 <p>Worker w1 对象是一个事件侦听者和触发者，可以通过订阅它来获得这个 Worker 发出的事 件以及发送事件给这个 Worker。<br>以下是如何侦听事件(其实就是固定的 “message” 事件):<br>w1.addEventListener( “message”, function(evt){<br>// evt.data<br>} );<br>也可以发送 “message” 事件给这个 Worker:<br>w1.postMessage( “something cool to say” );<br>在这个 Worker 内部，收发消息是完全对称的: // “mycoolworker.js”<br>addEventListener( “message”, function(evt){<br>// evt.data<br>} );<br>postMessage( “a really cool reply” );<br>注意，专用 Worker 和创建它的程序之间是一对一的关系。也就是说，”message” 事件 没有任何歧义需要消除，因为我们确定它只能来自这个一对一的关系:它要么来自这个 Worker，要么来自主页面。</p>
 <h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>也读过周爱民写的 js 基本原理，总的来说对 js 有了一些认知了。太深刻的，复杂的我就不细研究了。就这。</p>
@@ -309,7 +307,7 @@ foo = <span class="hljs-function"><span class="hljs-keyword">function</span>(<sp
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://onepunchx.github.io/overlordClause/" target="_blank" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://onepunchx.github.io/overlordClause/" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

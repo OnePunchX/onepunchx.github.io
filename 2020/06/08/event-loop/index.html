@@ -47,7 +47,7 @@
 
 
   <script  src="/js/utils.js" ></script>
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 
 <body>
@@ -234,7 +234,6 @@ setTimeOut(<span class="hljs-function"><span class="hljs-keyword">function</span
   console.<span class="hljs-built_in">log</span>(<span class="hljs-number">2</span>)
 &#125;,<span class="hljs-number">0</span>)
 console.<span class="hljs-built_in">log</span>(<span class="hljs-number">3</span>)</code></pre>
-
 <p>执行结果 1 3 2</p>
 <p><strong>因为 setTimeOut 是异步任务，所以哪怕是 0 秒等待，也会等主线程任务都完事了以后才执行，下边是详细解析</strong></p>
 <p>1.console.log(1)是同步任务，直接打印 1；</p>
@@ -245,21 +244,20 @@ console.<span class="hljs-built_in">log</span>(<span class="hljs-number">3</span
 <p><strong>也就是说，如果有 promise，那是同步任务，等所有同步任务完事，开始执行这个 promise.then，再然后才是 setTimeOut 啥的。</strong></p>
 <hr>
 <p>举个栗子</p>
-<pre><code class="hljs lisp">setTimeout(<span class="hljs-name">function</span>()&#123;
-    console.log(<span class="hljs-number">1</span>)
-&#125;)<span class="hljs-comment">;</span>
+<pre><code class="hljs javascript"><span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>)
+&#125;);
 
-new Promise(<span class="hljs-name">function</span>(<span class="hljs-name">resolve</span>)&#123;
-    console.log(<span class="hljs-number">2</span>)<span class="hljs-comment">;</span>
-    for(<span class="hljs-name">var</span> i = <span class="hljs-number">0</span><span class="hljs-comment">; i &lt; 10000; i++)&#123;</span>
-        i == <span class="hljs-number">9999</span> <span class="hljs-symbol">&amp;&amp;</span> resolve()<span class="hljs-comment">;</span>
+<span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve</span>)</span>&#123;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span>);
+    <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10000</span>; i++)&#123;
+        i == <span class="hljs-number">9999</span> &amp;&amp; resolve();
     &#125;
-&#125;).then(<span class="hljs-name">function</span>()&#123;
-    console.log(<span class="hljs-number">3</span>)
-&#125;)<span class="hljs-comment">;</span>
+&#125;).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>&#123;
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-number">3</span>)
+&#125;);
 
-console.log(<span class="hljs-number">4</span>)<span class="hljs-comment">;</span></code></pre>
-
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">4</span>);</code></pre>
 <p>输出 2 ， 4 ， 3， 1</p>
 <p>1.setTimeout 是异步，且是宏函数，放到宏函数队列中；</p>
 <p>2.new Promise 是同步任务，直接执行，打印 2，并执行 for 循环；</p>
@@ -271,33 +269,32 @@ console.log(<span class="hljs-number">4</span>)<span class="hljs-comment">;</spa
 <p><em>再举个厉害的栗子吧</em></p>
 <pre><code class="hljs javascript"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">add</span>(<span class="hljs-params">x, y</span>) </span>&#123;
   <span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>)
-  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123; <span class="hljs-comment">// timer1</span>
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123; <span class="hljs-comment">// timer1</span>
     <span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span>)
   &#125;, <span class="hljs-number">1000</span>)
 &#125;
 add();
 
-setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123; <span class="hljs-comment">// timer2</span>
+<span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123; <span class="hljs-comment">// timer2</span>
   <span class="hljs-built_in">console</span>.log(<span class="hljs-number">3</span>)
 &#125;)
 
 <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">resolve</span>) </span>&#123;
   <span class="hljs-built_in">console</span>.log(<span class="hljs-number">4</span>)
-  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123; <span class="hljs-comment">// timer3</span>
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123; <span class="hljs-comment">// timer3</span>
     <span class="hljs-built_in">console</span>.log(<span class="hljs-number">5</span>)
   &#125;, <span class="hljs-number">100</span>)
   <span class="hljs-keyword">for</span>(<span class="hljs-keyword">var</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">100</span>; i++) &#123;
     i == <span class="hljs-number">99</span> &amp;&amp; resolve()
   &#125;
 &#125;).then(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;
-  setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123; <span class="hljs-comment">// timer4</span>
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123; <span class="hljs-comment">// timer4</span>
     <span class="hljs-built_in">console</span>.log(<span class="hljs-number">6</span>)
   &#125;, <span class="hljs-number">0</span>)
   <span class="hljs-built_in">console</span>.log(<span class="hljs-number">7</span>)
 &#125;)
 
 <span class="hljs-built_in">console</span>.log(<span class="hljs-number">8</span>)</code></pre>
-
 <p>结果 1， 4， 8， 7， 3， 6， 5， 2，<br>这就不解析了，这回弄懂了吧。</p>
 <hr>
 <p><strong>总结：这是个循环，第一次循环先搞定所有主线程任务，完事以后看看有没有微任务，如果有，执行，然后结束第一次循环，如果没有，就直接结束第一次循环，，，然后开始第二次循环，找到宏任务里边最先执行那个，执行，所有都执行完事，然后看有没有微任务，如果有。。。如果没有。。。。你看这句话上面也说过，这就是循环啊，然后继续循环啊，直到没有宏任务，也没有微任务。循环就完事了呗</strong></p>
@@ -324,7 +321,7 @@ setTimeout(<span class="hljs-function"><span class="hljs-keyword">function</span
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://onepunchx.github.io/overlordClause/" target="_blank" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://onepunchx.github.io/overlordClause/" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">

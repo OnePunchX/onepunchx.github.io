@@ -47,7 +47,7 @@
 
 
   <script  src="/js/utils.js" ></script>
-<meta name="generator" content="Hexo 4.2.1"></head>
+<meta name="generator" content="Hexo 5.3.0"></head>
 
 
 <body>
@@ -163,7 +163,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      821 字
+      875 字
     </span>
   
 
@@ -173,7 +173,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      12
        分钟
     </span>
   
@@ -210,93 +210,91 @@
 <p>1.如何改变 URL 却不引起页面刷新？ 2.如何检测 URL 变化了？</p>
 <h3 id="hash-实现"><a href="#hash-实现" class="headerlink" title="hash 实现"></a>hash 实现</h3><p>hash 是 URL 中 hash (#) 及后面的那部分，常用作锚点在页面内进行导航，改变 URL 中的 hash 部分不会引起页面刷新<br>通过 hashchange 事件监听 URL 的变化，改变 URL 的方式只有这几种：通过浏览器前进后退改变 URL、通过标签改变 URL、通过 window.location 改变 URL，这几种情况改变 URL 都会触发 hashchange 事件</p>
 <h3 id="history-实现"><a href="#history-实现" class="headerlink" title="history 实现"></a>history 实现</h3><p>history 提供了 pushState 和 replaceState 两个方法，这两个方法改变 URL 的 path 部分不会引起页面刷新<br>history 提供类似 hashchange 事件的 popstate 事件，但 popstate 事件有些不同：通过浏览器前进后退改变 URL 时会触发 popstate 事件，通过 pushState/replaceState 或标签改变 URL 不会触发 popstate 事件。好在我们可以拦截 pushState/replaceState 的调用和标签的点击事件来检测 URL 变化，所以监听 URL 变化可以实现，只是没有 hashchange 那么方便。</p>
-<h2 id="hash-实现（简略版）"><a href="#hash-实现（简略版）" class="headerlink" title="hash 实现（简略版）"></a>hash 实现（简略版）</h2><pre><code class="hljs xquery">
-<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span></span>
-<span class="xml">  </span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span></span>
-<span class="xml">ref=""&gt;    <span class="hljs-comment">&lt;!-- 定义路由 --&gt;</span></span>
-<span class="xml">    </span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#/home"</span>&gt;</span>home<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span>
-<span class="xml">    </span><span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">"#/about"</span>&gt;</span>about<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span><span class="xml"><span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span></span>
-
-ref=<span class="hljs-string">""</span>&gt;    &lt;!-- 渲染路由对应的 UI --&gt;
-    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span> <span class="hljs-attr">id</span>=<span class="hljs-string">"routeView"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
-  &lt;/ul&gt;
-&lt;/body&gt;
-
-
-
-
-// 页面加载完不会触发 hashchange，这里主动触发一次 hashchange 事件
-<span class="hljs-keyword">window</span>.addEventListener(<span class="hljs-string">'DOMContentLoaded'</span>, onLoad)
-// 监听路由变化
-<span class="hljs-keyword">window</span>.addEventListener(<span class="hljs-string">'hashchange'</span>, onHashChange)
-
-// 路由视图
-var routerView = null
-
-<span class="hljs-keyword">function</span> onLoad () &#123;
-  routerView =<span class="hljs-built_in"> document</span>.querySelector(<span class="hljs-string">'#routeView'</span>)
-  onHashChange()
-&#125;
-
-// 路由变化时，根据路由渲染对应 UI
-<span class="hljs-keyword">function</span> onHashChange () &#123;
-  <span class="hljs-keyword">switch</span> (location.hash) &#123;
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'#/home'</span>:
-      routerView.innerHTML = <span class="hljs-string">'Home'</span>
-      <span class="hljs-keyword">return</span>
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'#/about'</span>:
-      routerView.innerHTML = <span class="hljs-string">'About'</span>
-      <span class="hljs-keyword">return</span>
-    default:
-      <span class="hljs-keyword">return</span>
-  &#125;
-&#125;</code></pre>
-
-<h2 id="history-实现（简略版）"><a href="#history-实现（简略版）" class="headerlink" title="history 实现（简略版）"></a>history 实现（简略版）</h2><pre><code class="hljs php">&lt;body&gt;
+<h2 id="hash-实现（简略版）"><a href="#hash-实现（简略版）" class="headerlink" title="hash 实现（简略版）"></a>hash 实现（简略版）</h2><pre><code class="hljs javascript">
+&lt;body&gt;
   &lt;ul&gt;
-    &lt;li&gt;&lt;a href=<span class="hljs-string">'/home'</span>&gt;home&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a href=<span class="hljs-string">'/about'</span>&gt;about&lt;/a&gt;&lt;/li&gt;
+ref=<span class="hljs-string">&quot;&quot;</span>&gt;    &lt;!-- 定义路由 --&gt;
+    &lt;li&gt;<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#/home&quot;</span>&gt;</span>home<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span>&lt;/li&gt;
+    &lt;li&gt;<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&quot;#/about&quot;</span>&gt;</span>about<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span>&lt;/li&gt;
 
-    &lt;div id=<span class="hljs-string">"routeView"</span>&gt;&lt;/div&gt;
+ref=<span class="hljs-string">&quot;&quot;</span>&gt;    &lt;!-- 渲染路由对应的 UI --&gt;
+    &lt;div id=<span class="hljs-string">&quot;routeView&quot;</span>&gt;&lt;/div&gt;
   &lt;/ul&gt;
 &lt;/body&gt;
+
+
 
 
 <span class="hljs-comment">// 页面加载完不会触发 hashchange，这里主动触发一次 hashchange 事件</span>
-window.addEventListener(<span class="hljs-string">'DOMContentLoaded'</span>, onLoad)
+<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&#x27;DOMContentLoaded&#x27;</span>, onLoad)
 <span class="hljs-comment">// 监听路由变化</span>
-window.addEventListener(<span class="hljs-string">'popstate'</span>, onPopState)
+<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&#x27;hashchange&#x27;</span>, onHashChange)
 
 <span class="hljs-comment">// 路由视图</span>
-<span class="hljs-keyword">var</span> routerView = <span class="hljs-keyword">null</span>
+<span class="hljs-keyword">var</span> routerView = <span class="hljs-literal">null</span>
 
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onLoad</span> <span class="hljs-params">()</span> </span>&#123;
-  routerView = document.querySelector(<span class="hljs-string">'#routeView'</span>)
-  onPopState()
-
- href=<span class="hljs-string">""</span>&gt;  <span class="hljs-comment">// 拦截 &lt;a&gt; 标签点击事件默认行为， 点击时使用 pushState 修改 URL并更新手动 UI，从而实现点击链接更新 URL 和 UI 的效果。</span>
-  <span class="hljs-keyword">var</span> linkList = document.querySelectorAll(<span class="hljs-string">'a[href]'</span>)
-  linkList.<span class="hljs-keyword">forEach</span>(el =&gt; el.addEventListener(<span class="hljs-string">'click'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-params">(e)</span> </span>&#123;
-    e.preventDefault()
-    history.pushState(<span class="hljs-keyword">null</span>, <span class="hljs-string">''</span>, el.getAttribute(<span class="hljs-string">'href'</span>))
-    onPopState()
-  &#125;))
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onLoad</span> (<span class="hljs-params"></span>) </span>&#123;
+  routerView = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;#routeView&#x27;</span>)
+  onHashChange()
 &#125;
 
 <span class="hljs-comment">// 路由变化时，根据路由渲染对应 UI</span>
-<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onPopState</span> <span class="hljs-params">()</span> </span>&#123;
-  <span class="hljs-keyword">switch</span> (location.pathname) &#123;
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'/home'</span>:
-      routerView.innerHTML = <span class="hljs-string">'Home'</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onHashChange</span> (<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">switch</span> (location.hash) &#123;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;#/home&#x27;</span>:
+      routerView.innerHTML = <span class="hljs-string">&#x27;Home&#x27;</span>
       <span class="hljs-keyword">return</span>
-    <span class="hljs-keyword">case</span> <span class="hljs-string">'/about'</span>:
-      routerView.innerHTML = <span class="hljs-string">'About'</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;#/about&#x27;</span>:
+      routerView.innerHTML = <span class="hljs-string">&#x27;About&#x27;</span>
       <span class="hljs-keyword">return</span>
     <span class="hljs-keyword">default</span>:
       <span class="hljs-keyword">return</span>
   &#125;
 &#125;</code></pre>
+<h2 id="history-实现（简略版）"><a href="#history-实现（简略版）" class="headerlink" title="history 实现（简略版）"></a>history 实现（简略版）</h2><pre><code class="hljs javascript">&lt;body&gt;
+  &lt;ul&gt;
+    &lt;li&gt;<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&#x27;/home&#x27;</span>&gt;</span>home<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span>&lt;/li&gt;
+    &lt;li&gt;<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">a</span> <span class="hljs-attr">href</span>=<span class="hljs-string">&#x27;/about&#x27;</span>&gt;</span>about<span class="hljs-tag">&lt;/<span class="hljs-name">a</span>&gt;</span></span>&lt;/li&gt;
 
+    &lt;div id=<span class="hljs-string">&quot;routeView&quot;</span>&gt;&lt;/div&gt;
+  &lt;/ul&gt;
+&lt;/body&gt;
+
+
+<span class="hljs-comment">// 页面加载完不会触发 hashchange，这里主动触发一次 hashchange 事件</span>
+<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&#x27;DOMContentLoaded&#x27;</span>, onLoad)
+<span class="hljs-comment">// 监听路由变化</span>
+<span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">&#x27;popstate&#x27;</span>, onPopState)
+
+<span class="hljs-comment">// 路由视图</span>
+<span class="hljs-keyword">var</span> routerView = <span class="hljs-literal">null</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onLoad</span> (<span class="hljs-params"></span>) </span>&#123;
+  routerView = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&#x27;#routeView&#x27;</span>)
+  onPopState()
+
+ href=<span class="hljs-string">&quot;&quot;</span>&gt;  <span class="hljs-comment">// 拦截 &lt;a&gt; 标签点击事件默认行为， 点击时使用 pushState 修改 URL并更新手动 UI，从而实现点击链接更新 URL 和 UI 的效果。</span>
+  <span class="hljs-keyword">var</span> linkList = <span class="hljs-built_in">document</span>.querySelectorAll(<span class="hljs-string">&#x27;a[href]&#x27;</span>)
+  linkList.forEach(<span class="hljs-function"><span class="hljs-params">el</span> =&gt;</span> el.addEventListener(<span class="hljs-string">&#x27;click&#x27;</span>, <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">e</span>) </span>&#123;
+    e.preventDefault()
+    history.pushState(<span class="hljs-literal">null</span>, <span class="hljs-string">&#x27;&#x27;</span>, el.getAttribute(<span class="hljs-string">&#x27;href&#x27;</span>))
+    onPopState()
+  &#125;))
+&#125;
+
+<span class="hljs-comment">// 路由变化时，根据路由渲染对应 UI</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onPopState</span> (<span class="hljs-params"></span>) </span>&#123;
+  <span class="hljs-keyword">switch</span> (location.pathname) &#123;
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;/home&#x27;</span>:
+      routerView.innerHTML = <span class="hljs-string">&#x27;Home&#x27;</span>
+      <span class="hljs-keyword">return</span>
+    <span class="hljs-keyword">case</span> <span class="hljs-string">&#x27;/about&#x27;</span>:
+      routerView.innerHTML = <span class="hljs-string">&#x27;About&#x27;</span>
+      <span class="hljs-keyword">return</span>
+    <span class="hljs-keyword">default</span>:
+      <span class="hljs-keyword">return</span>
+  &#125;
+&#125;</code></pre>
 <h2 id="总结：前端路由，在-SPA-单页面应用中，非常重要。路由对应组件渲染，不用发请求。远古时代路由跳转可是要发请求，后端返回页面的鸭。。。"><a href="#总结：前端路由，在-SPA-单页面应用中，非常重要。路由对应组件渲染，不用发请求。远古时代路由跳转可是要发请求，后端返回页面的鸭。。。" class="headerlink" title="总结：前端路由，在 SPA 单页面应用中，非常重要。路由对应组件渲染，不用发请求。远古时代路由跳转可是要发请求，后端返回页面的鸭。。。"></a>总结：前端路由，在 SPA 单页面应用中，非常重要。路由对应组件渲染，不用发请求。远古时代路由跳转可是要发请求，后端返回页面的鸭。。。</h2>
             </article>
             <hr>
@@ -320,7 +318,7 @@ window.addEventListener(<span class="hljs-string">'popstate'</span>, onPopState)
                 
               </div>
               
-                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://onepunchx.github.io/overlordClause/" target="_blank" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://onepunchx.github.io/overlordClause/" rel="nofollow noopener noopener">《朱军的霸王条款》</a> ，转载请注明出处！</p>
               
               
                 <div class="post-prevnext row">
