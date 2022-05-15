@@ -1,0 +1,46 @@
+---
+title: 从输入URL到页面渲染
+date: 2020-06-18 10:19:09
+tags: http tcp
+---
+
+前言：不知道这玩意儿，前端也能干活。但是得进步啊。当学会了这玩意儿，对网络的理解会举头望明月，更上一层楼。
+反正百利而无一害。嘿嘿，开始整活～
+
+第一步，手放在键盘上敲出 url，然后回车，咔哒一敲！然后页面就出来了，是不是很简单～ 😁
+让我们的学习气氛轻松起来～ 下面正式开始，我敲个 url：
+
+https://onepunchx.github.io/archives/
+
+输入完这个网址，敲回车！浏览器做的第一件事是 解析这个 url：
+
+1. **通过 _DNS_（domain name system） 把域名（domain name）解析程 _IP_ 地址**
+
+IP 地址这玩意儿，就相当于我们每个人的身份证号码，身份证号可以唯一、精准的匹配到一个人，那么 IP 地址就可以唯一、精准的匹配到对应的计算机。
+但是身份证号码这玩意，你能记住几个？能记住自己的就不错了，通常你记住的都是别人的名字，那么这个域名/网址/URL 就相当于计算机的名字
+形象一点的对应关系如下：
+
+| 表头          | 表头               |
+| ------------- | ------------------ |
+| 名字          | 身份证号码         |
+| 王昊          | 211232199608135438 |
+| 域名          | IP                 |
+| www.baidu.com | 220.181.111.188    |
+
+2. **然后应用曾生成 HTTP 请求报文**
+   啥是请求报文？
+   请求报文 有起始行 首部 和 主体部分，说起来太不形象具体了，直接上代码！
+
+GET https://www.baidu.com/ HTTP/1.1 （起始行）
+
+Host: www.baidu.com
+Connection: keep-alive
+Upgrade-Insecure-Requests: 1
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36
+Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,_/_;q=0.8
+X-Client-Data: CKm1yQEIhbbJAQijtskBCMG2yQEIqZ3KAQioo8oB
+Accept-Encoding: gzip, deflate, br
+Accept-Language: zh-CN,zh;q=0.9,en;q=0.8
+（首部）
+
+然后是主体内容，get 请求的主体内容为空，post 的请求主体内容就是请求体，body 里面的内容

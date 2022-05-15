@@ -1,0 +1,48 @@
+# Header
+menu:
+  Home: /
+  Archives: /archives
+
+# Default post title
+default_post_title: Untitled
+
+# Default post cover index page
+default_cover_index: "http://placehold.it/450x450"
+
+# Default post cover index page
+default_cover_detail: "http://placehold.it/1300x500"
+
+# Favicon
+favicon: ""
+
+# Comments. Choose one by filling up the information
+comments:
+  # Disqus comments
+  disqus_shortname:
+  # Facebook comments
+  facebook:
+    appid:
+    comment_count: 5
+    comment_colorscheme: light
+  # Valine comments https://valine.js.org
+  valine:
+    appid:  # your leancloud appid
+    appkey:  # your leancloud appkey
+    notify: false # true/false:mail notify !!!Test,Caution. https://github.com/xCss/Valine/wiki/Valine-%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E9%82%AE%E4%BB%B6%E6%8F%90%E9%86%92%E8%AE%BE%E7%BD%AE
+    verify: false # true/false:verify code
+    avatar: mm # avatar style https://github.com/xCss/Valine/wiki/avatar-setting-for-valine
+    placeholder: Just go go # comment box placeholder
+
+
+# Google Analytics Tracking ID
+google_analytics:
+
+# Social Accounts
+twitter_url:
+facebook_url: https://www.facebook.com/
+behance_url: https://www.behance.net/
+googleplus_url: https://plus.google.com/+Pixelhint/posts
+dribble_url: https://dribbble.com/pixelhint
+rss_url:
+instagram_url:
+youtube_url:

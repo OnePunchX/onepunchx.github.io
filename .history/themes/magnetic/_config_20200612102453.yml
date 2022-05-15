@@ -1,0 +1,47 @@
+# Header
+menu:
+  Home: /
+  Archives: /archives
+
+# Default post title
+default_post_title: Untitled
+
+# Default post cover index page
+default_cover_index: 'https://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=%E4%B8%80%E6%8B%B3%E8%B6%85%E4%BA%BA&step_word=&hs=0&pn=3&spn=0&di=96140&pi=0&rn=1&tn=baiduimagedetail&is=0%2C0&istype=0&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=undefined&cs=25811864%2C3986893810&os=3892085315%2C1954281785&simid=34492258%2C799491191&adpicid=0&lpn=0&ln=1912&fr=&fmq=1591928565316_R&fm=&ic=undefined&s=undefined&hd=undefined&latest=undefined&copyright=undefined&se=&sme=&tab=0&width=undefined&height=undefined&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=http%3A%2F%2Fimage.uczzd.cn%2F13633829671175278598.jpeg%3Fid%3D0%26from%3Dexport&fromurl=ippr_z2C%24qAzdH3FAzdH3Fooo_z%26e3Beepp_z%26e3B562AzdH3Ft4w2jAzdH3F08cm9a80cAzdH3F&gsm=4&rpstart=0&rpnum=0&islist=&querylist='
+
+# Default post cover index page
+default_cover_detail: 'http://placehold.it/1300x500'
+
+# Favicon
+favicon: ''
+
+# Comments. Choose one by filling up the information
+comments:
+  # Disqus comments
+  disqus_shortname:
+  # Facebook comments
+  facebook:
+    appid:
+    comment_count: 5
+    comment_colorscheme: light
+  # Valine comments https://valine.js.org
+  valine:
+    appid: # your leancloud appid
+    appkey: # your leancloud appkey
+    notify: false # true/false:mail notify !!!Test,Caution. https://github.com/xCss/Valine/wiki/Valine-%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E9%82%AE%E4%BB%B6%E6%8F%90%E9%86%92%E8%AE%BE%E7%BD%AE
+    verify: false # true/false:verify code
+    avatar: mm # avatar style https://github.com/xCss/Valine/wiki/avatar-setting-for-valine
+    placeholder: Just go go # comment box placeholder
+
+# Google Analytics Tracking ID
+google_analytics:
+
+# Social Accounts
+twitter_url:
+facebook_url: https://www.facebook.com/
+behance_url: https://www.behance.net/
+googleplus_url: https://plus.google.com/+Pixelhint/posts
+dribble_url: https://dribbble.com/pixelhint
+rss_url:
+instagram_url:
+youtube_url:

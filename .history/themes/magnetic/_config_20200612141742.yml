@@ -1,0 +1,63 @@
+# Header
+menu:
+  Home: /
+  Archives: /archives
+
+# Default post title
+default_post_title: Untitled
+
+# Default post cover index page
+
+default_cover_index: 'https://pic4.zhimg.com/80/v2-bde0cde2dd26b81f2b147d603bf27a86_720w.jpg'
+
+# Default post cover index page
+default_cover_detail: 'https://pic2.zhimg.com/50/v2-05028e0379bf14fcdb96a77ba7b254b8_hd.jpg'
+
+# 连续普通拳
+# default_cover_detail: 'https://pic2.zhimg.com/80/v2-65c01ecc0b9afee04b9fa38c941c3f4d_720w.jpg'
+
+# 龙卷 吹雪
+# default_cover_detail: 'https://pic2.zhimg.com/80/v2-d8be2323ea65261b031a0b569e0dad3f_720w.jpg'
+
+# 打蛋索尼克
+# default_cover_detail: 'https://pic1.zhimg.com/80/v2-a7c4138f21788dade9fc54fc3fefedd9_720w.jpg'
+
+# 近景大秃头
+# default_cover_detail: 'https://pic3.zhimg.com/80/d74990358e387fe30f9823dd0b694d6e_720w.jpg'
+
+# 我变秃了，也变强了
+# default_cover_detail: 'https://pic3.zhimg.com/80/v2-af0192409ec0bb00585a7eea444c018b_720w.jpg'
+
+# Favicon
+favicon: ''
+
+# Comments. Choose one by filling up the information
+comments:
+  # Disqus comments
+  disqus_shortname:
+  # Facebook comments
+  facebook:
+    appid:
+    comment_count: 5
+    comment_colorscheme: light
+  # Valine comments https://valine.js.org
+  valine:
+    appid: # your leancloud appid
+    appkey: # your leancloud appkey
+    notify: false # true/false:mail notify !!!Test,Caution. https://github.com/xCss/Valine/wiki/Valine-%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F%E4%B8%AD%E7%9A%84%E9%82%AE%E4%BB%B6%E6%8F%90%E9%86%92%E8%AE%BE%E7%BD%AE
+    verify: false # true/false:verify code
+    avatar: mm # avatar style https://github.com/xCss/Valine/wiki/avatar-setting-for-valine
+    placeholder: Just go go # comment box placeholder
+
+# Google Analytics Tracking ID
+google_analytics:
+
+# Social Accounts
+twitter_url:
+facebook_url: https://www.facebook.com/
+behance_url: https://www.behance.net/
+googleplus_url: https://plus.google.com/+Pixelhint/posts
+dribble_url: https://dribbble.com/pixelhint
+rss_url:
+instagram_url:
+youtube_url:
